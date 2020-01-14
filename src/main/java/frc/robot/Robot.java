@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Controller;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -46,10 +47,14 @@ public class Robot extends TimedRobot {
   private CANEncoder middleLeftEncoder = middleLeft.getEncoder();
   private CANEncoder frontLeftEncoder = frontLeft.getEncoder();
 
+  private XboxController controller = new XboxController(0);
+
+  private DriveTrain chassis = new DriveTrain(frontRight, middleRight, backRight, frontLeft, middleLeft, backLeft, controller);
+
   // private DoubleSolenoid rightSwitch = new DoubleSolenoid(2, 3);
   // private DoubleSolenoid leftSwitch = new DoubleSolenoid(4, 5);
 
-  private XboxController controller = new XboxController(0);
+  
 
   private double speedMod = .1;
   /**
@@ -127,7 +132,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    chassis.baseDrive();
   }
+
 
   /**
    * This function is called periodically during test mode.
