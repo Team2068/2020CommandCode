@@ -31,11 +31,11 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   private CANSparkMax backRight = new CANSparkMax(1, MotorType.kBrushless);
-  private CANSparkMax middleRight = new CANSparkMax(3, MotorType.kBrushless);
-  private CANSparkMax frontRight = new CANSparkMax(2, MotorType.kBrushless);
+  private CANSparkMax middleRight = new CANSparkMax(0, MotorType.kBrushless);
+  private CANSparkMax frontRight = new CANSparkMax(6, MotorType.kBrushless);
 
-  private CANSparkMax backLeft = new CANSparkMax(4, MotorType.kBrushless);
-  private CANSparkMax middleLeft = new CANSparkMax(6, MotorType.kBrushless);
+  private CANSparkMax backLeft = new CANSparkMax(2, MotorType.kBrushless);
+  private CANSparkMax middleLeft = new CANSparkMax(0, MotorType.kBrushless);
   private CANSparkMax frontLeft = new CANSparkMax(5, MotorType.kBrushless);
 
   private CANEncoder backRightEncoder = backRight.getEncoder();
