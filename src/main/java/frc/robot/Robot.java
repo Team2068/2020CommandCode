@@ -8,8 +8,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Controller;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -32,24 +36,25 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   private CANSparkMax backRight = new CANSparkMax(1, MotorType.kBrushless);
-  private CANSparkMax middleRight = new CANSparkMax(0, MotorType.kBrushless);
   private CANSparkMax frontRight = new CANSparkMax(6, MotorType.kBrushless);
 
   private CANSparkMax backLeft = new CANSparkMax(2, MotorType.kBrushless);
-  private CANSparkMax middleLeft = new CANSparkMax(0, MotorType.kBrushless);
   private CANSparkMax frontLeft = new CANSparkMax(5, MotorType.kBrushless);
 
   private CANEncoder backRightEncoder = backRight.getEncoder();
-  private CANEncoder middleRightEncoder = middleRight.getEncoder();
   private CANEncoder frontRightEncoder = frontRight.getEncoder();
 
-  private CANEncoder backLeftEncoder = backLeft.getEncoder();
-  private CANEncoder middleLeftEncoder = middleLeft.getEncoder();
-  private CANEncoder frontLeftEncoder = frontLeft.getEncoder();
-
   private XboxController controller = new XboxController(0);
+  private Joystick driverRight = new Joystick(1);
+  private Joystick driverLeft = new Joystick(2);
 
-  private DriveTrain chassis = new DriveTrain(frontRight, middleRight, backRight, frontLeft, middleLeft, backLeft, controller);
+  private SpeedControllerGroup left = new SpeedControllerGroup(frontLeft, backLeft);
+  private SpeedControllerGroup right = new SpeedControllerGroup(frontRight, backRight);
+  private DifferentialDrive driveTrain = new DifferentialDrive(left, right);
+  
+  private SpeedControllerGroup invertLeft = new SpeedControllerGroup(frontLeft, backLeft);
+  private SpeedControllerGroup invertRight = new SpeedControllerGroup(frontRight, backRight);
+  private DifferentialDrive invertedDrive = new DifferentialDrive(invertLeft, invertRight);
 
   // private DoubleSolenoid rightSwitch = new DoubleSolenoid(2, 3);
   // private DoubleSolenoid leftSwitch = new DoubleSolenoid(4, 5);
@@ -66,19 +71,28 @@ public class Robot extends TimedRobot {
     // m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     // m_chooser.addOption("My Auto", kCustomAuto);
     // SmartDashboard.putData("Auto choices", m_chooser);
+    frontLeft.restoreFactoryDefaults();
+    backLeft.restoreFactoryDefaults();
+    frontRight.restoreFactoryDefaults();
+    backRight.restoreFactoryDefaults();
+
     frontRight.setMotorType(MotorType.kBrushless);
-    middleRight.setMotorType(MotorType.kBrushless);
     backRight.setMotorType(MotorType.kBrushless);
     frontLeft.setMotorType(MotorType.kBrushless);
-    middleLeft.setMotorType(MotorType.kBrushless);
     backLeft.setMotorType(MotorType.kBrushless);
 
-    frontLeft.setInverted(false);
-    middleLeft.setInverted(false);
-    backLeft.setInverted(false);
-    frontRight.setInverted(true);
-    middleRight.setInverted(true);
-    backRight.setInverted(true);
+    frontRight.setIdleMode(IdleMode.kBrake);
+    backRight.setIdleMode(IdleMode.kBrake);
+    frontLeft.setIdleMode(IdleMode.kBrake);
+    backLeft.setIdleMode(IdleMode.kBrake);
+
+    frontRight.setSmartCurrentLimit(40);
+    backRight.setSmartCurrentLimit(40);
+    frontLeft.setSmartCurrentLimit(40);
+    backLeft.setSmartCurrentLimit(40);
+
+    left.setInverted(false);
+    right.setInverted(false);
   }
 
   /**
@@ -132,7 +146,24 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    chassis.baseDrive();
+
+      // driveTrain.tankDrive(controller.getY(Hand.kLeft)*.75, controller.getY(Hand.kRight)*.75, true);
+
+    if (controller.getBumperPressed(Hand.kRight)){
+      invertedDrive.tankDrive(controller.getY(Hand.kLeft)*-.75, controller.getY(Hand.kRight)*-.75, true);
+    }
+    else {
+      driveTrain.tankDrive(controller.getY(Hand.kLeft)*.75, controller.getY(Hand.kRight)*.75, true);
+    }
+
+    // driveTrain.tankDrive(driverLeft.getY(), driverRight.getY(), true);
+    if (controller.getBumperPressed(Hand.kRight)){
+      invertedDrive.tankDrive(driverLeft.getY(), driverRight.getY(), true);
+    }
+    else {
+      driveTrain.tankDrive(driverLeft.getY(), driverRight.getY(), true);
+    }
+
   }
 
 
