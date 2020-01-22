@@ -22,11 +22,6 @@ import edu.wpi.first.wpilibj.XboxController;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    private CANSparkMax frontRight = new CANSparkMax(6, MotorType.kBrushless);
-    private CANSparkMax backRight = new CANSparkMax(1, MotorType.kBrushless);
-    private CANSparkMax frontLeft = new CANSparkMax(5, MotorType.kBrushless);
-    private CANSparkMax backLeft = new CANSparkMax(2, MotorType.kBrushless);
-
     private CANSparkMax wheelSpinMotor = new CANSparkMax(0, MotorType.kBrushless);
     
     private CANSparkMax rightHook = new CANSparkMax(0, MotorType.kBrushless);
@@ -42,5 +37,13 @@ public final class Constants {
     private XboxController mechanismController = new XboxController(2);
     private Joystick rightJoystick = new Joystick(0);
     private Joystick leftJoystick = new Joystick(1);  
+
+    public static enum CameraMode {
+        VISION, DRIVER
+    }
     
+    public static enum StreamMode {
+        STANDARD, PIP_MAIN, PIP_SECONDARY
+    }
+
 }

@@ -8,10 +8,18 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
+
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.DrivetrainSubsystems;
+
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.ExampleCommand;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -24,6 +32,9 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final Limelight m_limeLight = new Limelight();
+  private final DrivetrainSubsystems m_drivetrain = new DrivetrainSubsystems();
+  private final XboxController m_driveController = new XboxController(0);
 
 
 
@@ -33,6 +44,10 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    m_drivetrain.setDefaultCommand(new RunCommand(() -> m_drivetrain
+      .tank_drive(m_driveController.getY(Hand.kLeft), 
+        m_driveController.getY(Hand.kRight)), m_drivetrain));
   }
 
   /**
@@ -42,6 +57,10 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    new JoystickButton(m_driveController, Button.kBumperRight.value).ifPressed(() -> 
+      m_drivetrain.tank_drive_inverted(m_driveController.getY(Hand.kLeft), 
+        m_driveController.getY(Hand.kRight)), m_driveController));
+
   }
 
 
