@@ -23,13 +23,7 @@ import edu.wpi.first.wpilibj.XboxController;
  */
 public final class Constants {
     private CANSparkMax wheelSpinMotor = new CANSparkMax(0, MotorType.kBrushless);
-    
-    private CANSparkMax rightHook = new CANSparkMax(0, MotorType.kBrushless);
-    private CANSparkMax leftHook = new CANSparkMax(0, MotorType.kBrushless);
-    private CANSparkMax rightRatchet = new CANSparkMax(0, MotorType.kBrushless);
-    private CANSparkMax leftRatchet = new CANSparkMax(0, MotorType.kBrushless);
 
-    private CANSparkMax intake = new CANSparkMax(0, MotorType.kBrushless);
     private CANSparkMax leftConveyor = new CANSparkMax(0, MotorType.kBrushless);
     private CANSparkMax rightConveyor = new CANSparkMax(0, MotorType.kBrushless);
 

@@ -16,8 +16,8 @@ public class DrivetrainSubsystems extends SubsystemBase {
     private final CANSparkMax frontLeft = new CANSparkMax(5, MotorType.kBrushless);
     private final CANSparkMax backLeft = new CANSparkMax(2, MotorType.kBrushless);
 
-    private final CANEncoder backRightEncoder = backRight.getEncoder();
-    private final CANEncoder frontRightEncoder = frontRight.getEncoder();
+    private final CANEncoder m_backRightEncoder = backRight.getEncoder();
+    private final CANEncoder m_frontRightEncoder = frontRight.getEncoder();
 
     private SpeedControllerGroup m_right = new SpeedControllerGroup(frontRight, backRight);
     private SpeedControllerGroup m_left = new SpeedControllerGroup(frontLeft, backLeft);
