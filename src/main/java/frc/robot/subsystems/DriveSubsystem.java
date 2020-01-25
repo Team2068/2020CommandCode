@@ -1,0 +1,59 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
+package frc.robot.subsystems;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.jni.CANSWDLJNI;
+
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
+
+public class DriveSubsystem extends SubsystemBase {
+  
+  private CANSparkMax frontLeft = new CANSparkMax(DriveConstants.FRONT_LEFT, MotorType.kBrushless);
+  private CANSparkMax backLeft = new CANSparkMax(DriveConstants.BACK_LEFT, MotorType.kBrushless);
+  private CANSparkMax frontRight = new CANSparkMax(DriveConstants.FRONT_RIGHT, MotorType.kBrushless);
+  private CANSparkMax backRight = new CANSparkMax(DriveConstants.BACK_RIGHT, MotorType.kBrushless);
+
+  private SpeedControllerGroup leftMotors = new SpeedControllerGroup(frontLeft, backLeft);
+  private SpeedControllerGroup rightMotors = new SpeedControllerGroup(frontRight, backRight);
+
+  private DifferentialDrive differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
+
+  /**
+   * Creates a new DriveSubsystem.
+   */
+  public DriveSubsystem() {
+
+    frontLeft.restoreFactoryDefaults();
+    backLeft.restoreFactoryDefaults();
+    frontRight.restoreFactoryDefaults();
+    backRight.restoreFactoryDefaults();
+
+    frontLeft.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
+    backLeft.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
+    frontRight.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
+    backRight.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
+
+  }
+
+  public void tankDrive(double leftSpeed, double rightSpeed){
+    
+    differentialDrive.tankDrive(leftSpeed, rightSpeed);
+
+  }
+
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+}

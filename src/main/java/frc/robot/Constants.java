@@ -7,30 +7,38 @@
 
 package frc.robot;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants.  This class should not be used for any other purpose.  All constants should be
- * declared globally (i.e. public static).  Do not put anything functional in this class.
+ * The Constants class provides a convenient place for teams to hold robot-wide
+ * numerical or boolean constants. This class should not be used for any other
+ * purpose. All constants should be declared globally (i.e. public static). Do
+ * not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
+ * <p>
+ * It is advised to statically import this class (or one of its inner classes)
+ * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    private CANSparkMax wheelSpinMotor = new CANSparkMax(0, MotorType.kBrushless);
 
-    private CANSparkMax leftConveyor = new CANSparkMax(0, MotorType.kBrushless);
-    private CANSparkMax rightConveyor = new CANSparkMax(0, MotorType.kBrushless);
+    public static final int CURRENT_LIMIT = 30;
 
+    public final static class DriveConstants {
 
-    private XboxController mechanismController = new XboxController(2);
-    private Joystick rightJoystick = new Joystick(0);
-    private Joystick leftJoystick = new Joystick(1);  
+        public static final int FRONT_LEFT = 1;
+        public static final int BACK_LEFT = 2;
+        public static final int FRONT_RIGHT = 3;
+        public static final int BACK_RIGHT = 4;
+
+        public static final int driverController = 0;
+        public static final int mechanismController = 1;
+        
+    }
+    
+    public final static class LiftConstants{
+
+        public static final int LIFT_MOTOR = 5;
+
+    }
+
 
     public static enum CameraMode {
         VISION, DRIVER

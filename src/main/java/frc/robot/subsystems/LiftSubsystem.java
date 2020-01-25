@@ -1,35 +1,39 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.CANSparkMax.IdleMode;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Constants.LiftConstants;
 
 public class LiftSubsystem extends SubsystemBase {
+  
+  private CANSparkMax liftMotor = new CANSparkMax(LiftConstants.LIFT_MOTOR, MotorType.kBrushless);
+  
+  /**
+   * Creates a new LiftSubsystem.
+   */
+  public LiftSubsystem() {
 
-    private final CANSparkMax m_rightHook = new CANSparkMax(0, MotorType.kBrushless);
-    private final CANSparkMax m_leftHook = new CANSparkMax(0, MotorType.kBrushless);
-    private final CANSparkMax m_rightRatchet = new CANSparkMax(0, MotorType.kBrushless);
-    private final CANSparkMax m_leftRatchet = new CANSparkMax(0, MotorType.kBrushless);
+    liftMotor.restoreFactoryDefaults();
 
-    public LiftSubsystem(){
-        m_rightHook.restoreFactoryDefaults();
-        m_leftHook.restoreFactoryDefaults();
-        m_rightRatchet.restoreFactoryDefaults();
-        m_leftRatchet.restoreFactoryDefaults();
+    liftMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
 
-        m_rightHook.setIdleMode(IdleMode.kBrake);
-        m_leftHook.setIdleMode(IdleMode.kBrake);
-        m_rightRatchet.setIdleMode(IdleMode.kBrake);
-        m_leftRatchet.setIdleMode(IdleMode.kBrake);
+  }
 
-        m_rightHook.setSmartCurrentLimit(40);
-        m_leftHook.setSmartCurrentLimit(40);
-        m_rightRatchet.setSmartCurrentLimit(40);
-        m_leftRatchet.setSmartCurrentLimit(40);
-    }
 
-    @Override
-    public void periodic(){
-    }
+  
+
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
 }

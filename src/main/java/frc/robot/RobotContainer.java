@@ -8,20 +8,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.XboxController;
-
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.DrivetrainSubsystems;
-
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.DriveSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -31,12 +21,12 @@ import frc.robot.commands.ExampleCommand;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final DriveSubsystem driveSubsystem = new DriveSubsystem();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  // private final ExampleCommand m_autoCommand = new ExampleCommand();
 
-  private final Limelight m_limelight = new Limelight();
-  private final DrivetrainSubsystems m_drivetrain = new DrivetrainSubsystems();
+  // private final Limelight m_limelight = new Limelight();
+  // private final DrivetrainSubsystems m_drivetrain = new DrivetrainSubsystems();
 
   private final XboxController m_driveController = new XboxController(0);
   private final XboxController m_mechanismController = new XboxController(2);
@@ -52,9 +42,9 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_drivetrain.setDefaultCommand(new RunCommand(() -> m_drivetrain
-      .tank_drive(m_driveController.getY(Hand.kLeft), 
-        m_driveController.getY(Hand.kRight)), m_drivetrain));
+    driveSubsystem.setDefaultCommand(new RunCommand(() -> driveSubsystem
+      .tankDrive(m_driveController.getY(GenericHID.Hand.kLeft), 
+        m_driveController.getY(GenericHID.Hand.kRight)), driveSubsystem));
   }
 
   /**
@@ -64,9 +54,10 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driveController, Button.kBumperRight.value).toggleWhenPressed(new RunCommand(() -> 
-      m_drivetrain.tank_drive_inverted(m_driveController.getY(Hand.kLeft), m_driveController.getY(Hand.kRight))), false);
+    // new JoystickButton(m_driveController, Button.kBumperRight.value).toggleWhenPressed(new RunCommand(() -> 
+      // m_drivetrain.tank_drive_inverted(m_driveController.getY(Hand.kLeft), m_driveController.getY(Hand.kRight))), false);
 
+      // new JoystickButton(m_driverController, Button.kBumperRight).whenPressed(new InstantCommand(m_drivetrain::reverseDrive, m_drivetrain));
   }
 
 
@@ -75,8 +66,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
-  }
+  // public Command getAutonomousCommand() {
+  //   // An ExampleCommand will run in autonomous
+  //   return m_autoCommand;
+  // }
 }
