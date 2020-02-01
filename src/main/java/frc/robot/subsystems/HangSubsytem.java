@@ -14,18 +14,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.LiftConstants;
 
-public class LiftSubsystem extends SubsystemBase {
-  
+public class HangSubsytem extends SubsystemBase {
+
   private CANSparkMax liftMotor = new CANSparkMax(LiftConstants.LIFT_MOTOR, MotorType.kBrushless);
-  
+
+  private CANSparkMax winchMotor = new CANSparkMax(LiftConstants.WINCH_MOTOR, MotorType.kBrushless);
+
   /**
    * Creates a new LiftSubsystem.
    */
-  public LiftSubsystem() {
+  public HangSubsytem() {
 
     liftMotor.restoreFactoryDefaults();
+    winchMotor.restoreFactoryDefaults();
 
     liftMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
+    winchMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
 
   }
 

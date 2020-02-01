@@ -38,6 +38,16 @@ public final class Constants {
     public final static class LiftConstants{
 
         public static final int LIFT_MOTOR = 5;
+        
+        public static final int WINCH_MOTOR = 6;
+
+    }
+
+    public final static class IntakeConstants{
+        
+        public static final int RAMP_MOTOR = 7; //for transporting balls
+
+        public static final int INTAKE_MOTOR = 8; //the spinning thingy to pick up POWERCELLS or reject them
 
     }
 

@@ -7,13 +7,28 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
+
+  private CANSparkMax rampMotor = new CANSparkMax(IntakeConstants.RAMP_MOTOR, MotorType.kBrushless);
+
+  private CANSparkMax intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_MOTOR, MotorType.kBrushless);
   /**
    * Creates a new IntakeSubsystem.
    */
   public IntakeSubsystem() {
+
+    rampMotor.restoreFactoryDefaults();
+    intakeMotor.restoreFactoryDefaults();
+
+    rampMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
+    intakeMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
 
   }
 
