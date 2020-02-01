@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.DriveSubsystem;
 
 /**
@@ -30,6 +31,7 @@ public class RobotContainer {
 
   // private final Limelight m_limelight = new Limelight();
   // private final DrivetrainSubsystems m_drivetrain = new DrivetrainSubsystems();
+  private final ColorSensor colorSensor = new ColorSensor();
 
   private final XboxController driverController = new XboxController(0);
   private final XboxController m_mechanismController = new XboxController(2);

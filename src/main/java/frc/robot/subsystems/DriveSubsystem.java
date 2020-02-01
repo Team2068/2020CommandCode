@@ -28,7 +28,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   private DifferentialDrive differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
 
-  private int driveDirection = 1;
+  private double driveDirection = .8;
 
   /**
    * Creates a new DriveSubsystem.
