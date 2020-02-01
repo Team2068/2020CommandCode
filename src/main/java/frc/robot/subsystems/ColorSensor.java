@@ -67,5 +67,4 @@ public class ColorSensor extends SubsystemBase {
     public String getColor() {
         return colorString;
     }
-    
 }
