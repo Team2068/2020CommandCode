@@ -10,7 +10,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.DriveSubsystem;
 
 /**
@@ -28,12 +31,10 @@ public class RobotContainer {
   // private final Limelight m_limelight = new Limelight();
   // private final DrivetrainSubsystems m_drivetrain = new DrivetrainSubsystems();
 
-  private final XboxController m_driveController = new XboxController(0);
+  private final XboxController driverController = new XboxController(0);
   private final XboxController m_mechanismController = new XboxController(2);
   private final Joystick m_rightJoystick = new Joystick(0);
   private final Joystick m_leftJoystick = new Joystick(1);  
-
-
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -43,8 +44,8 @@ public class RobotContainer {
     configureButtonBindings();
 
     driveSubsystem.setDefaultCommand(new RunCommand(() -> driveSubsystem
-      .tankDrive(m_driveController.getY(GenericHID.Hand.kLeft), 
-        m_driveController.getY(GenericHID.Hand.kRight)), driveSubsystem));
+      .tankDrive(driverController.getY(GenericHID.Hand.kLeft), 
+        driverController.getY(GenericHID.Hand.kRight)), driveSubsystem));
   }
 
   /**
@@ -54,16 +55,17 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // new JoystickButton(m_driveController, Button.kBumperRight.value).toggleWhenPressed(new RunCommand(() -> 
-      // m_drivetrain.tank_drive_inverted(m_driveController.getY(Hand.kLeft), m_driveController.getY(Hand.kRight))), false);
-
-      // new JoystickButton(m_driverController, Button.kBumperRight).whenPressed(new InstantCommand(m_drivetrain::reverseDrive, m_drivetrain));
+    
+   new JoystickButton(driverController, Button.kBumperRight.value)
+   .whenPressed(() -> driveSubsystem.invertTankDrive());
+      
   }
 
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
+   * +
    * @return the command to run in autonomous
    */
   // public Command getAutonomousCommand() {

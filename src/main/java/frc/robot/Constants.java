@@ -30,6 +30,8 @@ public final class Constants {
 
         public static final int driverController = 0;
         public static final int mechanismController = 1;
+        public static final int leftDriveJoystick = 2;
+        public static final int rightDriveJoystick = 3;
         
     }
     

@@ -9,7 +9,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.jni.CANSWDLJNI;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -28,6 +27,8 @@ public class DriveSubsystem extends SubsystemBase {
   private SpeedControllerGroup rightMotors = new SpeedControllerGroup(frontRight, backRight);
 
   private DifferentialDrive differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
+
+  private int driveDirection = 1;
 
   /**
    * Creates a new DriveSubsystem.
@@ -48,7 +49,12 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void tankDrive(double leftSpeed, double rightSpeed){
     
-    differentialDrive.tankDrive(leftSpeed, rightSpeed);
+    differentialDrive.tankDrive(leftSpeed * driveDirection, rightSpeed * driveDirection);
+  }
+
+  public void invertTankDrive(){
+
+    driveDirection = driveDirection * -1;
 
   }
 
