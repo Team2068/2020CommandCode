@@ -12,23 +12,30 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.LowScoringConstants;
 
-public class IntakeSubsystem extends SubsystemBase {
+public class LowScoringSubsystem extends SubsystemBase {
 
-  private CANSparkMax rampMotor = new CANSparkMax(IntakeConstants.RAMP_MOTOR, MotorType.kBrushless);
+  private CANSparkMax conveyorMotor = new CANSparkMax(LowScoringConstants.CONVEYOR_MOTOR, MotorType.kBrushless);
 
-  private CANSparkMax intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_MOTOR, MotorType.kBrushless);
+  private CANSparkMax intakeMotor = new CANSparkMax(LowScoringConstants.INTAKE_MOTOR, MotorType.kBrushless);
+
   /**
    * Creates a new IntakeSubsystem.
    */
-  public IntakeSubsystem() {
+  public LowScoringSubsystem() {
 
-    rampMotor.restoreFactoryDefaults();
+    conveyorMotor.restoreFactoryDefaults();
     intakeMotor.restoreFactoryDefaults();
 
-    rampMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
+    conveyorMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
     intakeMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
+
+  }
+
+  public void intakeControl() {
+
+    
 
   }
 

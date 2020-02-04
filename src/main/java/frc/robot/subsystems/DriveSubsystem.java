@@ -28,7 +28,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   private DifferentialDrive differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
 
-  private double driveDirection = .8;
+  private boolean isForward = true;
 
   /**
    * Creates a new DriveSubsystem.
@@ -49,12 +49,23 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void tankDrive(double leftSpeed, double rightSpeed){
     
-    differentialDrive.tankDrive(leftSpeed * driveDirection, rightSpeed * driveDirection);
+    if(isForward){
+
+      differentialDrive.tankDrive(leftSpeed, rightSpeed);
+
+    }
+    else 
+    {
+
+      differentialDrive.tankDrive(rightSpeed * -1, leftSpeed * -1);
+
+    }
+    
   }
 
   public void invertTankDrive(){
 
-    driveDirection = driveDirection * -1;
+    isForward = !isForward;
 
   }
 

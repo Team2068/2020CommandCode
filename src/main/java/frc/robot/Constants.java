@@ -43,9 +43,9 @@ public final class Constants {
 
     }
 
-    public final static class IntakeConstants{
+    public final static class LowScoringConstants{
         
-        public static final int RAMP_MOTOR = 7; //for transporting balls
+        public static final int CONVEYOR_MOTOR = 7; //for transporting balls
 
         public static final int INTAKE_MOTOR = 8; //the spinning thingy to pick up POWERCELLS or reject them
 
