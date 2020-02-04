@@ -43,7 +43,7 @@ public class LowScoringSubsystem extends SubsystemBase {
       intakeMotor.set(75);
     }
     else {
-      intakeMotor.set(75);
+      intakeMotor.set(-75);
     }
 
   }
