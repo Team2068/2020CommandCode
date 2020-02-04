@@ -20,6 +20,7 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   private CANSparkMax intakeMotor = new CANSparkMax(LowScoringConstants.INTAKE_MOTOR, MotorType.kBrushless);
 
+  private boolean isForward = true;
   /**
    * Creates a new IntakeSubsystem.
    */
@@ -35,7 +36,15 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   public void intakeControl() {
 
-    
+    //bottom intake motor is always running
+    //trigger pressed to reverse (& vice versa) depending on #POWERCELLS
+
+    if(isForward){
+      intakeMotor.set(75);
+    }
+    else {
+      intakeMotor.set(75);
+    }
 
   }
 

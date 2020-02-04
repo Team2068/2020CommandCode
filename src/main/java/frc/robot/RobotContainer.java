@@ -14,8 +14,10 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.LowScoringConstants;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.LowScoringSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -26,15 +28,12 @@ import frc.robot.subsystems.DriveSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private final LowScoringSubsystem lowScoringSubsystem = new LowScoringSubsystem();
 
-  // private final ExampleCommand m_autoCommand = new ExampleCommand();
-
-  // private final Limelight m_limelight = new Limelight();
-  // private final DrivetrainSubsystems m_drivetrain = new DrivetrainSubsystems();
   private final ColorSensor colorSensor = new ColorSensor();
 
   private final XboxController driverController = new XboxController(0);
-  private final XboxController m_mechanismController = new XboxController(2);
+  private final XboxController mechanismController = new XboxController(2);
   private final Joystick m_rightJoystick = new Joystick(0);
   private final Joystick m_leftJoystick = new Joystick(1);  
 
@@ -60,6 +59,9 @@ public class RobotContainer {
     
    new JoystickButton(driverController, Button.kBumperRight.value)
    .whenPressed(() -> driveSubsystem.invertTankDrive());
+
+   new JoystickButton(mechanismController, Button.kBack.value)
+   .whenPressed(() -> lowScoringSubsystem.intakeControl());
       
   }
 
