@@ -58,6 +58,20 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
+  public void fullSend(){
+    if(driveDirection>0) // lick the stamp and send it my dudes
+      driveDirection = 1; // hit the nos forwards!
+    else
+      driveDirection = -1; // hit the nos backwards!
+  }
+
+  public void normalSend(){
+    if(driveDirection>0) // back to normal
+      driveDirection = .8;
+    else
+      driveDirection = -.8;
+  }
+
   public void arcadeDrive(double xSpeed, double zRotation){
 
     differentialDrive.arcadeDrive(xSpeed, zRotation);

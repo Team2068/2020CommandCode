@@ -61,6 +61,12 @@ public class RobotContainer {
    new JoystickButton(driverController, Button.kBumperRight.value)
    .whenPressed(() -> driveSubsystem.invertTankDrive());
       
+   new JoystickButton(driverController, Button.kBack.value)
+   .whenPressed(() -> driveSubsystem.fullSend());
+
+   new JoystickButton(driverController, Button.kBack.value)
+   .whenReleased(() -> driveSubsystem.normalSend()); 
+
   }
 
 
