@@ -29,6 +29,7 @@ public class DriveSubsystem extends SubsystemBase {
   private DifferentialDrive differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
 
   private boolean isForward = true;
+  private double fullSpeed = 1;
   private double speedMod = .8;
 
   /**
@@ -70,19 +71,16 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
+  //pretty sure this isn't right... I need brain power to figure it out though
   public void fullSend(){
-    if(speedMod>0) // lick the stamp and send it my dudes <-- "" -Drew
-      speedMod = 1; // hit the nos forwards!
-    else
+    if(speedMod>0){ // lick the stamp and send it my dudes <-- "" -Drew
+      speedMod = 1;
+    } // hit the nos forwards!
+    else {
       speedMod = -1; // hit the nos backwards!
+    }
   }
 
-  public void normalSend(){
-    if(speedMod>0) // back to normal
-      speedMod = .8;
-    else
-      speedMod = -.8;
-  }
 
   public void arcadeDrive(double xSpeed, double zRotation){
 
