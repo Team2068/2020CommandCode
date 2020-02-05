@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.LowScoringConstants;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.LowScoringSubsystem;
 
 /**
@@ -31,6 +32,7 @@ public class RobotContainer {
   private final LowScoringSubsystem lowScoringSubsystem = new LowScoringSubsystem();
 
   private final ColorSensor colorSensor = new ColorSensor();
+  private final Limelight limelight = new Limelight(Constants.CameraMode.DRIVER, Constants.StreamMode.STANDARD);
 
   private final XboxController driverController = new XboxController(0);
   private final XboxController mechanismController = new XboxController(2);

@@ -52,12 +52,12 @@ public final class Constants {
     }
 
 
-    public static enum CameraMode {
-        VISION, DRIVER
+    public static class CameraMode {
+        public static final int VISION = 0, DRIVER =1;
     }
     
-    public static enum StreamMode {
-        STANDARD, PIP_MAIN, PIP_SECONDARY
+    public static class StreamMode {
+        public static final int STANDARD = 0, PIP_MAIN=1, PIP_SECONDARY=2;
     }
 
 }

@@ -1,11 +1,12 @@
 package frc.robot.subsystems;
 
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 public class Limelight extends SubsystemBase {
   /**
@@ -15,22 +16,23 @@ public class Limelight extends SubsystemBase {
   public Limelight() {
 
   }
-  public Limelight(int c, int s){
+  public Limelight(final int c, final int s){
       set_mode(c);
       set_stream(s);
   }
 
+
   @Override
   public void periodic() {
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-    NetworkTableEntry tx = table.getEntry("tx");
-    NetworkTableEntry ty = table.getEntry("ty");
-    NetworkTableEntry ta = table.getEntry("ta");
+    final NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    final NetworkTableEntry tx = table.getEntry("tx");
+    final NetworkTableEntry ty = table.getEntry("ty");
+    final NetworkTableEntry ta = table.getEntry("ta");
 
     //read values periodically
-    double x = tx.getDouble(0.0);
-    double y = ty.getDouble(0.0);
-    double area = ta.getDouble(0.0);
+    final double x = tx.getDouble(0.0);
+    final double y = ty.getDouble(0.0);
+    final double area = ta.getDouble(0.0);
 
     //post to smart dashboard periodically
     SmartDashboard.putNumber("LimelightX", x);
@@ -38,10 +40,10 @@ public class Limelight extends SubsystemBase {
     SmartDashboard.putNumber("LimelightArea", area);
   }
 
-  public void set_mode(int m){
+  public void set_mode(final int m){
       NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(m);
   }
-  public void set_stream(int m){
+  public void set_stream(final int m){
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(m);
   }
 
