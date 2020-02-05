@@ -62,12 +62,10 @@ public class RobotContainer {
 
    new JoystickButton(mechanismController, Button.kBack.value)
    .whenPressed(() -> lowScoringSubsystem.intakeControl());
-      
-   new JoystickButton(driverController, Button.kBack.value)
-   .whenPressed(() -> driveSubsystem.fullSend());
 
-   new JoystickButton(driverController, Button.kBack.value)
-   .whenReleased(() -> driveSubsystem.normalSend()); 
+  //  new lowScoringSubsystem.conveyorControl(
+  //       new RunCommand(() -> lowScoringSubsystem
+  //          .conveyorControl(mechanismController.getY(GenericHID.Hand.kRight)), lowScoringSubsystem));
 
   }
 

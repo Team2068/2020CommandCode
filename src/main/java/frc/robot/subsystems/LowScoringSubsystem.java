@@ -49,7 +49,7 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   }
 
-  public void conveyorControl() {
+  public void conveyorControl(double d) {
 
     conveyorMotor.set(75); 
 
@@ -59,4 +59,5 @@ public class LowScoringSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
 }

@@ -71,7 +71,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void fullSend(){
-    if(speedMod>0) // lick the stamp and send it my dudes
+    if(speedMod>0) // lick the stamp and send it my dudes <-- "" -Drew
       speedMod = 1; // hit the nos forwards!
     else
       speedMod = -1; // hit the nos backwards!
