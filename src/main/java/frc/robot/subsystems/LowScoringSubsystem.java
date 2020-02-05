@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.LowScoringConstants;
@@ -48,8 +49,15 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   }
 
+  public void conveyorControl(double d) {
+
+    conveyorMotor.set(75); 
+
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
 }

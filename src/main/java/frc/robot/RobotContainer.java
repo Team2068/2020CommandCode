@@ -39,6 +39,8 @@ public class RobotContainer {
   private final Joystick m_rightJoystick = new Joystick(0);
   private final Joystick m_leftJoystick = new Joystick(1);  
 
+ 
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -57,19 +59,18 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
+
   private void configureButtonBindings() {
     
-   new JoystickButton(driverController, Button.kBumperRight.value)
+   new JoystickButton(driverController, Button.kY.value)
    .whenPressed(() -> driveSubsystem.invertTankDrive());
 
    new JoystickButton(mechanismController, Button.kBack.value)
    .whenPressed(() -> lowScoringSubsystem.intakeControl());
-      
-   new JoystickButton(driverController, Button.kBack.value)
-   .whenPressed(() -> driveSubsystem.fullSend());
 
-   new JoystickButton(driverController, Button.kBack.value)
-   .whenReleased(() -> driveSubsystem.normalSend()); 
+  //  new lowScoringSubsystem.conveyorControl(
+  //       new RunCommand(() -> lowScoringSubsystem
+  //          .conveyorControl(mechanismController.getY(GenericHID.Hand.kRight)), lowScoringSubsystem));
 
   }
 
