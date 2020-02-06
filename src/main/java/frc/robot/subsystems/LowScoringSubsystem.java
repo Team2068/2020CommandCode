@@ -34,12 +34,13 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   }
 
-  public void intakeControl() {
-    
-    intakeMotor.set(LowScoringConstants.INTAKE_SPEED * intakeDirection);
+  public void conveyorIn(){
+    intakeMotor.set(LowScoringConstants.CONVEYOR_SPEED);
   }
-
-  public void intakeStop(){
+  public void conveyorOut(){
+    intakeMotor.set(LowScoringConstants.CONVEYOR_SPEED * -1);
+  }
+  public void conveyorStop(){
     intakeMotor.set(0);
   }
 

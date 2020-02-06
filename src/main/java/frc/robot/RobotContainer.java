@@ -59,9 +59,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
-   new JoystickButton(driverController, Button.kBumperRight.value)
+   new JoystickButton(driverController, Button.kY.value)
    .whenPressed(() -> driveSubsystem.invertTankDrive());
-
+   
   }
 
 
