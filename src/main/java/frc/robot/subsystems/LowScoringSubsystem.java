@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.LowScoringConstants;
@@ -44,18 +43,8 @@ public class LowScoringSubsystem extends SubsystemBase {
     intakeMotor.set(0);
   }
 
-
-  public void conveyorForward() {
-    conveyorMotor.set(LowScoringConstants.CONVEYOR_SPEED);
-  }
-
-  public void conveyorReverse() {
-    conveyorMotor.set(LowScoringConstants.CONVEYOR_SPEED * -1);
-  }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-
 }
