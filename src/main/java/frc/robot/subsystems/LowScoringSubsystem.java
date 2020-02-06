@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.LowScoringConstants;
@@ -21,7 +20,7 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   private CANSparkMax intakeMotor = new CANSparkMax(LowScoringConstants.INTAKE_MOTOR, MotorType.kBrushless);
 
-  private boolean isForward = true;
+  private int intakeDirection = -1;
   /**
    * Creates a new IntakeSubsystem.
    */
@@ -35,29 +34,18 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   }
 
-  public void intakeControl() {
-
-    //bottom intake motor is always running
-    //trigger pressed to reverse (& vice versa) depending on #POWERCELLS
-
-    if(isForward){
-      intakeMotor.set(75);
-    }
-    else {
-      intakeMotor.set(-75);
-    }
-
+  public void conveyorIn(){
+    intakeMotor.set(LowScoringConstants.CONVEYOR_SPEED);
   }
-
-  public void conveyorControl(double d) {
-
-    conveyorMotor.set(75); 
-
+  public void conveyorOut(){
+    intakeMotor.set(LowScoringConstants.CONVEYOR_SPEED * -1);
+  }
+  public void conveyorStop(){
+    intakeMotor.set(0);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-
 }

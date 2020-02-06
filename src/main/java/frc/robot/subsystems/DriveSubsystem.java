@@ -17,7 +17,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
-
+  
   private CANSparkMax frontLeft = new CANSparkMax(DriveConstants.FRONT_LEFT, MotorType.kBrushless);
   private CANSparkMax backLeft = new CANSparkMax(DriveConstants.BACK_LEFT, MotorType.kBrushless);
   private CANSparkMax frontRight = new CANSparkMax(DriveConstants.FRONT_RIGHT, MotorType.kBrushless);
@@ -29,7 +29,6 @@ public class DriveSubsystem extends SubsystemBase {
   private DifferentialDrive differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
 
   private boolean isForward = true;
-  private double fullSpeed = 1;
   private double speedMod = .8;
 
   /**
@@ -49,28 +48,29 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
-  public void tankDrive(double leftSpeed, double rightSpeed) {
-
-    if (isForward) {
+  public void tankDrive(double leftSpeed, double rightSpeed){
+    
+    if(isForward){
 
       differentialDrive.tankDrive(leftSpeed * speedMod, rightSpeed * speedMod);
 
-    } else {
+    }
+    else 
+    {
 
       differentialDrive.tankDrive(rightSpeed * speedMod * -1, leftSpeed * speedMod * -1);
 
     }
-
+    
   }
 
-  public void invertTankDrive() {
+  public void invertTankDrive(){
 
     isForward = !isForward;
 
   }
 
-  // pretty sure this isn't right... I need brain power to figure it out though
-  public void fullSend() {
+  public void fullSend(){
     speedMod = 1;
   }
 
@@ -79,7 +79,9 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void arcadeDrive(double xSpeed, double zRotation){
+
     differentialDrive.arcadeDrive(xSpeed, zRotation);
+
   }
 
   @Override

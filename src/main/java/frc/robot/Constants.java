@@ -49,6 +49,10 @@ public final class Constants {
 
         public static final int INTAKE_MOTOR = 8; //the spinning thingy to pick up POWERCELLS or reject them
 
+        public static final double CONVEYOR_SPEED = .5; 
+
+        public static final double INTAKE_SPEED = .6;
+
     }
 
 
