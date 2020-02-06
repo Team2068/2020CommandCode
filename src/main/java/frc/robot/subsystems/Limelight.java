@@ -47,5 +47,13 @@ public class Limelight extends SubsystemBase {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(m);
   }
 
+  public double get_stream() {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").getDouble(0.0);
+  }
+
+  public double get_mode() {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").getDouble(0.0);
+  }
+
 }
 

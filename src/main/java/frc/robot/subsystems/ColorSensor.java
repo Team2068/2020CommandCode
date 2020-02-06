@@ -20,37 +20,37 @@ public class ColorSensor extends SubsystemBase {
   
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
 
-    private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
-    private final ColorMatch m_colorMatcher = new ColorMatch();
+    private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
+    private final ColorMatch colorMatcher = new ColorMatch();
 // :)
-    private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-    private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-    private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
-    private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+    private final Color BlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+    private final Color GreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
+    private final Color RedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+    private final Color YellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
     String colorString;
     
     public ColorSensor() {
-        m_colorMatcher.addColorMatch(kBlueTarget);
-        m_colorMatcher.addColorMatch(kGreenTarget);
-        m_colorMatcher.addColorMatch(kRedTarget);
-        m_colorMatcher.addColorMatch(kYellowTarget);
+        colorMatcher.addColorMatch(BlueTarget);
+        colorMatcher.addColorMatch(GreenTarget);
+        colorMatcher.addColorMatch(RedTarget);
+        colorMatcher.addColorMatch(YellowTarget);
     }
 
 
     @Override
     public void periodic() {
-        Color detectedColor = m_colorSensor.getColor();
+        Color detectedColor = colorSensor.getColor();
 
-        ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+        ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
 
-        if (match.color == kBlueTarget) {
+        if (match.color == BlueTarget) {
           colorString = "Blue";
-        } else if (match.color == kRedTarget) {
+        } else if (match.color == RedTarget) {
           colorString = "Red";
-        } else if (match.color == kGreenTarget) {
+        } else if (match.color == GreenTarget) {
           colorString = "Green";
-        } else if (match.color == kYellowTarget) {
+        } else if (match.color == YellowTarget) {
           colorString = "Yellow";
         } else {
           colorString = "Unknown";

@@ -78,16 +78,6 @@ public class DriveSubsystem extends SubsystemBase {
     speedMod = .8;
   }
 
-  if(speedMod>0)
-
-  { // lick the stamp and send it my dudes <-- "" -Drew
-    speedMod = 1;
-  } // hit the nos forwards!
-  else
-  {
-    speedMod = -1; // hit the nos backwards!
-  }
-
   public void arcadeDrive(double xSpeed, double zRotation){
     differentialDrive.arcadeDrive(xSpeed, zRotation);
   }

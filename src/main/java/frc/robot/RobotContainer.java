@@ -68,6 +68,25 @@ public class RobotContainer {
    new JoystickButton(mechanismController, Button.kBack.value)
    .whenPressed(() -> lowScoringSubsystem.intakeControl());
 
+   new JoystickButton(mechanismController, Button.kY.value)
+    .whenPressed(() -> {
+      if(limelight.get_stream() == Constants.StreamMode.STANDARD) {
+        limelight.set_stream(Constants.StreamMode.PIP_MAIN);
+      }else if(limelight.get_stream() == Constants.StreamMode.PIP_MAIN) {
+        limelight.set_stream(Constants.StreamMode.PIP_SECONDARY);
+      }else {
+        limelight.set_stream(Constants.StreamMode.STANDARD);
+      }
+    });
+
+    new JoystickButton(mechanismController, Button.kA.value)
+    .whenPressed(() -> {
+      if(limelight.get_mode() == Constants.CameraMode.DRIVER) {
+        limelight.set_mode(Constants.CameraMode.VISION);
+      }else {
+        limelight.set_mode(Constants.CameraMode.DRIVER);
+      }
+    });
   //  new lowScoringSubsystem.conveyorControl(
   //       new RunCommand(() -> lowScoringSubsystem
   //          .conveyorControl(mechanismController.getY(GenericHID.Hand.kRight)), lowScoringSubsystem));
