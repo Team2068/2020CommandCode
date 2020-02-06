@@ -63,7 +63,7 @@ public class RobotContainer {
    .whenPressed(() -> driveSubsystem.invertTankDrive());
 
    new JoystickButton(mechanismController, Button.kBack.value)
-   .whenPressed(() -> lowScoringSubsystem.intakeControl());
+   .whenPressed(() -> lowScoringSubsystem.conveyorIn());
 
    new JoystickButton(mechanismController, Button.kY.value)
     .whenPressed(() -> {
