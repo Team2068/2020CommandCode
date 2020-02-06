@@ -17,7 +17,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
-
+  
   private CANSparkMax frontLeft = new CANSparkMax(DriveConstants.FRONT_LEFT, MotorType.kBrushless);
   private CANSparkMax backLeft = new CANSparkMax(DriveConstants.BACK_LEFT, MotorType.kBrushless);
   private CANSparkMax frontRight = new CANSparkMax(DriveConstants.FRONT_RIGHT, MotorType.kBrushless);
@@ -29,7 +29,10 @@ public class DriveSubsystem extends SubsystemBase {
   private DifferentialDrive differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
 
   private boolean isForward = true;
+<<<<<<< HEAD
+=======
   private double fullSpeed = 1;
+>>>>>>> 07d282e75dbf975fc28a4edd934879b1000656c9
   private double speedMod = .8;
 
   /**
@@ -49,47 +52,52 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
-  public void tankDrive(double leftSpeed, double rightSpeed) {
-
-    if (isForward) {
+  public void tankDrive(double leftSpeed, double rightSpeed){
+    
+    if(isForward){
 
       differentialDrive.tankDrive(leftSpeed * speedMod, rightSpeed * speedMod);
 
-    } else {
+    }
+    else 
+    {
 
       differentialDrive.tankDrive(rightSpeed * speedMod * -1, leftSpeed * speedMod * -1);
 
     }
-
+    
   }
 
-  public void invertTankDrive() {
+  public void invertTankDrive(){
 
     isForward = !isForward;
 
   }
 
-  // pretty sure this isn't right... I need brain power to figure it out though
-  public void fullSend() {
+  //pretty sure this isn't right... I need brain power to figure it out though
+  public void fullSend(){
+<<<<<<< HEAD
     speedMod = 1;
   }
 
   public void normalSend(){
     speedMod = .8;
   }
-
-  if(speedMod>0)
-
-  { // lick the stamp and send it my dudes <-- "" -Drew
-    speedMod = 1;
-  } // hit the nos forwards!
-  else
-  {
-    speedMod = -1; // hit the nos backwards!
+=======
+    if(speedMod>0){ // lick the stamp and send it my dudes <-- "" -Drew
+      speedMod = 1;
+    } // hit the nos forwards!
+    else {
+      speedMod = -1; // hit the nos backwards!
+    }
   }
 
+>>>>>>> 07d282e75dbf975fc28a4edd934879b1000656c9
+
   public void arcadeDrive(double xSpeed, double zRotation){
+
     differentialDrive.arcadeDrive(xSpeed, zRotation);
+
   }
 
   @Override

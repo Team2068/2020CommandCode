@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.LiftConstants;
@@ -34,26 +33,7 @@ public class HangSubsytem extends SubsystemBase {
 
   }
 
-// public class XboxController extends GenericHID{
 
-//     public XboxController(int port) {
-//       super(port);
-//       // TODO Auto-generated constructor stub
-//     }
-
-//     @Override
-//     public double getX(Hand hand) {
-//       // TODO Auto-generated method stub
-//       return 0;
-//     }
-
-//     @Override
-//     public double getY(Hand hand) {
-//       // TODO Auto-generated method stub
-//       return 0;
-//     }
-  
-// }
   
 
   @Override

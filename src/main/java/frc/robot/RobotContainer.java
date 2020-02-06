@@ -66,11 +66,10 @@ public class RobotContainer {
    .whenPressed(() -> driveSubsystem.invertTankDrive());
 
    new JoystickButton(mechanismController, Button.kBack.value)
-   .whenPressed(() -> lowScoringSubsystem.intakeControl());
+   .whenPressed(() -> lowScoringSubsystem.());  
 
-  //  new lowScoringSubsystem.conveyorControl(
-  //       new RunCommand(() -> lowScoringSubsystem
-  //          .conveyorControl(mechanismController.getY(GenericHID.Hand.kRight)), lowScoringSubsystem));
+    new JoystickButton(driverController, Button.kBumperRight)
+    .whenHeld(() -> lowScoringSubsystem.conveyorControlEject());
 
   }
 
