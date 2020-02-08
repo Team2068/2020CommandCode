@@ -30,7 +30,7 @@ public class RobotContainer {
   private final LowScoringSubsystem lowScoringSubsystem = new LowScoringSubsystem();
 
   private final ColorSensor colorSensor = new ColorSensor();
-  private final Limelight limelight = new Limelight(Constants.CameraMode.DRIVER, Constants.StreamMode.STANDARD);
+  private final Limelight limelight = new Limelight();
 
   private final XboxController driverController = new XboxController(0);
   private final XboxController mechanismController = new XboxController(2);
@@ -60,42 +60,34 @@ public class RobotContainer {
    new JoystickButton(driverController, Button.kY.value)
    .whenPressed(() -> driveSubsystem.invertTankDrive());
 
-  // it gives an error on "while held" or "when held" and I'm not sure why
-  //  new JoystickButton(mechanismController, Button.kBumperRight.value)
-  //  .whileHeld(LowScoringSubsystem.conveyorIn(), false);
-
-  //same goes here as above
-  // new JoystickButton(mechanismController, Button.kBumperLeft.value)
-  // .whileHeld(LowScoringSubsystem.conveyorOut(), false);
-
    new JoystickButton(mechanismController, Button.kBack.value)
    .whenPressed(() -> lowScoringSubsystem.conveyorIn());
 
-  //  new JoystickButton(mechanismController, Button.kY.value) // Isn't kY already being used?
-  //   .whenPressed(() -> {
-  //     double stream = limelight.get_stream();
-  //     switch(stream) {
-  //       case Constants.StreamMode.STANDARD:
-  //         limelight.set_stream(Constants.StreamMode.PIP_MAIN);
-  //         break;
-  //       case Constants.StreamMode.PIP_MAIN:
-  //           limelight.set_stream(Constants.StreamMode.PIP_SECONDARY);
-  //           break;
-  //       case Constants.StreamMode.PIP_SECONDARY:
-  //           limelight.set_stream(Constants.StreamMode.STANDARD);
-  //           break;
-  //     }
-  //   });
+   new JoystickButton(mechanismController, Button.kY.value) // Isn't kY already being used?
+    .whenPressed(() -> {
+      int stream = limelight.getStream();
+      switch(stream) {
+        case Constants.StreamMode.STANDARD:
+          limelight.setStream(Constants.StreamMode.PIP_MAIN);
+          break;
+        case Constants.StreamMode.PIP_MAIN:
+            limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
+            break;
+        case Constants.StreamMode.PIP_SECONDARY:
+            limelight.setStream(Constants.StreamMode.STANDARD);
+            break;
+      }
+    });
 
-  //   new JoystickButton(mechanismController, Button.kA.value)
-  //   .whenPressed(() -> {
-  //     double mode = limelight.get_mode();
-  //     if(mode == Constants.CameraMode.DRIVER) {
-  //       limelight.set_mode(Constants.CameraMode.VISION);
-  //     } else {
-  //       limelight.set_mode(Constants.CameraMode.DRIVER);
-  //     }
-  //   });
+    new JoystickButton(mechanismController, Button.kA.value)
+    .whenPressed(() -> {
+      int mode = limelight.getMode();
+      if(mode == Constants.CameraMode.DRIVER) {
+        limelight.setMode(Constants.CameraMode.VISION);
+      } else {
+        limelight.setMode(Constants.CameraMode.DRIVER);
+      }
+    });
   //  new lowScoringSubsystem.conveyorControl(
   //       new RunCommand(() -> lowScoringSubsystem
   //          .conveyorControl(mechanismController.getY(GenericHID.Hand.kRight)), lowScoringSubsystem));
