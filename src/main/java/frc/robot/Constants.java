@@ -63,7 +63,6 @@ public final class Constants {
     public final static class LowPressureConstants{
 
 		public static final int PRESSURE_SENSOR_CHANNEL = 0;
-
     }
 
     public static class CameraMode {
