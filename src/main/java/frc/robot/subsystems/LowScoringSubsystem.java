@@ -10,15 +10,18 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.LowScoringConstants;
 
 public class LowScoringSubsystem extends SubsystemBase {
 
-  public static CANSparkMax conveyorMotor = new CANSparkMax(LowScoringConstants.CONVEYOR_MOTOR, MotorType.kBrushless);
-
-  public static CANSparkMax intakeMotor = new CANSparkMax(LowScoringConstants.INTAKE_MOTOR, MotorType.kBrushless);
+  public CANSparkMax conveyorMotor = new CANSparkMax(LowScoringConstants.CONVEYOR_MOTOR, MotorType.kBrushless);
+  public CANSparkMax intakeMotor = new CANSparkMax(LowScoringConstants.INTAKE_MOTOR, MotorType.kBrushless);
+  public DoubleSolenoid lockSolenoid = new DoubleSolenoid(LowScoringConstants.FORWARD_CHANNEL, LowScoringConstants.REVERSE_CHANNEL);
 
   private int intakeDirection = -1;
   /**
@@ -54,6 +57,14 @@ public class LowScoringSubsystem extends SubsystemBase {
   public void intakeOff(){
     intakeMotor.set(0);
   }
+
+  public void trapPowercells(){
+    lockSolenoid.set(Value.kForward);
+  }
+  public void releasePowercells(){
+    lockSolenoid.set(Value.kReverse);
+  }
+
 
   @Override
   public void periodic() {

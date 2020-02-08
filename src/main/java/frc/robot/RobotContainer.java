@@ -47,6 +47,8 @@ public class RobotContainer {
     driveSubsystem.setDefaultCommand(new RunCommand(() -> driveSubsystem
       .tankDrive(driverController.getY(GenericHID.Hand.kLeft), 
         driverController.getY(GenericHID.Hand.kRight)), driveSubsystem));
+
+    // lowScoringSubsystem.setDefaultCommand(new RunCommand(() -> ));
   }
 
   /**
@@ -57,13 +59,21 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
+   //everything on the driverController 
    new JoystickButton(driverController, Button.kY.value)
    .whenPressed(() -> driveSubsystem.invertTankDrive());
 
+   //everything on the mechanismController
    new JoystickButton(mechanismController, Button.kBack.value)
    .whenPressed(() -> lowScoringSubsystem.conveyorIn());
 
-   new JoystickButton(mechanismController, Button.kY.value) // Isn't kY already being used?
+   new JoystickButton(mechanismController, Button.kX.value)
+   .whenPressed(() -> lowScoringSubsystem.trapPowercells());
+
+   new JoystickButton(mechanismController, Button.kB.value)
+   .whenPressed(() -> lowScoringSubsystem.releasePowercells());
+
+   new JoystickButton(mechanismController, Button.kY.value)
     .whenPressed(() -> {
       int stream = limelight.getStream();
       switch(stream) {
@@ -88,9 +98,6 @@ public class RobotContainer {
         limelight.setMode(Constants.CameraMode.DRIVER);
       }
     });
-  //  new lowScoringSubsystem.conveyorControl(
-  //       new RunCommand(() -> lowScoringSubsystem
-  //          .conveyorControl(mechanismController.getY(GenericHID.Hand.kRight)), lowScoringSubsystem));
   }
 
 
