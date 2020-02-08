@@ -8,16 +8,16 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.LowScoringConstants;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.ColorSensor;
+import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.LowPressureSubsystem;
 import frc.robot.subsystems.LowScoringSubsystem;
 
 /**
@@ -30,14 +30,12 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final LowScoringSubsystem lowScoringSubsystem = new LowScoringSubsystem();
+  private final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
 
   private final ColorSensor colorSensor = new ColorSensor();
   private final Limelight limelight = new Limelight(Constants.CameraMode.VISION, Constants.StreamMode.PIP_MAIN);
-
-  private final XboxController driverController = new XboxController(0);
-  private final XboxController mechanismController = new XboxController(1);
-  private final Joystick m_rightJoystick = new Joystick(0);
-  private final Joystick m_leftJoystick = new Joystick(1);  
+  private final XboxController driverController = new XboxController(DriveConstants.mechanismController);
+  private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -49,6 +47,8 @@ public class RobotContainer {
     driveSubsystem.setDefaultCommand(new RunCommand(() -> driveSubsystem
       .tankDrive(driverController.getY(GenericHID.Hand.kLeft), 
         driverController.getY(GenericHID.Hand.kRight)), driveSubsystem));
+
+    // lowScoringSubsystem.setDefaultCommand(new RunCommand(() -> ));
   }
 
   /**
@@ -59,13 +59,27 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
+   //everything on the driverController 
    new JoystickButton(driverController, Button.kY.value)
    .whenPressed(() -> driveSubsystem.invertTankDrive());
 
+   //everything on the mechanismController
    new JoystickButton(mechanismController, Button.kBack.value)
    .whenPressed(() -> lowScoringSubsystem.conveyorIn());
 
-   new JoystickButton(mechanismController, Button.kY.value) // Isn't kY already being used?
+   new JoystickButton(mechanismController, Button.kX.value)
+   .whenPressed(() -> lowScoringSubsystem.trapPowercells());
+
+   new JoystickButton(mechanismController, Button.kB.value)
+   .whenPressed(() -> lowScoringSubsystem.releasePowercells());
+
+   new JoystickButton(mechanismController, Button.kBumperRight.value)
+   .whenPressed(() -> controlPanelSubsystem.wheelUp());
+
+   new JoystickButton(mechanismController, Button.kBumperLeft.value)
+   .whenPressed(() -> controlPanelSubsystem.wheelDown());
+
+   new JoystickButton(mechanismController, Button.kY.value)
     .whenPressed(() -> {
       int stream = limelight.getStream();
       switch(stream) {
@@ -87,9 +101,6 @@ public class RobotContainer {
         limelight.setMode(Constants.CameraMode.DRIVER);
       }
     });
-  //  new lowScoringSubsystem.conveyorControl(
-  //       new RunCommand(() -> lowScoringSubsystem
-  //          .conveyorControl(mechanismController.getY(GenericHID.Hand.kRight)), lowScoringSubsystem));
   }
 
 
