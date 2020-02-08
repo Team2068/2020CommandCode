@@ -11,10 +11,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.LowScoringConstants;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Limelight;
@@ -61,7 +59,15 @@ public class RobotContainer {
     
    new JoystickButton(driverController, Button.kY.value)
    .whenPressed(() -> driveSubsystem.invertTankDrive());
-   
+
+  // it gives an error on "while held" or "when held" and I'm not sure why
+  //  new JoystickButton(mechanismController, Button.kBumperRight.value)
+  //  .whileHeld(LowScoringSubsystem.conveyorIn(), false);
+
+  //same goes here as above
+  // new JoystickButton(mechanismController, Button.kBumperLeft.value)
+  // .whileHeld(LowScoringSubsystem.conveyorOut(), false);
+
   }
 
 

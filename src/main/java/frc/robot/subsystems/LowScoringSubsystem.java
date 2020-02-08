@@ -16,9 +16,9 @@ import frc.robot.Constants.LowScoringConstants;
 
 public class LowScoringSubsystem extends SubsystemBase {
 
-  private CANSparkMax conveyorMotor = new CANSparkMax(LowScoringConstants.CONVEYOR_MOTOR, MotorType.kBrushless);
+  public static CANSparkMax conveyorMotor = new CANSparkMax(LowScoringConstants.CONVEYOR_MOTOR, MotorType.kBrushless);
 
-  private CANSparkMax intakeMotor = new CANSparkMax(LowScoringConstants.INTAKE_MOTOR, MotorType.kBrushless);
+  public static CANSparkMax intakeMotor = new CANSparkMax(LowScoringConstants.INTAKE_MOTOR, MotorType.kBrushless);
 
   private int intakeDirection = -1;
   /**
@@ -34,13 +34,24 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   }
 
-  public void conveyorIn(){
-    intakeMotor.set(LowScoringConstants.CONVEYOR_SPEED);
+  public static void conveyorIn(){
+    conveyorMotor.set(LowScoringConstants.CONVEYOR_SPEED);
   }
-  public void conveyorOut(){
-    intakeMotor.set(LowScoringConstants.CONVEYOR_SPEED * -1);
+  public static void conveyorOut(){
+    conveyorMotor.set(LowScoringConstants.CONVEYOR_SPEED * -1);
   }
   public void conveyorStop(){
+    conveyorMotor.set(0);
+  }
+
+  //probably just need a command, "intake on"
+  public static void intakeIn(){
+    intakeMotor.set(LowScoringConstants.INTAKE_SPEED);
+  } 
+  public static void intakeOut(){
+    intakeMotor.set(LowScoringConstants.INTAKE_SPEED);
+  }
+  public static void intakeOff(){
     intakeMotor.set(0);
   }
 
