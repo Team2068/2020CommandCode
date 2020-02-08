@@ -7,11 +7,6 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight extends SubsystemBase {
-  
-  public Limelight(final int c, final int s) {
-    setMode(c);
-    setStream(s);
-  }
 
   @Override
   public void periodic() {
