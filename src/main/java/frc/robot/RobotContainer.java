@@ -8,14 +8,16 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.ColorSensor;
+import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.LowPressureSubsystem;
 import frc.robot.subsystems.LowScoringSubsystem;
 
 /**
@@ -28,14 +30,16 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final LowScoringSubsystem lowScoringSubsystem = new LowScoringSubsystem();
+  private final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
 
   private final ColorSensor colorSensor = new ColorSensor();
   private final Limelight limelight = new Limelight();
+  private final LowPressureSubsystem lowPressureSubsystem = new LowPressureSubsystem();
 
-  private final XboxController driverController = new XboxController(0);
-  private final XboxController mechanismController = new XboxController(2);
-  private final Joystick m_rightJoystick = new Joystick(0);
-  private final Joystick m_leftJoystick = new Joystick(1);  
+  private final XboxController driverController = new XboxController(DriveConstants.mechanismController);
+  private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
+  // private final Joystick m_rightJoystick = new Joystick(0);
+  // private final Joystick m_leftJoystick = new Joystick(1);  
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -72,6 +76,12 @@ public class RobotContainer {
 
    new JoystickButton(mechanismController, Button.kB.value)
    .whenPressed(() -> lowScoringSubsystem.releasePowercells());
+
+   new JoystickButton(mechanismController, Button.kBumperRight.value)
+   .whenPressed(() -> controlPanelSubsystem.wheelUp());
+
+   new JoystickButton(mechanismController, Button.kBumperLeft.value)
+   .whenPressed(() -> controlPanelSubsystem.wheelDown());
 
    new JoystickButton(mechanismController, Button.kY.value)
     .whenPressed(() -> {

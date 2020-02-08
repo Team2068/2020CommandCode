@@ -49,11 +49,23 @@ public final class Constants {
         public static final int INTAKE_MOTOR = 8; //the spinning thingy to pick up POWERCELLS or reject them
         public static final double CONVEYOR_SPEED = .5; 
         public static final double INTAKE_SPEED = .6;
-		public static final int FORWARD_CHANNEL = 0;
-		public static final int REVERSE_CHANNEL = 1;
+		public static final int FORWARD_CHANNEL = 1;
+		public static final int REVERSE_CHANNEL = 0;
 
     }
 
+    public final static class ControlPanelConstants {
+
+		public static final int FORWARD_CHANNEL = 3;
+		public static final int REVERSE_CHANNEL = 2;
+
+    }
+
+    public final static class LowPressureConstants{
+
+		public static final int PRESSURE_SENSOR_CHANNEL = 0;
+
+    }
 
     public static class CameraMode {
         public static final int VISION = 0, DRIVER = 1;
