@@ -24,17 +24,12 @@ public class HangSubsytem extends SubsystemBase {
    * Creates a new LiftSubsystem.
    */
   public HangSubsytem() {
-
     liftMotor.restoreFactoryDefaults();
     winchMotor.restoreFactoryDefaults();
 
     liftMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
     winchMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
-
   }
-
-
-  
 
   @Override
   public void periodic() {

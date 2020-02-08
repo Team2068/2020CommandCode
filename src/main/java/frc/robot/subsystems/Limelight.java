@@ -1,26 +1,29 @@
 package frc.robot.subsystems;
 
+
+
 import frc.robot.Constants;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import edu.wpi.first.networktables.NetworkTable;
+
 import edu.wpi.first.networktables.NetworkTableEntry;
+
 import edu.wpi.first.networktables.NetworkTableInstance;
+
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
+
+
 public class Limelight extends SubsystemBase {
-  /**
-   * Creates a new ExampleSubsystem.
-   */
 
-  public Limelight() {
-
-  }
   public Limelight(final int c, final int s){
-      set_mode(c);
-      set_stream(s);
+      setMode(c);
+      setStream(s);
   }
-
 
   @Override
   public void periodic() {
@@ -34,26 +37,25 @@ public class Limelight extends SubsystemBase {
     final double y = ty.getDouble(0.0);
     final double area = ta.getDouble(0.0);
 
-    //post to smart dashboard periodically
+    //Post to smart dashboard periodically
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
     SmartDashboard.putNumber("LimelightArea", area);
   }
 
-  public void set_mode(final int m){
+  public void setMode(final int m){
       NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(m);
   }
-  public void set_stream(final int m){
+
+  public void setStream(final int m){
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(m);
   }
 
-  public double get_stream() {
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").getDouble(0.0);
+  public int getStream() {
+    return (int) NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").getDouble(0.0);
   }
-
-  public double get_mode() {
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").getDouble(0.0);
+  
+  public int getMode() {
+    return (int) NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").getDouble(0.0);
   }
-
 }
-

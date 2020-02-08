@@ -67,27 +67,27 @@ public class RobotContainer {
 
    new JoystickButton(mechanismController, Button.kY.value) // Isn't kY already being used?
     .whenPressed(() -> {
-      double stream = limelight.get_stream();
+      int stream = limelight.getStream();
       switch(stream) {
         case Constants.StreamMode.STANDARD:
-          limelight.set_stream(Constants.StreamMode.PIP_MAIN);
+          limelight.setStream(Constants.StreamMode.PIP_MAIN);
           break;
         case Constants.StreamMode.PIP_MAIN:
-            limelight.set_stream(Constants.StreamMode.PIP_SECONDARY);
+            limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
             break;
         case Constants.StreamMode.PIP_SECONDARY:
-            limelight.set_stream(Constants.StreamMode.STANDARD);
+            limelight.setStream(Constants.StreamMode.STANDARD);
             break;
       }
     });
 
     new JoystickButton(mechanismController, Button.kA.value)
     .whenPressed(() -> {
-      double mode = limelight.get_mode();
+      int mode = limelight.getMode();
       if(mode == Constants.CameraMode.DRIVER) {
-        limelight.set_mode(Constants.CameraMode.VISION);
+        limelight.setMode(Constants.CameraMode.VISION);
       } else {
-        limelight.set_mode(Constants.CameraMode.DRIVER);
+        limelight.setMode(Constants.CameraMode.DRIVER);
       }
     });
   //  new lowScoringSubsystem.conveyorControl(

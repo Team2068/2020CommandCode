@@ -57,10 +57,10 @@ public final class Constants {
 
 
     public static class CameraMode {
-        public static final double VISION = 0, DRIVER =1;
+        public static final int VISION = 0, DRIVER =1;
     }
     
     public static class StreamMode {
-        public static final double STANDARD = 0, PIP_MAIN=1, PIP_SECONDARY=2;
+        public static final int STANDARD = 0, PIP_MAIN=1, PIP_SECONDARY=2;
     }
 }
