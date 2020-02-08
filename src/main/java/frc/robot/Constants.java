@@ -57,7 +57,7 @@ public final class Constants {
 
 
     public static class CameraMode {
-        public static final int VISION = 0, DRIVER =1;
+        public static final int VISION = 0, DRIVER = 1;
     }
     
     public static class StreamMode {
