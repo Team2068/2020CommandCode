@@ -34,10 +34,10 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   }
 
-  public static void conveyorIn(){
+  public void conveyorIn(){
     conveyorMotor.set(LowScoringConstants.CONVEYOR_SPEED);
   }
-  public static void conveyorOut(){
+  public void conveyorOut(){
     conveyorMotor.set(LowScoringConstants.CONVEYOR_SPEED * -1);
   }
   public void conveyorStop(){
@@ -45,13 +45,13 @@ public class LowScoringSubsystem extends SubsystemBase {
   }
 
   //probably just need a command, "intake on"
-  public static void intakeIn(){
+  public void intakeIn(){
     intakeMotor.set(LowScoringConstants.INTAKE_SPEED);
   } 
-  public static void intakeOut(){
+  public void intakeOut(){
     intakeMotor.set(LowScoringConstants.INTAKE_SPEED);
   }
-  public static void intakeOff(){
+  public void intakeOff(){
     intakeMotor.set(0);
   }
 
