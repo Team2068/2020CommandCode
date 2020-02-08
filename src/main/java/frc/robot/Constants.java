@@ -61,6 +61,6 @@ public final class Constants {
     }
     
     public static class StreamMode {
-        public static final int STANDARD = 0, PIP_MAIN=1, PIP_SECONDARY=2;
+        public static final int STANDARD = 0, PIP_MAIN = 1, PIP_SECONDARY = 2;
     }
 }
