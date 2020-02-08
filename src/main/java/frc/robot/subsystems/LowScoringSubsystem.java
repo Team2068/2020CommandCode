@@ -48,7 +48,6 @@ public class LowScoringSubsystem extends SubsystemBase {
     conveyorMotor.set(0);
   }
 
-  //probably just need a command, "intake on"
   public void intakeIn(){
     intakeMotor.set(LowScoringConstants.INTAKE_SPEED);
   } 
