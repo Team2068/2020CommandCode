@@ -55,7 +55,6 @@ public final class Constants {
     }
 
     public final static class ControlPanelConstants {
-
 		public static final int FORWARD_CHANNEL = 3;
 		public static final int REVERSE_CHANNEL = 2;
 
