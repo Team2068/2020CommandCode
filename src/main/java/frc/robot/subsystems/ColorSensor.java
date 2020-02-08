@@ -6,9 +6,10 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.util.Color;
@@ -29,18 +30,26 @@ public class ColorSensor extends SubsystemBase {
     private final Color YellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
     String colorString;
-    
+    SendableChooser<Color> colorChooser = new SendableChooser<>();
+
     public ColorSensor() {
         m_colorMatcher.addColorMatch(BlueTarget);
         m_colorMatcher.addColorMatch(GreenTarget);
         m_colorMatcher.addColorMatch(RedTarget);
         m_colorMatcher.addColorMatch(YellowTarget);
+
+        colorChooser.setDefaultOption("Blue", BlueTarget);
+        colorChooser.addOption("Green", GreenTarget);
+        colorChooser.addOption("Red", RedTarget);
+        colorChooser.addOption("Yellow", YellowTarget);
+        // etc.
+        SmartDashboard.putData("Given Color", colorChooser);
     }
 
     @Override
     public void periodic() {
         Color detectedColor = m_colorSensor.getColor();
-
+        Color givenColor = colorChooser.getSelected();
         ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
         if (match.color == BlueTarget) {
@@ -55,8 +64,22 @@ public class ColorSensor extends SubsystemBase {
           colorString = "UNKOWN";
         }
 
+        String givenString;
+        if (givenColor == BlueTarget) {
+          givenString = "BLUE";
+        } else if (givenColor == RedTarget) {
+          givenString = "RED";
+        } else if (givenColor == GreenTarget) {
+          givenString = "GREEN";
+        } else if (givenColor == YellowTarget) {
+          givenString = "YELLOW";
+        } else {
+          givenString = "UNKOWN";
+        }
+
         SmartDashboard.putNumber("Confidence", match.confidence);
         SmartDashboard.putString("Detected Color", colorString);
+        SmartDashboard.putString("Given Color (test)", givenString);
     }
 
     public String getColor() {
