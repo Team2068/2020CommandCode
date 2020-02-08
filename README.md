@@ -83,6 +83,7 @@ We use a feature branch workflow. You can read more about that [here](https://ww
   * `git checkout -b <your_branch_name>`, where <your_branch_name> is a descriptive name for your branch. For example `fix-shooter-wheel`, `two-ball-auto`, or `climbing`. Use dashes in the branch name, not underscores.
 2. Make whatever code changes you want/need/ to make. Be sure to write tests for your changes!
 3. Commit your work locally.
+  * If you're on a shared laptop set the author of the commit message by: `git commit --author="Author Name <email@address.com>"`
   * Try to make your commits as atomic (small) as possible. For example, moving functions around should be different from adding features, and changes to one subsystem should be in a different commit than changes to another subsystem.
   * Follow [these](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) conventions for commit messages. Or else.
   * If your change is anything more than a few lines or small fixes, don't skip the extended description. If you are always using `git commit` with the `-m` option, stop doing that.
