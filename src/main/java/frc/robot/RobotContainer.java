@@ -21,10 +21,11 @@ import frc.robot.subsystems.LowPressureSubsystem;
 import frc.robot.subsystems.LowScoringSubsystem;
 
 /**
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a "declarative" paradigm, very little robot logic should
+ * actually be handled in the {@link Robot} periodic methods (other than the
+ * scheduler calls). Instead, the structure of the robot (including subsystems,
+ * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
@@ -39,86 +40,81 @@ public class RobotContainer {
   private final XboxController driverController = new XboxController(DriveConstants.mechanismController);
   private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
   // private final Joystick m_rightJoystick = new Joystick(0);
-  // private final Joystick m_leftJoystick = new Joystick(1);  
+  // private final Joystick m_leftJoystick = new Joystick(1);
 
   /**
-   * The container for the robot.  Contains subsystems, OI devices, and commands.
+   * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
 
-    driveSubsystem.setDefaultCommand(new RunCommand(() -> driveSubsystem
-      .tankDrive(driverController.getY(GenericHID.Hand.kLeft), 
-        driverController.getY(GenericHID.Hand.kRight)), driveSubsystem));
+    driveSubsystem
+        .setDefaultCommand(new RunCommand(() -> driveSubsystem.tankDrive(driverController.getY(GenericHID.Hand.kLeft),
+            driverController.getY(GenericHID.Hand.kRight)), driveSubsystem));
 
-    // lowScoringSubsystem.setDefaultCommand(new RunCommand(() -> ));
+    lowScoringSubsystem.setDefaultCommand(new RunCommand(
+        () -> lowScoringSubsystem.runConveyor(mechanismController.getY(GenericHID.Hand.kLeft)), lowScoringSubsystem));
   }
 
   /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by instantiating a {@link GenericHID} or one of its subclasses
+   * ({@link edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then
+   * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    
-   //everything on the driverController 
-   new JoystickButton(driverController, Button.kY.value)
-   .whenPressed(() -> driveSubsystem.invertTankDrive());
 
-   //everything on the mechanismController
-   new JoystickButton(mechanismController, Button.kBack.value)
-   .whenPressed(() -> lowScoringSubsystem.conveyorIn());
+    // everything on the driverController
+    new JoystickButton(driverController, Button.kY.value).whenPressed(() -> driveSubsystem.invertTankDrive());
 
-   new JoystickButton(mechanismController, Button.kX.value)
-   .whenPressed(() -> lowScoringSubsystem.trapPowercells());
-
-   new JoystickButton(mechanismController, Button.kB.value)
-   .whenPressed(() -> lowScoringSubsystem.releasePowercells());
-
-   new JoystickButton(mechanismController, Button.kBumperRight.value)
-   .whenPressed(() -> controlPanelSubsystem.wheelUp());
-
-   new JoystickButton(mechanismController, Button.kBumperLeft.value)
-   .whenPressed(() -> controlPanelSubsystem.wheelDown());
-
-   new JoystickButton(mechanismController, Button.kY.value)
-    .whenPressed(() -> {
+    new JoystickButton(driverController, Button.kX.value).whenPressed(() -> {
       int stream = limelight.getStream();
-      switch(stream) {
-        case Constants.StreamMode.STANDARD:
-          limelight.setStream(Constants.StreamMode.PIP_MAIN);
-          break;
-        case Constants.StreamMode.PIP_MAIN:
-            limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
-            break;
-        case Constants.StreamMode.PIP_SECONDARY:
-            limelight.setStream(Constants.StreamMode.STANDARD);
-            break;
+      switch (stream) {
+      case Constants.StreamMode.STANDARD:
+        limelight.setStream(Constants.StreamMode.PIP_MAIN);
+        break;
+      case Constants.StreamMode.PIP_MAIN:
+        limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
+        break;
+      case Constants.StreamMode.PIP_SECONDARY:
+        limelight.setStream(Constants.StreamMode.STANDARD);
+        break;
       }
     });
 
-    new JoystickButton(mechanismController, Button.kA.value)
-    .whenPressed(() -> {
+    new JoystickButton(driverController, Button.kB.value).whenPressed(() -> {
       int mode = limelight.getMode();
-      if(mode == Constants.CameraMode.DRIVER) {
+      if (mode == Constants.CameraMode.DRIVER) {
         limelight.setMode(Constants.CameraMode.VISION);
       } else {
         limelight.setMode(Constants.CameraMode.DRIVER);
       }
     });
-  }
 
+    // everything on the mechanismController
+    new JoystickButton(mechanismController, Button.kY.value).whenPressed(() -> lowScoringSubsystem.rollerOnOff());
+
+    new JoystickButton(mechanismController, Button.kA.value)
+        .whenPressed(() -> lowScoringSubsystem.rollerChangeDirection());
+
+    new JoystickButton(mechanismController, Button.kX.value).whenPressed(() -> lowScoringSubsystem.trapPowercells());
+
+    new JoystickButton(mechanismController, Button.kB.value).whenPressed(() -> lowScoringSubsystem.releasePowercells());
+
+    new JoystickButton(mechanismController, Button.kY.value)
+        .whenPressed(() -> controlPanelSubsystem.engageControlPanel());
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * +
+   * 
    * @return the command to run in autonomous
    */
   // public Command getAutonomousCommand() {
-  //   // An ExampleCommand will run in autonomous
-  //   return m_autoCommand;
+  // // An ExampleCommand will run in autonomous
+  // return m_autoCommand;
   // }
 }

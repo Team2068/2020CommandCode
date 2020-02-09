@@ -11,6 +11,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -18,46 +20,51 @@ import frc.robot.Constants.LowScoringConstants;
 
 public class LowScoringSubsystem extends SubsystemBase {
 
-  public CANSparkMax conveyorMotor = new CANSparkMax(LowScoringConstants.CONVEYOR_MOTOR, MotorType.kBrushless);
-  public CANSparkMax intakeMotor = new CANSparkMax(LowScoringConstants.INTAKE_MOTOR, MotorType.kBrushless);
-  public DoubleSolenoid lockSolenoid = new DoubleSolenoid(LowScoringConstants.FORWARD_CHANNEL, LowScoringConstants.REVERSE_CHANNEL);
+  private CANSparkMax conveyorMotor = new CANSparkMax(LowScoringConstants.CONVEYOR_MOTOR, MotorType.kBrushless);
+  private CANSparkMax rollerMotor = new CANSparkMax(LowScoringConstants.ROLLER_MOTOR, MotorType.kBrushless);
+  private DoubleSolenoid lockSolenoid = new DoubleSolenoid(LowScoringConstants.FORWARD_CHANNEL, LowScoringConstants.REVERSE_CHANNEL);
 
-  // private int intakeDirection = -1;
+  private boolean rollersRunning = false;
+  private int rollerDirection = 1;
+  private boolean pistonsForward = false;
 
   public LowScoringSubsystem() {
 
     conveyorMotor.restoreFactoryDefaults();
-    intakeMotor.restoreFactoryDefaults();
+    rollerMotor.restoreFactoryDefaults();
 
     conveyorMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
-    intakeMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
+    rollerMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
 
     lockSolenoid.set(Value.kOff);
 
   }
 
-  public void conveyorIn(){
-    conveyorMotor.set(LowScoringConstants.CONVEYOR_SPEED);
+  public void runConveyor(double speed) {
+    conveyorMotor.set(speed);
   }
 
-  public void conveyorOut(){
-    conveyorMotor.set(LowScoringConstants.CONVEYOR_SPEED * -1);
+  public void rollerOnOff() {
+    rollersRunning = !rollersRunning;
+    if (rollersRunning) {
+      rollerMotor.set(LowScoringConstants.ROLLER_SPEED * rollerDirection);
+    } else {
+      rollerMotor.stopMotor();
+    }
   }
 
-  public void conveyorStop(){
-    conveyorMotor.set(0);
+  public void rollerChangeDirection() {
+    rollerDirection *= -1;
   }
 
-  public void intakeIn(){
-    intakeMotor.set(LowScoringConstants.INTAKE_SPEED);
-  } 
-
-  public void intakeOut(){
-    intakeMotor.set(LowScoringConstants.INTAKE_SPEED);
-  }
-
-  public void intakeOff(){
-    intakeMotor.set(0);
+  public void openCloseLowScoring() {
+    pistonsForward = !pistonsForward;
+    if(pistonsForward){
+      lockSolenoid.set(Value.kForward);
+    }
+    else {
+      lockSolenoid.set(Value.kReverse);
+    }
   }
 
   public void trapPowercells(){
@@ -67,9 +74,6 @@ public class LowScoringSubsystem extends SubsystemBase {
   public void releasePowercells(){
     lockSolenoid.set(Value.kReverse);
   }
-
-
-
 
   @Override
   public void periodic() {
