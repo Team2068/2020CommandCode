@@ -27,10 +27,11 @@ public class Limelight extends SubsystemBase {
     final double area = ta.getDouble(0.0);
     final String stream, cam;
 
-    if(getStream() == Constants.StreamMode.PIP_MAIN)
+    if(getStream() == Constants.StreamMode.PIP_MAIN){
       stream = "Main";
-    else
+    } else {
       stream = "Secondary";
+    }
 
     if(getMode() == Constants.CameraMode.VISION){
       cam = "Vision";
