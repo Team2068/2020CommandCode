@@ -35,9 +35,7 @@ public class RobotContainer {
   private final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
 
   private final ColorSensor colorSensor = new ColorSensor();
-  private final Limelight limelight = new Limelight();
-  private final LowPressureSubsystem lowPressureSubsystem = new LowPressureSubsystem();
-
+  private final Limelight limelight = new Limelight(Constants.CameraMode.VISION, Constants.StreamMode.PIP_MAIN);
   private final XboxController driverController = new XboxController(DriveConstants.mechanismController);
   private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
 
@@ -72,16 +70,13 @@ public class RobotContainer {
 
     new JoystickButton(driverController, Button.kX.value).whenPressed(() -> {
       int stream = limelight.getStream();
-      switch (stream) {
-      case Constants.StreamMode.STANDARD:
-        limelight.setStream(Constants.StreamMode.PIP_MAIN);
-        break;
-      case Constants.StreamMode.PIP_MAIN:
-        limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
-        break;
-      case Constants.StreamMode.PIP_SECONDARY:
-        limelight.setStream(Constants.StreamMode.STANDARD);
-        break;
+      switch(stream) {
+        case Constants.StreamMode.PIP_SECONDARY:
+          limelight.setStream(Constants.StreamMode.PIP_MAIN);
+          break;
+        case Constants.StreamMode.PIP_MAIN:
+            limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
+            break;
       }
     });
 
