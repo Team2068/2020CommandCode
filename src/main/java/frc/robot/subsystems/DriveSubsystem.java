@@ -75,7 +75,6 @@ public class DriveSubsystem extends SubsystemBase {
     if (isForward) {
 
       differentialDrive.tankDrive(leftSpeed, rightSpeed);
-
     } else {
 
       differentialDrive.tankDrive(rightSpeed * -1, leftSpeed * -1);
