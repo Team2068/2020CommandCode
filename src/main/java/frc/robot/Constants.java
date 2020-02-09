@@ -36,7 +36,6 @@ public final class Constants {
     }
 
     public final static class ControllerConstants {
-
         public static final int RIGHT_TRIGGER = 7;
         public static final int LEFT_TRIGGER = 8;
     }
