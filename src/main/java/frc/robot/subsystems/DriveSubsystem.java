@@ -85,7 +85,6 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void invertTankDrive() {
-
     isForward = !isForward;
 
   }
