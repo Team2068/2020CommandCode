@@ -86,7 +86,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void invertTankDrive() {
     isForward = !isForward;
-
   }
 
   public void arcadeDrive(double xSpeed, double zRotation) {
