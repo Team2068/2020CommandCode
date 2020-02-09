@@ -79,7 +79,6 @@ public class DriveSubsystem extends SubsystemBase {
     } else {
 
       differentialDrive.tankDrive(rightSpeed * -1, leftSpeed * -1);
-
     }
 
   }
