@@ -29,7 +29,7 @@ public class DriveSubsystem extends SubsystemBase {
   private DifferentialDrive differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
 
   private boolean isForward = true;
-  private double speedMod = .8;
+  private boolean isTurbo = false;
 
   /**
    * Creates a new DriveSubsystem.
@@ -48,17 +48,40 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
+  public void turboOn() {
+    isTurbo = true;
+  }
+  
+  public void turboOff() {
+    isTurbo = false;
+  }
+
+  private double adjustSpeed(double speed) {
+    if(isTurbo) {
+      if(speed >= 0) {
+        speed = 1;
+      } else {
+        speed = -1;
+      }
+    }
+
+    return speed;
+  }
+
   public void tankDrive(double leftSpeed, double rightSpeed){
-    
+    leftSpeed = adjustSpeed(leftSpeed);
+    rightSpeed = adjustSpeed(rightSpeed);
+
+
     if(isForward){
 
-      differentialDrive.tankDrive(leftSpeed * speedMod, rightSpeed * speedMod);
+      differentialDrive.tankDrive(leftSpeed, rightSpeed);
 
     }
     else 
     {
 
-      differentialDrive.tankDrive(rightSpeed * speedMod * -1, leftSpeed * speedMod * -1);
+      differentialDrive.tankDrive(rightSpeed * -1, leftSpeed * -1);
 
     }
     
@@ -70,13 +93,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
-  public void fullSend(){
-    speedMod = 1;
-  }
-
-  public void normalSend(){
-    speedMod = .8;
-  }
 
   public void arcadeDrive(double xSpeed, double zRotation){
     differentialDrive.arcadeDrive(xSpeed, zRotation);
