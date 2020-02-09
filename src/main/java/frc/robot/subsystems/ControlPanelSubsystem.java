@@ -15,9 +15,20 @@ import frc.robot.Constants.ControlPanelConstants;
 public class ControlPanelSubsystem extends SubsystemBase {
  
   public DoubleSolenoid controlPanelSolenoid = new DoubleSolenoid(ControlPanelConstants.FORWARD_CHANNEL, ControlPanelConstants.REVERSE_CHANNEL);
+  public boolean pistonsForward = false;
 
   public ControlPanelSubsystem() {
     controlPanelSolenoid.set(Value.kOff);
+  }
+
+  public void engageControlPanel() {
+    pistonsForward = !pistonsForward;
+    if(pistonsForward){
+      controlPanelSolenoid.set(Value.kForward);
+    }
+    else {
+      controlPanelSolenoid.set(Value.kReverse);
+    }
   }
 
   public void wheelUp(){

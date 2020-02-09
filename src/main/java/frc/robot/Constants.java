@@ -37,18 +37,18 @@ public final class Constants {
     
     public final static class LiftConstants{
 
-        public static final int LIFT_MOTOR = 5;
+        public static final int LIFT_MOTOR = 7;
         
-        public static final int WINCH_MOTOR = 6;
+        public static final int WINCH_MOTOR = 8;
 
     }
 
     public final static class LowScoringConstants {
         
-        public static final int CONVEYOR_MOTOR = 7; //for transporting balls
-        public static final int INTAKE_MOTOR = 8; //the spinning thingy to pick up POWERCELLS or reject them
+        public static final int CONVEYOR_MOTOR = 5; //for transporting balls
+        public static final int ROLLER_MOTOR = 6; //the spinning thingy to pick up POWERCELLS or reject them
         public static final double CONVEYOR_SPEED = .5; 
-        public static final double INTAKE_SPEED = .6;
+        public static final double ROLLER_SPEED = .6;
 		public static final int FORWARD_CHANNEL = 1;
 		public static final int REVERSE_CHANNEL = 0;
 
