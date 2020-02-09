@@ -17,7 +17,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
-  
+
   private CANSparkMax frontLeft = new CANSparkMax(DriveConstants.FRONT_LEFT, MotorType.kBrushless);
   private CANSparkMax backLeft = new CANSparkMax(DriveConstants.BACK_LEFT, MotorType.kBrushless);
   private CANSparkMax frontRight = new CANSparkMax(DriveConstants.FRONT_RIGHT, MotorType.kBrushless);
@@ -51,14 +51,14 @@ public class DriveSubsystem extends SubsystemBase {
   public void turboOn() {
     isTurbo = true;
   }
-  
+
   public void turboOff() {
     isTurbo = false;
   }
 
   private double adjustSpeed(double speed) {
-    if(isTurbo) {
-      if(speed >= 0) {
+    if (isTurbo) {
+      if (speed >= 0) {
         speed = 1;
       } else {
         speed = -1;
@@ -68,33 +68,29 @@ public class DriveSubsystem extends SubsystemBase {
     return speed;
   }
 
-  public void tankDrive(double leftSpeed, double rightSpeed){
+  public void tankDrive(double leftSpeed, double rightSpeed) {
     leftSpeed = adjustSpeed(leftSpeed);
     rightSpeed = adjustSpeed(rightSpeed);
 
-
-    if(isForward){
+    if (isForward) {
 
       differentialDrive.tankDrive(leftSpeed, rightSpeed);
 
-    }
-    else 
-    {
+    } else {
 
       differentialDrive.tankDrive(rightSpeed * -1, leftSpeed * -1);
 
     }
-    
+
   }
 
-  public void invertTankDrive(){
+  public void invertTankDrive() {
 
     isForward = !isForward;
 
   }
 
-
-  public void arcadeDrive(double xSpeed, double zRotation){
+  public void arcadeDrive(double xSpeed, double zRotation) {
     differentialDrive.arcadeDrive(xSpeed, zRotation);
   }
 
