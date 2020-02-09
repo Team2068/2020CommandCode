@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
@@ -39,8 +40,6 @@ public class RobotContainer {
 
   private final XboxController driverController = new XboxController(DriveConstants.mechanismController);
   private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
-  // private final Joystick m_rightJoystick = new Joystick(0);
-  // private final Joystick m_leftJoystick = new Joystick(1);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -67,6 +66,9 @@ public class RobotContainer {
 
     // everything on the driverController
     new JoystickButton(driverController, Button.kY.value).whenPressed(() -> driveSubsystem.invertTankDrive());
+
+    new JoystickButton(driverController, ControllerConstants.LEFT_TRIGGER).whenPressed(() -> driveSubsystem.turboOn())
+        .whenReleased(() -> driveSubsystem.turboOff());
 
     new JoystickButton(driverController, Button.kX.value).whenPressed(() -> {
       int stream = limelight.getStream();

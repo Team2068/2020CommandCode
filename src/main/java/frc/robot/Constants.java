@@ -34,6 +34,11 @@ public final class Constants {
         public static final int rightDriveJoystick = 3;
         
     }
+
+    public final static class ControllerConstants {
+        public static final int RIGHT_TRIGGER = 7;
+        public static final int LEFT_TRIGGER = 8;
+    }
     
     public final static class LiftConstants{
 
