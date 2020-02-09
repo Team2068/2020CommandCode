@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -38,6 +39,7 @@ public class ColorSensor extends SubsystemBase {
     private String colorString;
     private SendableChooser<Color> colorChooser = new SendableChooser<>();
     private ShuffleboardTab dashboardTab = Shuffleboard.getTab("SmartDashboard");
+    NetworkTableEntry forceFms = Shuffleboard.getTab("SmartDashboard").add("Force FMS", false).withWidget(BuiltInWidgets.kBooleanBox).getEntry();
  
     private Color getColorMatch(){ // actually get real color from fms
       String gameData;
@@ -77,8 +79,7 @@ public class ColorSensor extends SubsystemBase {
       
       dashboardTab.add(colorChooser)
         .withWidget(BuiltInWidgets.kComboBoxChooser)
-        .withPosition(0, 0)
-        .withSize(4,2);
+        .withSize(1,1);
   }
 
     public ColorSensor() {
@@ -93,7 +94,7 @@ public class ColorSensor extends SubsystemBase {
     public void periodic() {
         Color detectedColor = m_colorSensor.getColor();
         Color givenColor;
-        if(DriverStation.getInstance().isFMSAttached()){
+        if(DriverStation.getInstance().isFMSAttached() || forceFms.getBoolean(false)){
           givenColor = getColorMatch(); // this really shouldn't be called periodically 
                                         // should be after stage 3 command but its just for testing
                                         // bc if it is, it would just flood driverstation until we do stage 3
