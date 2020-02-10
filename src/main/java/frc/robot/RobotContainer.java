@@ -35,7 +35,7 @@ public class RobotContainer {
   private final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
 
   private final ColorSensor colorSensor = new ColorSensor();
-  private final Limelight limelight = new Limelight();
+  private final Limelight limelight = new Limelight(Constants.CameraMode.VISION, Constants.StreamMode.PIP_MAIN);
   private final LowPressureSubsystem lowPressureSubsystem = new LowPressureSubsystem();
 
   private final XboxController driverController = new XboxController(DriveConstants.driverController);
