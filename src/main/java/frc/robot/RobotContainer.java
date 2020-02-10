@@ -34,12 +34,14 @@ public class RobotContainer {
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final LowScoringSubsystem lowScoringSubsystem = new LowScoringSubsystem();
   private final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
+  private final LowPressureSubsystem lowPressureSubsystem = new LowPressureSubsystem();
 
   private final ColorSensor colorSensor = new ColorSensor();
   private final Limelight limelight = new Limelight(Constants.CameraMode.VISION, Constants.StreamMode.PIP_MAIN);
   private final Gyroscope gyro = new Gyroscope();
+  
   private final XboxController driverController = new XboxController(DriveConstants.mechanismController);
-  private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
+  private final XboxController driverController = new XboxController(DriveConstants.driverController);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -67,7 +69,7 @@ public class RobotContainer {
     // everything on the driverController
     new JoystickButton(driverController, Button.kY.value).whenPressed(() -> driveSubsystem.invertTankDrive());
 
-    new JoystickButton(driverController, ControllerConstants.LEFT_TRIGGER).whenPressed(() -> driveSubsystem.turboOn())
+    new JoystickButton(driverController, ControllerConstants.RIGHT_TRIGGER).whenPressed(() -> driveSubsystem.turboOn())
         .whenReleased(() -> driveSubsystem.turboOff());
 
     new JoystickButton(driverController, Button.kX.value).whenPressed(() -> {
@@ -94,7 +96,7 @@ public class RobotContainer {
     // everything on the mechanismController
     new JoystickButton(mechanismController, Button.kY.value).whenPressed(() -> lowScoringSubsystem.rollerOnOff());
 
-    new JoystickButton(mechanismController, Button.kBumperLeft.value)
+    new JoystickButton(mechanismController, Button.kA.value)
         .whenPressed(() -> lowScoringSubsystem.rollerChangeDirection());
 
     new JoystickButton(mechanismController, Button.kBumperRight.value)
