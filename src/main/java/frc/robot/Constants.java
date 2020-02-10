@@ -50,8 +50,8 @@ public final class Constants {
 
     public final static class LowScoringConstants {
         
-        public static final int CONVEYOR_MOTOR = 5; //for transporting balls
-        public static final int ROLLER_MOTOR = 6; //the spinning thingy to pick up POWERCELLS or reject them
+        public static final int CONVEYOR_MOTOR = 6; //for transporting balls
+        public static final int ROLLER_MOTOR = 5; //the spinning thingy to pick up POWERCELLS or reject them
         public static final double CONVEYOR_SPEED = .5; 
         public static final double ROLLER_SPEED = .6;
 		public static final int FORWARD_CHANNEL = 1;

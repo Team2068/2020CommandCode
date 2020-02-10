@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.LowScoringConstants;
@@ -34,12 +35,22 @@ public class LowScoringSubsystem extends SubsystemBase {
     conveyorMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
     rollerMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
 
+    rollerMotor.setInverted(true);
+
     lockSolenoid.set(Value.kOff);
 
   }
 
   public void runConveyor(double speed) {
+    if (speed <= 0) {
+      if (speed <= -0.65)
+        speed = -0.65;
+    } else {
+      if (speed >= 0.33)
+      speed = 0.33;
+    }
     conveyorMotor.set(speed);
+    SmartDashboard.putNumber("Conveyor Speed", speed);
   }
 
   public void rollerOnOff() {
@@ -53,6 +64,9 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   public void rollerChangeDirection() {
     rollerDirection *= -1;
+    rollerOnOff();
+    rollerOnOff();
+    SmartDashboard.putNumber("Rolling Direction", rollerDirection);
   }
 
   public void openCloseLowScoring() {

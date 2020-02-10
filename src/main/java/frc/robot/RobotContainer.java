@@ -36,7 +36,9 @@ public class RobotContainer {
 
   private final ColorSensor colorSensor = new ColorSensor();
   private final Limelight limelight = new Limelight(Constants.CameraMode.VISION, Constants.StreamMode.PIP_MAIN);
-  private final XboxController driverController = new XboxController(DriveConstants.mechanismController);
+  private final LowPressureSubsystem lowPressureSubsystem = new LowPressureSubsystem();
+
+  private final XboxController driverController = new XboxController(DriveConstants.driverController);
   private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
 
   /**
@@ -65,7 +67,7 @@ public class RobotContainer {
     // everything on the driverController
     new JoystickButton(driverController, Button.kY.value).whenPressed(() -> driveSubsystem.invertTankDrive());
 
-    new JoystickButton(driverController, ControllerConstants.LEFT_TRIGGER).whenPressed(() -> driveSubsystem.turboOn())
+    new JoystickButton(driverController, ControllerConstants.RIGHT_TRIGGER).whenPressed(() -> driveSubsystem.turboOn())
         .whenReleased(() -> driveSubsystem.turboOff());
 
     new JoystickButton(driverController, Button.kX.value).whenPressed(() -> {
@@ -92,7 +94,7 @@ public class RobotContainer {
     // everything on the mechanismController
     new JoystickButton(mechanismController, Button.kY.value).whenPressed(() -> lowScoringSubsystem.rollerOnOff());
 
-    new JoystickButton(mechanismController, Button.kBumperLeft.value)
+    new JoystickButton(mechanismController, Button.kA.value)
         .whenPressed(() -> lowScoringSubsystem.rollerChangeDirection());
 
     new JoystickButton(mechanismController, Button.kBumperRight.value)
