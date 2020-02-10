@@ -70,17 +70,20 @@ public class RobotContainer {
     new JoystickButton(driverController, Button.kY.value).whenPressed(() -> driveSubsystem.invertTankDrive());
 
     new JoystickButton(driverController, ControllerConstants.RIGHT_TRIGGER).whenPressed(() -> driveSubsystem.turboOn())
-        .whenReleased(() -> driveSubsystem.turboOff());
+        .whenReleased(() -> driveSubsystem.turboOff()); //sprint
+
+    new JoystickButton(driverController, ControllerConstants.LEFT_TRIGGER).whenPressed(() -> driveSubsystem.slowOn())
+        .whenReleased(() -> driveSubsystem.slowOff()); //25% speed
 
     new JoystickButton(driverController, Button.kX.value).whenPressed(() -> {
       int stream = limelight.getStream();
-      switch(stream) {
-        case Constants.StreamMode.PIP_SECONDARY:
-          limelight.setStream(Constants.StreamMode.PIP_MAIN);
-          break;
-        case Constants.StreamMode.PIP_MAIN:
-            limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
-            break;
+      switch (stream) {
+      case Constants.StreamMode.PIP_SECONDARY:
+        limelight.setStream(Constants.StreamMode.PIP_MAIN);
+        break;
+      case Constants.StreamMode.PIP_MAIN:
+        limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
+        break;
       }
     });
 
