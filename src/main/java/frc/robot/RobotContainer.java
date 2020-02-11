@@ -37,11 +37,11 @@ public class RobotContainer {
 
   private final ColorSensor colorSensor = new ColorSensor();
   private final Limelight limelight = new Limelight(Constants.CameraMode.VISION, Constants.StreamMode.PIP_MAIN);
+  private final Gyroscope gyro = new Gyroscope();
   private final LowPressureSubsystem lowPressureSubsystem = new LowPressureSubsystem();
 
   private final XboxController driverController = new XboxController(DriveConstants.driverController);
   private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
-
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
