@@ -152,22 +152,8 @@ public class AutonomousTab //extends SubsystemBase
 
     private AutonomousTab()
     {
-        System.out.println(this.getClass().getName() + ": Started Constructor");
-
-        entry( // Could just use a function like this instead of methods
-            "Starting Location Box", startingLocationBox, ["Left", "Center", "Right"], 
-            [StartingLocation.kLeft, StartingLocation.kCenter, StartingLocation.kRight], 
-            [0, 0], [8, 2]
-        );
-
-        entry( // Target Color
-            "Target Color", targetColorBox, ["Blue" "Green", "Yellow", "Red"], 
-            [targetColor.kRed, targetColor.kYellow, targetColor.kGreen, targetColor.kBlue], 
-            [9, 0], [8, 2]
-        );
-
-
-        createStartingLocationBox();
+        entry("Starting Location Box", startingLocationBox, ["Left", "Center", "Right"], StartingLocation.values(), [0, 0], [8, 2]);
+        entry("Target Color", targetColorBox, ["Blue" "Green", "Yellow", "Red"], TargetColor.values(), [9, 0], [8, 2]);
 
         createOrderOfOperationsBox();
         
@@ -188,8 +174,6 @@ public class AutonomousTab //extends SubsystemBase
 
         goodToGo = createRedLightGreenLightBox();
         goodToGo.setBoolean(false);
-
-        System.out.println(this.getClass().getName() + ": Finished Constructor");
     }
 
     protected static AutonomousTab getInstance()
@@ -197,16 +181,18 @@ public class AutonomousTab //extends SubsystemBase
         return instance;
     }
 
-    private void entry(SendableChooser box, String name, String[] optionNames, Enum[] options, int[] position, int[] size) { //Generic type for options??
+    private static <T extends Enum<T>> void entry(SendableChooser box, String name, String[] optionNames, T[] options, int[] position, int[] size) {
         SendableRegistry.add(box, name);
         SendableRegistry.setName(box, name);
 
         //Default option
         startingLocationBox.setDefaultOption(optionNames[0], optionName[1]);
         
-        //Options
-        for(int i = 1; i < optionNames; i++) {
-            startingLocationBox.addOption(optionName[i], option[i]);
+        //Option
+        int iter = 0;
+        for(Enum<T> option : java.util.Arrays.asList(options)) {
+            startingLocationBox.addOption(optionName[iter], option);
+            iter++;
         }
 
         //Put widget on the shuffleboard
