@@ -76,8 +76,7 @@ public class AutonomousTab //extends SubsystemBase
 
 
     // Create a class to hold the data on the Shuffleboard tab
-    protected static class AutonomousData
-    {
+    protected static class Data {
         public StartingLocation startingLocation = StartingLocation.kNone;
 
         public OrderOfOperations orderOfOperations = OrderOfOperations.kShootThenMove;
@@ -94,34 +93,13 @@ public class AutonomousTab //extends SubsystemBase
         public ShootNewPowerCells shootNewPowerCells = ShootNewPowerCells.kYes;
 
         public TargetColor targetColor = TargetColor.kblue;
-        
-        @Override
-        public String toString()
-        {
-            String str = "";
-
-            str += " \n";
-            str += "*****  AUTONOMOUS SELECTION  *****\n";
-            str += "Starting Location     : "  + startingLocation   + "\n";
-            str += "Order of Operations   : "  + orderOfOperations  + "\n";
-            str += "Shoot Power Cell      : "  + shootPowerCell     + "\n";
-            str += "Shoot Delay           : "  + shootDelay         + "\n";
-            str += "Move Off Line         : "  + moveOffLine        + "\n";
-            str += "Move Delay            : "  + moveDelay          + "\n";
-            str += "Direction to Move     : "  + directionToMove    + "\n";
-            str += "Pick Up Power Cell    : "  + pickUpPowerCell    + "\n";
-            str += "Pick Up Location      : "  + pickUpLocation     + "\n";    
-            str += "Shoot New Power Cells : "  + shootNewPowerCells + "\n";
-
-            return str;
-        }
     }
 
     // Create a Shuffleboard Tab
     private ShuffleboardTab autonomousTab = Shuffleboard.getTab("Autonomous");
 
     // Create an object to store the data in the Boxes
-    private AutonomousTabData autonomousData = new AutonomousData();
+    private AutonomousTabData autonomousData = new Data();
  
     // Create the Box objects
     private SendableChooser<StartingLocation> startingLocationBox = new SendableChooser<>();
@@ -150,8 +128,7 @@ public class AutonomousTab //extends SubsystemBase
 
     private static AutonomousTab instance = new AutonomousTab();
 
-    private AutonomousTab()
-    {
+    private AutonomousTab() {
         entry("Starting Location Box", startingLocationBox, ["Left", "Center", "Right"], StartingLocation.values(), [0, 0], [8, 2]);
         entry("Target Color", targetColorBox, ["Blue" "Green", "Yellow", "Red"], TargetColor.values(), [9, 0], [8, 2]);
 
@@ -176,8 +153,7 @@ public class AutonomousTab //extends SubsystemBase
         goodToGo.setBoolean(false);
     }
 
-    protected static AutonomousTab getInstance()
-    {
+    protected static AutonomousTab getInstance() {
         return instance;
     }
 
