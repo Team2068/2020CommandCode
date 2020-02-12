@@ -20,6 +20,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.LowPressureSubsystem;
 import frc.robot.subsystems.LowScoringSubsystem;
+import frc.robot.subsystems.Gyroscope;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -36,6 +37,7 @@ public class RobotContainer {
 
   private final ColorSensor colorSensor = new ColorSensor();
   private final Limelight limelight = new Limelight(Constants.CameraMode.VISION, Constants.StreamMode.PIP_MAIN);
+  private final Gyroscope gyro = new Gyroscope();
   private final LowPressureSubsystem lowPressureSubsystem = new LowPressureSubsystem();
 
   private final XboxController driverController = new XboxController(DriveConstants.driverController);
