@@ -10,17 +10,16 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
+import frc.robot.subsystems.AutonomousTab;
+import frc.robot.subsystems.AutonomousTab.TargetColor;
 
 public class ColorSensor extends SubsystemBase {
   
@@ -36,9 +35,9 @@ public class ColorSensor extends SubsystemBase {
     private final Color YellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
     private String colorString;
-    private SendableChooser<Color> colorChooser = new SendableChooser<>();
-    private ShuffleboardTab dashboardTab = Shuffleboard.getTab("SmartDashboard");
     private Color detectedColor = ColorMatch.makeColor(0.0, 0.0, 0.0);
+
+    private final AutonomousTab.Data autonomousData = new AutonomousTab.Data();
 
     private Color getColorMatch(){
       String gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -60,27 +59,11 @@ public class ColorSensor extends SubsystemBase {
       return NullTarget;
     }
 
-    private void createColorChooser(){
-      SendableRegistry.add(colorChooser, "Color Chooser");
-      SendableRegistry.setName(colorChooser, "Color Chooser");
-
-      colorChooser.setDefaultOption("None", NullTarget);   
-      colorChooser.addOption("Blue", BlueTarget);
-      colorChooser.addOption("Green", GreenTarget);
-      colorChooser.addOption("Red", RedTarget);
-      colorChooser.addOption("Yellow", YellowTarget);
-      
-      dashboardTab.add(colorChooser)
-        .withWidget(BuiltInWidgets.kComboBoxChooser)
-        .withSize(1,1);
-    }
-
     public ColorSensor() {
         m_colorMatcher.addColorMatch(BlueTarget);
         m_colorMatcher.addColorMatch(GreenTarget);
         m_colorMatcher.addColorMatch(RedTarget);
         m_colorMatcher.addColorMatch(YellowTarget);
-        createColorChooser();
     }
 
     @Override
@@ -90,7 +73,7 @@ public class ColorSensor extends SubsystemBase {
         if(DriverStation.getInstance().isFMSAttached()){
           givenColor = getColorMatch();
         } else {
-          givenColor = colorChooser.getSelected();
+          //givenColor = autonomousData.targetColor;
         }
         ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 

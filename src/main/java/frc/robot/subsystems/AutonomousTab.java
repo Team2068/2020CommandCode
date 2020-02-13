@@ -64,9 +64,8 @@ public class AutonomousTab {
     }
 
     public enum TargetColor {
-        kBlue, kGreen, kYellow, kRed, kNull;
+        kNull, kBlue, kGreen, kYellow, kRed;
     }
-
     // Create a class to hold the data on the Shuffleboard tab
     protected static class Data {
         public StartingLocation startingLocation = StartingLocation.kNone;
@@ -168,6 +167,8 @@ public class AutonomousTab {
         autonomousData.pickUpLocation = pickUpLocationBox.getSelected();
         
         autonomousData.shootNewPowerCells = shootNewPowerCellBox.getSelected();
+
+        autonomousData.targetColor = targetColorBox.getSelected();
     }
 
     public void checkForNewAutonomousTabData()
