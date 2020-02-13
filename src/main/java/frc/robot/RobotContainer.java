@@ -22,6 +22,8 @@ import frc.robot.subsystems.LowPressureSubsystem;
 import frc.robot.subsystems.LowScoringSubsystem;
 import frc.robot.subsystems.Gyroscope;
 
+import frc.robot.commands.ColorCount;
+
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -43,6 +45,7 @@ public class RobotContainer {
   private final XboxController driverController = new XboxController(DriveConstants.driverController);
   private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
 
+  private final ColorCount colorCount = new ColorCount(colorSensor, controlPanelSubsystem);
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -73,7 +76,7 @@ public class RobotContainer {
         .whenReleased(() -> driveSubsystem.turboOff());
 
     new JoystickButton(driverController, Button.kX.value).whenPressed(() -> {
-      int stream = limelight.getStream();
+      final int stream = limelight.getStream();
       switch(stream) {
         case Constants.StreamMode.PIP_SECONDARY:
           limelight.setStream(Constants.StreamMode.PIP_MAIN);
@@ -85,7 +88,7 @@ public class RobotContainer {
     });
 
     new JoystickButton(driverController, Button.kB.value).whenPressed(() -> {
-      int mode = limelight.getMode();
+      final int mode = limelight.getMode();
       if (mode == Constants.CameraMode.DRIVER) {
         limelight.setMode(Constants.CameraMode.VISION);
       } else {

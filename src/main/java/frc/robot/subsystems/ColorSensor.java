@@ -39,30 +39,24 @@ public class ColorSensor extends SubsystemBase {
     private String colorString;
     private SendableChooser<Color> colorChooser = new SendableChooser<>();
     private ShuffleboardTab dashboardTab = Shuffleboard.getTab("SmartDashboard");
-    NetworkTableEntry forceFms = Shuffleboard.getTab("SmartDashboard").add("Force FMS", false).withWidget(BuiltInWidgets.kBooleanBox).getEntry();
- 
-    private Color getColorMatch(){ // actually get real color from fms
-      String gameData;
-      gameData = DriverStation.getInstance().getGameSpecificMessage();
+    private Color detectedColor = ColorMatch.makeColor(0.0, 0.0, 0.0);
+
+    private Color getColorMatch(){
+      String gameData = DriverStation.getInstance().getGameSpecificMessage();
       if(gameData.length() > 0)
       {
         switch (gameData.charAt(0))
         {
-          case 'B' :
-            return BlueTarget;
-          case 'G' :
-            return GreenTarget;
-          case 'R' :
-            return RedTarget;
-          case 'Y' :
-            return YellowTarget;
+          case 'B' : return BlueTarget;
+          case 'G' : return GreenTarget;
+          case 'R' : return RedTarget;
+          case 'Y' : return YellowTarget;
           default :
-            DriverStation.reportWarning("Corrupt Color Data Recieved from FMS", false); //This is corrupt data
+            DriverStation.reportWarning("Corrupt Color Data Recieved from FMS", false);
             break;
         }
       } else {
         DriverStation.reportWarning("No Color Data Receieved from FMS", false);
-        //Code for no data received yet
       }
       return NullTarget;
     }
@@ -80,7 +74,7 @@ public class ColorSensor extends SubsystemBase {
       dashboardTab.add(colorChooser)
         .withWidget(BuiltInWidgets.kComboBoxChooser)
         .withSize(1,1);
-  }
+    }
 
     public ColorSensor() {
         m_colorMatcher.addColorMatch(BlueTarget);
@@ -92,12 +86,10 @@ public class ColorSensor extends SubsystemBase {
 
     @Override
     public void periodic() {
-        Color detectedColor = m_colorSensor.getColor();
+        detectedColor = m_colorSensor.getColor();
         Color givenColor;
-        if(DriverStation.getInstance().isFMSAttached() || forceFms.getBoolean(false)){
-          givenColor = getColorMatch(); // this really shouldn't be called periodically 
-                                        // should be after stage 3 command but its just for testing
-                                        // bc if it is, it would just flood driverstation until we do stage 3
+        if(DriverStation.getInstance().isFMSAttached()){
+          givenColor = getColorMatch();
         } else {
           givenColor = colorChooser.getSelected();
         }
@@ -114,27 +106,17 @@ public class ColorSensor extends SubsystemBase {
         } else {
           colorString = "UNKOWN";
         }
-
-        // for testing chooser is working
-        String givenString;
-        if (givenColor == BlueTarget) {
-          givenString = "BLUE";
-        } else if (givenColor == RedTarget) {
-          givenString = "RED";
-        } else if (givenColor == GreenTarget) {
-          givenString = "GREEN";
-        } else if (givenColor == YellowTarget) {
-          givenString = "YELLOW";
-        } else {
-          givenString = "UNKOWN";
-        }
-
+        
         SmartDashboard.putNumber("Confidence", match.confidence);
         SmartDashboard.putString("Detected Color", colorString);
-        SmartDashboard.putString("Given Color", givenString);
     }
 
-    public String getColor() {
-        return colorString;
+    public Color getSensorColor() {
+      return detectedColor;
+    }
+
+    public boolean isSameColor(Color c1, Color c2) {
+      ColorMatchResult match = m_colorMatcher.matchClosestColor(c1);
+      if(match.color == c2) return true; else return false;
     }
 }
