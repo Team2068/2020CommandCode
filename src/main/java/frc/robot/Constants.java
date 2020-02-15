@@ -32,47 +32,47 @@ public final class Constants {
         public static final int mechanismController = 1;
         public static final int leftDriveJoystick = 2;
         public static final int rightDriveJoystick = 3;
-        
+
     }
 
     public final static class ControllerConstants {
         public static final int RIGHT_TRIGGER = 7;
         public static final int LEFT_TRIGGER = 8;
     }
-    
-    public final static class LiftConstants{
+
+    public final static class LiftConstants {
 
         public static final int LIFT_MOTOR = 7;
-        
+
         public static final int WINCH_MOTOR = 8;
 
     }
 
     public final static class LowScoringConstants {
-        
-        public static final int CONVEYOR_MOTOR = 6; //for transporting balls
-        public static final int ROLLER_MOTOR = 5; //the spinning thingy to pick up POWERCELLS or reject them
-        public static final double CONVEYOR_SPEED = .5; 
+
+        public static final int CONVEYOR_MOTOR = 6; // for transporting balls
+        public static final int ROLLER_MOTOR = 5; // the spinning thingy to pick up POWERCELLS or reject them
+        public static final double CONVEYOR_SPEED = .5;
         public static final double ROLLER_SPEED = .6;
-		public static final int FORWARD_CHANNEL = 1;
-		public static final int REVERSE_CHANNEL = 0;
+        public static final int FORWARD_CHANNEL = 1;
+        public static final int REVERSE_CHANNEL = 0;
 
     }
 
     public final static class ControlPanelConstants {
-		public static final int FORWARD_CHANNEL = 3;
-		public static final int REVERSE_CHANNEL = 2;
+        public static final int FORWARD_CHANNEL = 3;
+        public static final int REVERSE_CHANNEL = 2;
 
     }
 
-    public final static class LowPressureConstants{
-		public static final int PRESSURE_SENSOR_CHANNEL = 0;
+    public final static class LowPressureConstants {
+        public static final int PRESSURE_SENSOR_CHANNEL = 0;
     }
 
     public static class CameraMode {
         public static final int VISION = 0, DRIVER = 1;
     }
-    
+
     public static class StreamMode {
         public static final int STANDARD = 0, PIP_MAIN = 1, PIP_SECONDARY = 2;
     }

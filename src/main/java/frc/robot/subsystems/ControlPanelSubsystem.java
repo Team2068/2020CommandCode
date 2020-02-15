@@ -18,8 +18,9 @@ import frc.robot.Constants;
 import frc.robot.Constants.ControlPanelConstants;
 
 public class ControlPanelSubsystem extends SubsystemBase {
- 
-  public DoubleSolenoid controlPanelSolenoid = new DoubleSolenoid(ControlPanelConstants.FORWARD_CHANNEL, ControlPanelConstants.REVERSE_CHANNEL);
+
+  public DoubleSolenoid controlPanelSolenoid = new DoubleSolenoid(ControlPanelConstants.FORWARD_CHANNEL,
+      ControlPanelConstants.REVERSE_CHANNEL);
   public CANSparkMax controlPanelMotor = new CANSparkMax(9, MotorType.kBrushless);
   public CANEncoder controlPanelMotorEncoder = new CANEncoder(controlPanelMotor);
   public boolean pistonsForward = false;
@@ -32,19 +33,18 @@ public class ControlPanelSubsystem extends SubsystemBase {
 
   public void engageControlPanel() {
     pistonsForward = !pistonsForward;
-    if(pistonsForward){
+    if (pistonsForward) {
       controlPanelSolenoid.set(Value.kForward);
-    }
-    else {
+    } else {
       controlPanelSolenoid.set(Value.kReverse);
     }
   }
 
-  public void wheelUp(){
+  public void wheelUp() {
     controlPanelSolenoid.set(Value.kForward);
   }
 
-  public void wheelDown(){
+  public void wheelDown() {
     controlPanelSolenoid.set(Value.kReverse);
   }
 

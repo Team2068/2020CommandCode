@@ -46,6 +46,7 @@ public class RobotContainer {
   private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
 
   private final ColorCount colorCount = new ColorCount(colorSensor, controlPanelSubsystem, true);
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -77,13 +78,13 @@ public class RobotContainer {
 
     new JoystickButton(driverController, Button.kX.value).whenPressed(() -> {
       final int stream = limelight.getStream();
-      switch(stream) {
-        case Constants.StreamMode.PIP_SECONDARY:
-          limelight.setStream(Constants.StreamMode.PIP_MAIN);
-          break;
-        case Constants.StreamMode.PIP_MAIN:
-            limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
-            break;
+      switch (stream) {
+      case Constants.StreamMode.PIP_SECONDARY:
+        limelight.setStream(Constants.StreamMode.PIP_MAIN);
+        break;
+      case Constants.StreamMode.PIP_MAIN:
+        limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
+        break;
       }
     });
 
