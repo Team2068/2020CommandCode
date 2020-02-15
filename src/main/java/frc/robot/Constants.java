@@ -39,13 +39,13 @@ public final class Constants {
         public static final int RIGHT_TRIGGER = 7;
         public static final int LEFT_TRIGGER = 8;
     }
-
-    public final static class LiftConstants {
+  
+    public final static class HangConstants {
 
         public static final int LIFT_MOTOR = 7;
-
         public static final int WINCH_MOTOR = 8;
-
+        public static final int LIFT_ENCODER_VALUE = 0;
+        public static final double LIFT_SPEED = .42;
     }
 
     public final static class LowScoringConstants {

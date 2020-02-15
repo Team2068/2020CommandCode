@@ -30,6 +30,10 @@ public class DriveSubsystem extends SubsystemBase {
 
   private boolean isForward = true;
   private boolean isTurbo = false;
+  private boolean isSlow = false;
+  private boolean steppingSpeedUp = false;
+  private boolean steppingSpeedDown = false;
+  private double steppingSpeed = .1;
 
   /**
    * Creates a new DriveSubsystem.
@@ -56,6 +60,21 @@ public class DriveSubsystem extends SubsystemBase {
     isTurbo = false;
   }
 
+  public void slowOn() {
+    isSlow = true;
+  }
+  
+  public void slowOff() {
+    isSlow = false;
+  }
+
+  public void steppingSpeedUp(){
+    steppingSpeedUp = true;
+  }
+  public void steppingSpeedDown() {
+    steppingSpeedDown = true;
+  }
+
   private double adjustSpeed(double speed) {
     if (isTurbo) {
       if (speed >= 0) {
@@ -64,12 +83,46 @@ public class DriveSubsystem extends SubsystemBase {
         speed = -1;
       }
     }
+    else if (isSlow) {
+      if (speed >= 0) {
+        speed = .25;
+      }
+      else {
+        speed = -.25;
+      }
+    }
+    else {
+      if (speed >= .5) {
+        speed = .5;
+      }
+      else if (speed <= .5) {
+        speed = -.5;
+      }
+    }
+
+    return speed;
+  }
+
+  private double steppingSpeed(double speed) {
+    if (steppingSpeedUp) {
+      if (speed >= 0 && speed < 1) {
+        speed = speed + steppingSpeed;
+      }
+      else if (speed <= 0 && speed > 1) {
+        speed = speed - steppingSpeed;
+      }
+    }
+    else if (steppingSpeedDown) {
+      if (speed > .2 && speed <= 1){
+        
+      }
+    }
 
     return speed;
   }
 
   public void tankDrive(double leftSpeed, double rightSpeed) {
-    leftSpeed = adjustSpeed(leftSpeed);
+    leftSpeed = adjustSpeed(leftSpeed) + steppingSpeed;
     rightSpeed = adjustSpeed(rightSpeed);
 
     if (isForward) {
