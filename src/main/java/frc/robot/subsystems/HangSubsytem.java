@@ -60,6 +60,7 @@ public class HangSubsytem extends SubsystemBase {
       winchMotor.set(1);
     } else {
       liftMotor.stopMotor();
+      winchMotor.stopMotor();
     }
   }
 
