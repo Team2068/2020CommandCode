@@ -116,6 +116,9 @@ public class ColorSensor extends SubsystemBase {
 
     public boolean isSameColor(Color c1, Color c2) {
       ColorMatchResult match = m_colorMatcher.matchClosestColor(c1);
-      if(match.color == c2) return true; else return false;
+      if(match.color == c2) {
+        return true; 
+      } 
+      return false;
     }
 }

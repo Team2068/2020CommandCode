@@ -18,14 +18,17 @@ public class ColorCount extends CommandBase {
   private static int rotationCount = 0;
   private static Color previousColor = new Color(0, 0, 0);
 
-  private enum TargetColors {
-    Red, Green, Blue, Yellow;
-  }
+  private static Color targetColor = new Color(0, 0, 0);  //Pull actual targets from FMS and shuffleboard
+  private static int targetRotation = 4;                  // ^
+
+  //private enum TargetColors {     <= Why is this necessary?
+  //  Red, Green, Blue, Yellow;
+  //}
 
   public ColorCount(ColorSensor c, ControlPanelSubsystem p) {
     colorSensor = c;
     controlPanel = p;
-    // Use addRequirements() here to declare subsystem dependencies.
+
     addRequirements(colorSensor);
     addRequirements(controlPanel);
   }
@@ -45,28 +48,29 @@ public class ColorCount extends CommandBase {
   @Override
   public void execute() {
     boolean spin = true;
-    while(spin) {
-        spin = shouldContinueColor(colorSensor.getSensorColor());
+    while(spin) { //Switch this to delta time??
+        spin = shouldContinueColor(colorSensor.getSensorColor()); //Checks to continue spinning
         // Spin motor
     }
     // spinRPM(); spin using rpm not color
   }
 
   private boolean shouldContinueColor(Color detected) {
-    if(!colorSensor.isSameColor(detected, previousColor)) { // color is changed
-        changeCount += 1; // add 1 to change counter
-        if(changeCount >= 7) { // if 1 rotation done ( 7 changes ) add 1 to rotation
+    boolean sameColor = colorSensor.isSameColor(detected, previousColor);
+    
+    if(!sameColor) { // Color is changed
+        changeCount += 1; // Add 1 to change counter
+        if(changeCount >= 7) { // If 1 rotation done ( 7 changes ) add 1 to rotation
             changeCount = 0;
             rotationCount += 1;
-           return true;
         }
         previousColor = detected;
-    } else if (colorSensor.isSameColor(detected, previousColor) && rotationCount < 3) {
-      return true;
-    } else if (rotationCount > 3) {
-      return false;
     }
-    return false;
+
+    if(rotationCount >= targetRotation && detected == targetColor)  { //If reached target color and target rotation
+      return false; //Stop spinning
+    }
+    return true; //Continue Spinning
   }
 
   private void spinRPM() {
