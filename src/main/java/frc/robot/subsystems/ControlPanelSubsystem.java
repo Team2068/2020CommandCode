@@ -7,17 +7,26 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ControlPanelConstants;
 
 public class ControlPanelSubsystem extends SubsystemBase {
  
   public DoubleSolenoid controlPanelSolenoid = new DoubleSolenoid(ControlPanelConstants.FORWARD_CHANNEL, ControlPanelConstants.REVERSE_CHANNEL);
+  public CANSparkMax controlPanelMotor = new CANSparkMax(9, MotorType.kBrushless);
+  public CANEncoder controlPanelMotorEncoder = new CANEncoder(controlPanelMotor);
   public boolean pistonsForward = false;
 
   public ControlPanelSubsystem() {
+    controlPanelMotor.restoreFactoryDefaults();
+    controlPanelMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
     controlPanelSolenoid.set(Value.kOff);
   }
 
