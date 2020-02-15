@@ -43,7 +43,6 @@ public final class Constants {
     public final static class HangConstants{
 
         public static final int LIFT_MOTOR = 7;
-        public static final int LIFT_ENCODER = 7;
         public static final int WINCH_MOTOR = 8;
         public static final int LIFT_ENCODER_VALUE = 0;
     }
