@@ -46,15 +46,21 @@ public class HangSubsytem extends SubsystemBase {
     // going to have to encoder value this? Limit switch? Not sure what the plan is
     // will probably have to be a command
     if (liftEncoder.getPosition() < HangConstants.LIFT_ENCODER_VALUE) {
-      liftMotor.set(.42);
+      liftMotor.set(HangConstants.LIFT_SPEED);
     } else {
       liftMotor.set(0);
     }
   }
 
   public void winchAndLowerLift() {
-    liftMotor.set(-0.42);
-    winchMotor.set(1);
+    // liftMotor.set(-0.42);
+    // winchMotor.set(1);
+    if (Math.abs(liftEncoder.getPosition()) > 1) {
+      liftMotor.set(-HangConstants.LIFT_SPEED);
+      winchMotor.set(1);
+    } else {
+      liftMotor.stopMotor();
+    }
   }
 
   @Override
