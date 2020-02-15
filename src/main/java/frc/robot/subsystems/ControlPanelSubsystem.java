@@ -7,35 +7,51 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ControlPanelConstants;
 
 public class ControlPanelSubsystem extends SubsystemBase {
- 
-  public DoubleSolenoid controlPanelSolenoid = new DoubleSolenoid(ControlPanelConstants.FORWARD_CHANNEL, ControlPanelConstants.REVERSE_CHANNEL);
-  public boolean pistonsForward = false;
+
+  private DoubleSolenoid controlPanelSolenoid = new DoubleSolenoid(ControlPanelConstants.FORWARD_CHANNEL,
+      ControlPanelConstants.REVERSE_CHANNEL);
+  private CANSparkMax controlPanelMotor = new CANSparkMax(ControlPanelConstants.CONTROL_PANEL_MOTOR,
+      MotorType.kBrushless);
+  private boolean pistonsForward = false;
 
   public ControlPanelSubsystem() {
     controlPanelSolenoid.set(Value.kOff);
+
+    controlPanelMotor.restoreFactoryDefaults();
+    controlPanelMotor.setSmartCurrentLimit(ControlPanelConstants.CONTROL_PANEL_LIMIT);
+  }
+
+  public void setMotorSpeed(double speed) {
+    controlPanelMotor.set(speed);
+  }
+
+  public void stopMotor() {
+    controlPanelMotor.stopMotor();
   }
 
   public void engageControlPanel() {
     pistonsForward = !pistonsForward;
-    if(pistonsForward){
+    if (pistonsForward) {
       controlPanelSolenoid.set(Value.kForward);
-    }
-    else {
+    } else {
       controlPanelSolenoid.set(Value.kReverse);
     }
   }
 
-  public void wheelUp(){
+  public void wheelUp() {
     controlPanelSolenoid.set(Value.kForward);
   }
 
-  public void wheelDown(){
+  public void wheelDown() {
     controlPanelSolenoid.set(Value.kReverse);
   }
 
