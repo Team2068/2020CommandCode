@@ -88,48 +88,35 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   private double adjustSpeed(double speed) {
-    if (isTurbo) {
-      if (speed >= 0) {
-        speed = 1;
-      } else {
-        speed = -1;
-      }
-    } else if (isSlow) {
-      if (speed >= 0) {
-        speed = .25;
-      } else {
-        speed = -.25;
-      }
-    } else {
-      if (speed >= .5) {
-        speed = .5;
-      } else if (speed <= .5) {
-        speed = -.5;
-      }
-    }
-
-    return speed;
-  }
-
-  private double steppingSpeed(double speed) {
-    if (steppingSpeedUp) {
-      if (speed >= 0 && speed < 1) {
-        speed = speed + steppingSpeed;
-      } else if (speed <= 0 && speed > 1) {
-        speed = speed - steppingSpeed;
-      }
-    } else if (steppingSpeedDown) {
-      if (speed > .2 && speed <= 1) {
-
-      }
-    }
+    // if (isTurbo) {
+    // if (speed >= 0) {
+    // speed = 1;
+    // } else {
+    // speed = -1;
+    // }
+    // } else if (isSlow) {
+    // if (speed >= 0) {
+    // speed = .25;
+    // } else {
+    // speed = -.25;
+    // }
+    // } else {
+    // if (speed >= .5) {
+    // speed = .5;
+    // } else if (speed <= .5) {
+    // speed = -.5;
+    // }
+    // }
 
     return speed;
   }
 
   public void tankDrive(double leftSpeed, double rightSpeed) {
-    leftSpeed = adjustSpeed(leftSpeed) + steppingSpeed;
+    leftSpeed = adjustSpeed(leftSpeed);
     rightSpeed = adjustSpeed(rightSpeed);
+
+    SmartDashboard.putNumber("Left Speed", leftSpeed);
+    SmartDashboard.putNumber("Right Speed", rightSpeed);
 
     if (isForward) {
 

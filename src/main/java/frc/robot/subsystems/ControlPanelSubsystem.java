@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -21,6 +22,8 @@ public class ControlPanelSubsystem extends SubsystemBase {
       ControlPanelConstants.REVERSE_CHANNEL);
   private CANSparkMax controlPanelMotor = new CANSparkMax(ControlPanelConstants.CONTROL_PANEL_MOTOR,
       MotorType.kBrushless);
+
+  private CANEncoder controlPanelEncoder;
   private boolean pistonsForward = false;
 
   public ControlPanelSubsystem() {
@@ -28,6 +31,8 @@ public class ControlPanelSubsystem extends SubsystemBase {
 
     controlPanelMotor.restoreFactoryDefaults();
     controlPanelMotor.setSmartCurrentLimit(ControlPanelConstants.CONTROL_PANEL_LIMIT);
+
+    controlPanelEncoder = controlPanelMotor.getEncoder();
   }
 
   public void setMotorSpeed(double speed) {
