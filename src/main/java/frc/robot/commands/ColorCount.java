@@ -15,14 +15,17 @@ public class ColorCount extends CommandBase {
 
   private static int changeCount = 0;
   private static int rotationCount = 0;
-  private static Color previousColor = new Color(0, 0, 0);
   private boolean useColor = true;
+  private static Color targetColor;  //Pull actual targets from FMS and shuffleboard
+  private static Color previousColor;
+  private static int targetRotation = 4; 
 
-  public ColorCount(ColorSensor c, ControlPanelSubsystem p, boolean u) {
+  public ColorCount(ColorSensor c, ControlPanelSubsystem p, boolean b) {
     colorSensor = c;
     controlPanel = p;
-    this.useColor = u;
-    // Use addRequirements() here to declare subsystem dependencies.
+    useColor = b;
+
+    targetColor = colorSensor.getFieldColor();
     addRequirements(colorSensor);
     addRequirements(controlPanel);
   }
@@ -51,24 +54,24 @@ public class ColorCount extends CommandBase {
     } else {
       spinRPM();
     }
-    setColor(colorSensor.getSensorColor(), colorSensor.getFieldColor());
+    setColor(colorSensor.getSensorColor(), targetColor);
   }
 
   private boolean shouldContinueColor(Color detected) {
-    if(!colorSensor.isSameColor(detected, previousColor)) { 
-        changeCount += 1;
-        if(changeCount >= 7) {
+    boolean sameColor = colorSensor.isSameColor(detected, previousColor);
+    if(!sameColor) { // Color is changed
+        changeCount += 1; // Add 1 to change counter
+        if(changeCount >= 7) { // If 1 rotation done ( 7 changes ) add 1 to rotation
             changeCount = 0;
             rotationCount += 1;
-           return true;
         }
         previousColor = detected;
-    } else if (colorSensor.isSameColor(detected, previousColor) && rotationCount < 3) {
-      return true;
-    } else if (rotationCount > 3) {
-      return false;
     }
-    return false;
+
+    if(rotationCount >= targetRotation && detected == targetColor)  { //If reached target color and target rotation
+      return false; //Stop spinning
+    }
+    return true; //Continue Spinning
   }
 
   private void spinRPM() {
