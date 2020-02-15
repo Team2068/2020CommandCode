@@ -45,7 +45,7 @@ public class RobotContainer {
   private final XboxController driverController = new XboxController(DriveConstants.driverController);
   private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
 
-  private final ColorCount colorCount = new ColorCount(colorSensor, controlPanelSubsystem);
+  private final ColorCount colorCount = new ColorCount(colorSensor, controlPanelSubsystem, true);
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */

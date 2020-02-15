@@ -3,7 +3,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
-
 import edu.wpi.first.wpilibj.util.Color;
 
 /**
@@ -17,14 +16,12 @@ public class ColorCount extends CommandBase {
   private static int changeCount = 0;
   private static int rotationCount = 0;
   private static Color previousColor = new Color(0, 0, 0);
+  private boolean useColor = true;
 
-  private enum TargetColors {
-    Red, Green, Blue, Yellow;
-  }
-
-  public ColorCount(ColorSensor c, ControlPanelSubsystem p) {
+  public ColorCount(ColorSensor c, ControlPanelSubsystem p, boolean u) {
     colorSensor = c;
     controlPanel = p;
+    this.useColor = u;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(colorSensor);
     addRequirements(controlPanel);
@@ -44,18 +41,23 @@ public class ColorCount extends CommandBase {
 
   @Override
   public void execute() {
-    boolean spin = true;
-    while(spin) {
-        spin = shouldContinueColor(colorSensor.getSensorColor());
-        // Spin motor
+    if (useColor) {
+      boolean spin = true;
+      controlPanel.controlPanelMotor.set(10);
+      while(spin) {
+          spin = shouldContinueColor(colorSensor.getSensorColor());
+      }
+      controlPanel.controlPanelMotor.stopMotor();
+    } else {
+      spinRPM();
     }
-    // spinRPM(); spin using rpm not color
+    setColor(colorSensor.getSensorColor(), colorSensor.getFieldColor());
   }
 
   private boolean shouldContinueColor(Color detected) {
-    if(!colorSensor.isSameColor(detected, previousColor)) { // color is changed
-        changeCount += 1; // add 1 to change counter
-        if(changeCount >= 7) { // if 1 rotation done ( 7 changes ) add 1 to rotation
+    if(!colorSensor.isSameColor(detected, previousColor)) { 
+        changeCount += 1;
+        if(changeCount >= 7) {
             changeCount = 0;
             rotationCount += 1;
            return true;
@@ -70,9 +72,20 @@ public class ColorCount extends CommandBase {
   }
 
   private void spinRPM() {
-    int cpr = controlPanel.controlPanelMotorEncoder.getCountsPerRevolution();
-    while (cpr < 32) {
-      controlPanel.controlPanelMotor.set(10);
+    double rotations = controlPanel.controlPanelMotorEncoder.getPosition();
+    controlPanel.controlPanelMotor.set(10);
+    while (rotations < 32.0f) {
+      // (p)ass
+    }
+    controlPanel.controlPanelMotor.stopMotor();
+  }
+
+  private void setColor(Color detected, Color given) {
+    Color actual = ColorSensor.colors.get(colorSensor.getColorIndex(detected) - 2); 
+    // color we want is 2 ahead, so we need to go before
+    controlPanel.controlPanelMotor.set(10);
+    while (!colorSensor.isSameColor(detected, actual)) {
+      // (p)ass
     }
     controlPanel.controlPanelMotor.stopMotor();
   }

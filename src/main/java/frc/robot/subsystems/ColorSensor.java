@@ -20,6 +20,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
+
+import java.util.ArrayList;
+
 import com.revrobotics.ColorMatch;
 
 public class ColorSensor extends SubsystemBase {
@@ -34,6 +37,9 @@ public class ColorSensor extends SubsystemBase {
     private final Color GreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
     private final Color RedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
     private final Color YellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+    private Color givenColor;
+    
+    public static ArrayList<Color> colors;
 
     private String colorString;
     private SendableChooser<Color> colorChooser = new SendableChooser<>();
@@ -80,13 +86,16 @@ public class ColorSensor extends SubsystemBase {
         m_colorMatcher.addColorMatch(GreenTarget);
         m_colorMatcher.addColorMatch(RedTarget);
         m_colorMatcher.addColorMatch(YellowTarget);
+        colors.add(0, RedTarget);
+        colors.add(1, GreenTarget);
+        colors.add(2, BlueTarget);
+        colors.add(3, YellowTarget);
         createColorChooser();
     }
 
     @Override
     public void periodic() {
         detectedColor = m_colorSensor.getColor();
-        Color givenColor;
         if(DriverStation.getInstance().isFMSAttached()){
           givenColor = getColorMatch();
         } else {
@@ -114,8 +123,19 @@ public class ColorSensor extends SubsystemBase {
       return detectedColor;
     }
 
+    public Color getFieldColor() {
+      return givenColor;
+    }
+
     public boolean isSameColor(Color c1, Color c2) {
       ColorMatchResult match = m_colorMatcher.matchClosestColor(c1);
       if(match.color == c2) return true; else return false;
+    }
+
+    public int getColorIndex(Color c){
+      for(int i=0; i<colors.size();i++){
+        if(isSameColor(c, colors.get(i))) return i;
+      }
+      return 0;
     }
 }
