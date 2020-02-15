@@ -1,47 +1,48 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
-import edu.wpi.first.wpilibj.util.Color;
 
-/**
- * An example command that uses an example subsystem.
- */
-public class ColorCount extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final ColorSensor colorSensor;
-  private final ControlPanelSubsystem controlPanel;
+public class ColorStageTwo extends CommandBase {
+  /**
+   * Creates a new ColorStageTwo.
+   */
 
-  private static int changeCount = 0;
-  private static int rotationCount = 0;
+  ColorSensor colorSensor;
+  ControlPanelSubsystem controlPanel;
+
   private boolean useColor = true;
-  private static Color targetColor; // Pull actual targets from FMS and shuffleboard
-  private static Color previousColor;
-  private static int targetRotation = 4;
+  private int rotationCount;
+  private int changeCount;
+  private int targetRotation = 4;
+  private Color previousColor;
+  private Color targetColor;
 
-  public ColorCount(ColorSensor c, ControlPanelSubsystem p, boolean b) {
+  public ColorStageTwo(ColorSensor c, ControlPanelSubsystem p, boolean b) {
     colorSensor = c;
     controlPanel = p;
     useColor = b;
 
-    targetColor = colorSensor.getFieldColor();
     addRequirements(colorSensor);
     addRequirements(controlPanel);
   }
 
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // TODO Auto-generated method stub
-    super.initialize();
+    targetColor = colorSensor.getFieldColor();
   }
 
-  @Override
-  public boolean isFinished() {
-    // TODO Auto-generated method stub
-    return super.isFinished();
-  }
-
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if (useColor) {
@@ -54,7 +55,17 @@ public class ColorCount extends CommandBase {
     } else {
       spinRPM();
     }
-    setColor(colorSensor.getSensorColor(), targetColor);
+  }
+
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {
+  }
+
+  // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    return false;
   }
 
   private boolean shouldContinueColor(Color detected) {
@@ -78,17 +89,6 @@ public class ColorCount extends CommandBase {
     double rotations = controlPanel.controlPanelMotorEncoder.getPosition();
     controlPanel.controlPanelMotor.set(10);
     while (rotations < 32.0f) {
-      // (p)ass
-    }
-    controlPanel.controlPanelMotor.stopMotor();
-  }
-
-  private void setColor(Color detected, Color given) {
-    Color actual = ColorSensor.colors.get(colorSensor.getColorIndex(detected) - 2);
-    // color we want is 2 ahead, so we need to go before
-    controlPanel.controlPanelMotor.set(10);
-    while (!colorSensor.isSameColor(detected, actual)) {
-      // (p)ass
     }
     controlPanel.controlPanelMotor.stopMotor();
   }

@@ -10,10 +10,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.ColorStageThree;
+import frc.robot.commands.ColorStageTwo;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -21,8 +24,6 @@ import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.LowPressureSubsystem;
 import frc.robot.subsystems.LowScoringSubsystem;
 import frc.robot.subsystems.Gyroscope;
-
-import frc.robot.commands.ColorCount;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -45,14 +46,13 @@ public class RobotContainer {
   private final XboxController driverController = new XboxController(DriveConstants.driverController);
   private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
 
-  private final ColorCount colorCount = new ColorCount(colorSensor, controlPanelSubsystem, true);
-
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    setupSmartDashboardCommands();
 
     driveSubsystem
         .setDefaultCommand(new RunCommand(() -> driveSubsystem.tankDrive(driverController.getY(GenericHID.Hand.kLeft),
@@ -108,6 +108,11 @@ public class RobotContainer {
 
     new JoystickButton(mechanismController, Button.kB.value)
         .whenPressed(() -> controlPanelSubsystem.engageControlPanel());
+  }
+
+  private void setupSmartDashboardCommands() {
+    SmartDashboard.putData("Level 2", new ColorStageTwo(colorSensor, controlPanelSubsystem, true));
+    SmartDashboard.putData("Level 3", new ColorStageThree(colorSensor, controlPanelSubsystem));
   }
 
   /**
