@@ -17,6 +17,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.HangSubsytem;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.LowPressureSubsystem;
 import frc.robot.subsystems.LowScoringSubsystem;
@@ -34,6 +35,7 @@ public class RobotContainer {
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final LowScoringSubsystem lowScoringSubsystem = new LowScoringSubsystem();
   private final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
+  private final HangSubsytem hangSubsytem = new HangSubsytem();
 
   private final ColorSensor colorSensor = new ColorSensor();
   private final Limelight limelight = new Limelight(Constants.CameraMode.VISION, Constants.StreamMode.PIP_MAIN);
@@ -70,31 +72,14 @@ public class RobotContainer {
     new JoystickButton(driverController, Button.kY.value).whenPressed(() -> driveSubsystem.invertTankDrive());
 
     new JoystickButton(driverController, ControllerConstants.RIGHT_TRIGGER).whenPressed(() -> driveSubsystem.turboOn())
-        .whenReleased(() -> driveSubsystem.turboOff()); //sprint
+        .whenReleased(() -> driveSubsystem.turboOff()); // sprint
 
     new JoystickButton(driverController, ControllerConstants.LEFT_TRIGGER).whenPressed(() -> driveSubsystem.slowOn())
-        .whenReleased(() -> driveSubsystem.slowOff()); //25% speed
+        .whenReleased(() -> driveSubsystem.slowOff()); // 25% speed
 
-    new JoystickButton(driverController, Button.kX.value).whenPressed(() -> {
-      int stream = limelight.getStream();
-      switch (stream) {
-      case Constants.StreamMode.PIP_SECONDARY:
-        limelight.setStream(Constants.StreamMode.PIP_MAIN);
-        break;
-      case Constants.StreamMode.PIP_MAIN:
-        limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
-        break;
-      }
-    });
+    new JoystickButton(driverController, Button.kX.value).whenPressed(() -> hangSubsytem.liftToHeight());
 
-    new JoystickButton(driverController, Button.kB.value).whenPressed(() -> {
-      int mode = limelight.getMode();
-      if (mode == Constants.CameraMode.DRIVER) {
-        limelight.setMode(Constants.CameraMode.VISION);
-      } else {
-        limelight.setMode(Constants.CameraMode.DRIVER);
-      }
-    });
+    new JoystickButton(driverController, Button.kB.value).whenPressed(() -> hangSubsytem.winchAndLowerLift());
 
     // everything on the mechanismController
     new JoystickButton(mechanismController, Button.kY.value).whenPressed(() -> lowScoringSubsystem.rollerOnOff());
@@ -107,6 +92,27 @@ public class RobotContainer {
 
     new JoystickButton(mechanismController, Button.kB.value)
         .whenPressed(() -> controlPanelSubsystem.engageControlPanel());
+
+    new JoystickButton(mechanismController, Button.kX.value).whenPressed(() -> {
+      int stream = limelight.getStream();
+      switch (stream) {
+      case Constants.StreamMode.PIP_SECONDARY:
+        limelight.setStream(Constants.StreamMode.PIP_MAIN);
+        break;
+      case Constants.StreamMode.PIP_MAIN:
+        limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
+        break;
+      }
+    });
+
+    new JoystickButton(mechanismController, Button.kA.value).whenPressed(() -> {
+      int mode = limelight.getMode();
+      if (mode == Constants.CameraMode.DRIVER) {
+        limelight.setMode(Constants.CameraMode.VISION);
+      } else {
+        limelight.setMode(Constants.CameraMode.DRIVER);
+      }
+    });
   }
 
   /**

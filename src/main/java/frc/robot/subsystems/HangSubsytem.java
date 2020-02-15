@@ -7,28 +7,54 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.LiftConstants;
+import frc.robot.Constants.HangConstants;
 
 public class HangSubsytem extends SubsystemBase {
 
-  private CANSparkMax liftMotor = new CANSparkMax(LiftConstants.LIFT_MOTOR, MotorType.kBrushless);
-
-  private CANSparkMax winchMotor = new CANSparkMax(LiftConstants.WINCH_MOTOR, MotorType.kBrushless);
+  private CANSparkMax liftMotor = new CANSparkMax(HangConstants.LIFT_MOTOR, MotorType.kBrushless);
+  private CANSparkMax winchMotor = new CANSparkMax(HangConstants.WINCH_MOTOR, MotorType.kBrushless);
+  private CANEncoder liftEncoder;
 
   /**
    * Creates a new LiftSubsystem.
    */
   public HangSubsytem() {
+    setName("Hang Subsystem");
     liftMotor.restoreFactoryDefaults();
     winchMotor.restoreFactoryDefaults();
 
     liftMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
     winchMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
+
+    liftEncoder = liftMotor.getEncoder();
+    liftEncoder.setPosition(0);
+  }
+
+  public void liftLift(double speed) {
+    liftMotor.set(speed);
+    SmartDashboard.putNumber("Lift Encoder Position", liftEncoder.getPosition());
+  }
+
+  public void liftToHeight() {
+    // going to have to encoder value this? Limit switch? Not sure what the plan is
+    // will probably have to be a command
+    if (liftEncoder.getPosition() < HangConstants.LIFT_ENCODER_VALUE) {
+      liftMotor.set(.42);
+    } else {
+      liftMotor.set(0);
+    }
+  }
+
+  public void winchAndLowerLift() {
+    liftMotor.set(-0.42);
+    winchMotor.set(1);
   }
 
   @Override
