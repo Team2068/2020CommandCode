@@ -135,7 +135,7 @@ public class RobotContainer {
   private void setUpSmartDashboardCommands() {
     SmartDashboard.putData("Spin Control Panel", new SpinControlPanel(controlPanelSubsystem));
     SmartDashboard.putData("Stop Control Panel", new StopControlPanel(controlPanelSubsystem));
-    SmartDashboard.putData("Reset Lift Encoder", new ResetLiftEncoder(hangSubsytem));
+    SmartDashboard.putData("Reset Lift Encoder", new ResetLiftEncoder(hangSubsystem));
     SmartDashboard.putData("Stage 2 Color", new ScoreStageTwoColorSwitch(colorSensor, controlPanelSubsystem));
     SmartDashboard.putData("Stage 2 Rotations", new ScoreStageTwoRotations(controlPanelSubsystem));
     SmartDashboard.putData("Stage 3", new ScoreStageThree(colorSensor, controlPanelSubsystem));
