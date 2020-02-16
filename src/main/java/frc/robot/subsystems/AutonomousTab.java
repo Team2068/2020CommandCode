@@ -1,11 +1,7 @@
 package frc.robot.subsystems;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
-//import edu.wpi.first.wpilibj.Relay.Direction;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -66,6 +62,12 @@ public class AutonomousTab {
     public enum TargetColor {
         kNull, kBlue, kGreen, kYellow, kRed;
     }
+
+    
+    public enum TargetRotation {
+        k3, k4, k5;
+    }
+
     // Create a class to hold the data on the Shuffleboard tab
     protected static class Data {
         public StartingLocation startingLocation = StartingLocation.kNone;
@@ -84,6 +86,7 @@ public class AutonomousTab {
         public ShootNewPowerCells shootNewPowerCells = ShootNewPowerCells.kYes;
 
         public TargetColor targetColor = TargetColor.kBlue;
+        public TargetColor targetRotation = TargetRotation.k3;
     }
 
     // Create a Shuffleboard Tab
@@ -135,9 +138,8 @@ public class AutonomousTab {
         createShootNewPowerCellBox();
 
         createTargetColorBox();
-        
-        // sendDataButton = createSendDataButton();
-        // sendDataButton.setBoolean(false);
+        createTargetRotationBox();
+
         createSendDataButton();
 
         goodToGo = createRedLightGreenLightBox();
@@ -148,10 +150,7 @@ public class AutonomousTab {
         return instance;
     }
 
-    
-
-    private void updateAutonomousTabData()
-    {
+    private void updateData() {
         autonomousData.startingLocation = startingLocationBox.getSelected();
 
         autonomousData.orderOfOperations = orderOfOperationsBox.getSelected();
@@ -171,36 +170,28 @@ public class AutonomousTab {
         autonomousData.targetColor = targetColorBox.getSelected();
     }
 
-    public void checkForNewAutonomousTabData()
-    {
+    public void checkForNewData() {
         final boolean isSendDataButtonPressed = sendDataButton.getSelected();
 
-        if(isSendDataButtonPressed && !previousStateOfSendButton)
-        {
+        if(isSendDataButtonPressed && !previousStateOfSendButton) {
             previousStateOfSendButton = true;
 
-            // Get values from the Boxes
-            updateAutonomousTabData();
-
-            System.out.println(autonomousData);
+            updateData();
             
-            if(isDataValid())
-            {
+            if(isDataValid()) {
                 goodToGo.setBoolean(true);   
             }
-            else
-            {
+            else {
                 goodToGo.setBoolean(false);
             }
         }
         
-        if (!isSendDataButtonPressed && previousStateOfSendButton)
-        {
+        if (!isSendDataButtonPressed && previousStateOfSendButton) {
             previousStateOfSendButton = false;
         }
     }
-    private void createStartingLocationBox()
-    {
+
+    private void createStartingLocationBox() {
         //create and name the Box
         SendableRegistry.add(startingLocationBox, "Starting Location");
         SendableRegistry.setName(startingLocationBox, "Starting Location");
@@ -218,12 +209,6 @@ public class AutonomousTab {
             .withSize(8, 2);
     }
 
-
-
-    /**
-    * <b>Order of Operations</b> Box
-    * <p>Create an entry in the Network Table and add the Box to the Shuffleboard Tab
-    */
     private void createOrderOfOperationsBox()
     {
         //create and name the Box
@@ -241,12 +226,6 @@ public class AutonomousTab {
             .withSize(8, 2);
     }
 
-
-
-    /**
-    * <b>Shoot Power Cell</b> Box
-    * <p>Create an entry in the Network Table and add the Box to the Shuffleboard Tab
-    */
     private void createShootPowerCellBox()
     {
         //create and name the Box
@@ -264,10 +243,6 @@ public class AutonomousTab {
             .withSize(4, 2);
     }
 
-    /**
-    * <b>Shoot Delay</b> Box
-    * <p>Create an entry in the Network Table and add the Box to the Shuffleboard Tab
-    */
     private void createShootDelayBox()
     {
         //create and name the Box
@@ -289,12 +264,6 @@ public class AutonomousTab {
             .withSize(6, 2);
     }
 
-
-
-    /**
-    * <b>Move</b> Box
-    * <p>Create an entry in the Network Table and add the Box to the Shuffleboard Tab
-    */
     private void createMoveOffLineBox()
     {
         //create and name the Box
@@ -312,10 +281,6 @@ public class AutonomousTab {
             .withSize(4, 2);
     }
 
-    /**
-    * <b>Move Delay</b> Box
-    * <p>Create an entry in the Network Table and add the Box to the Shuffleboard Tab
-    */
     private void createMoveDelayBox()
     {
         //create and name the Box
@@ -337,10 +302,6 @@ public class AutonomousTab {
             .withSize(6, 2);
     }
 
-    /**
-    * <b>Move Direction</b> Box
-    * <p>Create an entry in the Network Table and add the Box to the Shuffleboard Tab
-    */
     private void createDirectionToMoveBox()
     {
         //create and name the Box
@@ -358,10 +319,7 @@ public class AutonomousTab {
             .withSize(8, 2);
     }
 
-    /**
-    * <b>Pick Up Power Cell</b> Box
-    * <p>Create an entry in the Network Table and add the Box to the Shuffleboard Tab
-    */
+
     private void createPickUpPowerCellBox()
     {
         //create and name the Box
@@ -379,10 +337,7 @@ public class AutonomousTab {
             .withSize(4, 2);
     }
 
-    /**
-    * <b>Power Cell Pick Up Location</b> Box
-    * <p>Create an entry in the Network Table and add the Box to the Shuffleboard Tab
-    */
+
     private void createPickUpLocationBox()
     {
         //create and name the Box
@@ -420,8 +375,8 @@ public class AutonomousTab {
     private void createTargetColorBox()
     {
         //create and name the Box
-        SendableRegistry.add(targetColorBox, "Shoot New Power Cells");
-        SendableRegistry.setName(targetColorBox, "Shoot New Power Cells");
+        SendableRegistry.add(targetColorBox, "Target Color");
+        SendableRegistry.setName(targetColorBox, "Target Color");
 
         //add options to Box
         targetColorBox.setDefaultOption("None", TargetColor.kNull);   
@@ -433,18 +388,28 @@ public class AutonomousTab {
         //put the widget on the shuffleboard
         autonomousTab.add(targetColorBox)
             .withWidget(BuiltInWidgets.kComboBoxChooser)
-            .withPosition(20, 11)
+            .withPosition(23, 11)
             .withSize(2, 2);
     }
 
-    /**
-     * <b>Send Data</b> Button
-     * <p>
-     * Create an entry in the Network Table and add the Button to the Shuffleboard
-     * Tab
-     * 
-     * @return
-     */
+    private void createTargetRotationBox()
+    {
+        //create and name the Box
+        SendableRegistry.add(targetRotationBox, "Target Rotation");
+        SendableRegistry.setName(targetRotationBox, "Target Rotation");
+
+        //add options to Box
+        targetRotationBox.setDefaultOption("3", TargetRotation.k3);   
+        targetRotationBox.addOption("4", TargetRotation.k4);
+        targetRotationBox.addOption("5", TargetRotation.k5);
+
+        //put the widget on the shuffleboard
+        autonomousTab.add(targetRotationBox)
+            .withWidget(BuiltInWidgets.kComboBoxChooser)
+            .withPosition(23, 13)
+            .withSize(2, 2);
+    }
+
     private void createSendDataButton()
     {
         SendableRegistry.add(sendDataButton, "Send Data");
@@ -457,12 +422,6 @@ public class AutonomousTab {
             .withWidget(BuiltInWidgets.kSplitButtonChooser)
             .withPosition(23, 1)
             .withSize(4, 2);
-
-        // return autonomousTab.add("Send Data", false)
-        //     .withWidget(BuiltInWidgets.kToggleSwitch)
-        //     .withPosition(23, 1)
-        //     .withSize(4, 2)
-        //     .getEntry();
     }
 
     private NetworkTableEntry createRedLightGreenLightBox()
