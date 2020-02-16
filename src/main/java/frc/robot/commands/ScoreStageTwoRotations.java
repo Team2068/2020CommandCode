@@ -27,7 +27,7 @@ public class ScoreStageTwoRotations extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    controlPanel.wheelUp();
+    controlPanel.setMotorSpeed(10);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

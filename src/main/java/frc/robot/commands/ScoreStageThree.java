@@ -42,7 +42,7 @@ public class ScoreStageThree extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    controlPanel.wheelUp();
+    controlPanel.setMotorSpeed(10);
   }
 
   // Called once the command ends or is interrupted.

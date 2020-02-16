@@ -37,7 +37,7 @@ public class ScoreStageTwoColorSwitch extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    controlPanel.wheelUp();
+    controlPanel.setMotorSpeed(10);
     detected = colorSensor.getSensorColor();
     previous = detected;
   }
