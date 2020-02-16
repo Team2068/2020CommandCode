@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.EngageControlPanelWheel;
 import frc.robot.commands.InvertTankDrive;
 import frc.robot.commands.LiftToHeight;
 import frc.robot.commands.ResetLiftEncoder;
@@ -104,7 +105,7 @@ public class RobotContainer {
         .whenPressed(new RollersChangeDirection(lowScoringSubsystem));
 
     new JoystickButton(mechanismController, Button.kB.value)
-        .whenPressed(() -> controlPanelSubsystem.engageControlPanel());
+        .whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
 
     new JoystickButton(mechanismController, Button.kX.value).whenPressed(() -> {
       int stream = limelight.getStream();
