@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.HangConstants;
 
-public class HangSubsytem extends SubsystemBase {
+public class HangSubsystem extends SubsystemBase {
 
   private CANSparkMax liftMotor = new CANSparkMax(HangConstants.LIFT_MOTOR, MotorType.kBrushless);
   private CANSparkMax winchMotor = new CANSparkMax(HangConstants.WINCH_MOTOR, MotorType.kBrushless);
@@ -25,7 +25,7 @@ public class HangSubsytem extends SubsystemBase {
   /**
    * Creates a new LiftSubsystem.
    */
-  public HangSubsytem() {
+  public HangSubsystem() {
     setName("Hang Subsystem");
     liftMotor.restoreFactoryDefaults();
     winchMotor.restoreFactoryDefaults();
