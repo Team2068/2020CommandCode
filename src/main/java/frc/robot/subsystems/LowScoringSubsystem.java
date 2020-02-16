@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -21,7 +22,11 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   private CANSparkMax conveyorMotor = new CANSparkMax(LowScoringConstants.CONVEYOR_MOTOR, MotorType.kBrushless);
   private CANSparkMax rollerMotor = new CANSparkMax(LowScoringConstants.ROLLER_MOTOR, MotorType.kBrushless);
-  private DoubleSolenoid lockSolenoid = new DoubleSolenoid(LowScoringConstants.FORWARD_CHANNEL, LowScoringConstants.REVERSE_CHANNEL);
+  private DoubleSolenoid lockSolenoid = new DoubleSolenoid(LowScoringConstants.FORWARD_CHANNEL,
+      LowScoringConstants.REVERSE_CHANNEL);
+
+  private CANEncoder rollerEncoder;
+  private CANEncoder conveyorEncoder;
 
   private boolean rollersRunning = false;
   private int rollerDirection = 1;
@@ -39,6 +44,12 @@ public class LowScoringSubsystem extends SubsystemBase {
 
     lockSolenoid.set(Value.kOff);
 
+    rollerEncoder = rollerMotor.getEncoder();
+    conveyorEncoder = conveyorMotor.getEncoder();
+
+    rollerEncoder.setPosition(0);
+    conveyorEncoder.setPosition(0);
+
   }
 
   public void runConveyor(double speed) {
@@ -47,7 +58,7 @@ public class LowScoringSubsystem extends SubsystemBase {
         speed = -0.65;
     } else {
       if (speed >= 0.33)
-      speed = 0.33;
+        speed = 0.33;
     }
     conveyorMotor.set(speed);
     SmartDashboard.putNumber("Conveyor Speed", speed);
@@ -71,24 +82,24 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   public void openCloseLowScoring() {
     pistonsForward = !pistonsForward;
-    if(pistonsForward){
+    if (pistonsForward) {
       lockSolenoid.set(Value.kForward);
-    }
-    else {
+    } else {
       lockSolenoid.set(Value.kReverse);
     }
   }
 
-  public void trapPowercells(){
+  public void trapPowercells() {
     lockSolenoid.set(Value.kForward);
   }
 
-  public void releasePowercells(){
+  public void releasePowercells() {
     lockSolenoid.set(Value.kReverse);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Roller Encoder", rollerEncoder.getPosition());
+    SmartDashboard.putNumber("Conveyor Encoder", conveyorEncoder.getPosition());
   }
 }

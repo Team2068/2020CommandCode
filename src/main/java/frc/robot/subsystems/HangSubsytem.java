@@ -64,8 +64,13 @@ public class HangSubsytem extends SubsystemBase {
     }
   }
 
+  public void resetEncoder() {
+    liftEncoder.setPosition(0);
+  }
+
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Encoder Value", liftEncoder.getPosition());
     // This method will be called once per scheduler run
   }
 }

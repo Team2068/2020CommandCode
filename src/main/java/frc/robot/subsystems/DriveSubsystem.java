@@ -7,11 +7,13 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
@@ -27,6 +29,9 @@ public class DriveSubsystem extends SubsystemBase {
   private SpeedControllerGroup rightMotors = new SpeedControllerGroup(frontRight, backRight);
 
   private DifferentialDrive differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
+
+  private CANEncoder leftEncoder;
+  private CANEncoder rightEncoder;
 
   private boolean isForward = true;
   private boolean isTurbo = false;
@@ -50,6 +55,12 @@ public class DriveSubsystem extends SubsystemBase {
     frontRight.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
     backRight.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
 
+    leftEncoder = frontLeft.getEncoder();
+    rightEncoder = frontRight.getEncoder();
+
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
+
   }
 
   public void turboOn() {
@@ -63,14 +74,15 @@ public class DriveSubsystem extends SubsystemBase {
   public void slowOn() {
     isSlow = true;
   }
-  
+
   public void slowOff() {
     isSlow = false;
   }
 
-  public void steppingSpeedUp(){
+  public void steppingSpeedUp() {
     steppingSpeedUp = true;
   }
+
   public void steppingSpeedDown() {
     steppingSpeedDown = true;
   }
@@ -82,39 +94,17 @@ public class DriveSubsystem extends SubsystemBase {
       } else {
         speed = -1;
       }
-    }
-    else if (isSlow) {
+    } else if (isSlow) {
       if (speed >= 0) {
         speed = .25;
-      }
-      else {
+      } else {
         speed = -.25;
       }
-    }
-    else {
-      if (speed >= .5) {
-        speed = .5;
-      }
-      else if (speed <= .5) {
-        speed = -.5;
-      }
-    }
-
-    return speed;
-  }
-
-  private double steppingSpeed(double speed) {
-    if (steppingSpeedUp) {
-      if (speed >= 0 && speed < 1) {
-        speed = speed + steppingSpeed;
-      }
-      else if (speed <= 0 && speed > 1) {
-        speed = speed - steppingSpeed;
-      }
-    }
-    else if (steppingSpeedDown) {
-      if (speed > .2 && speed <= 1){
-        
+    } else {
+      if (speed >= 0) {
+        speed = Math.max(speed, 0.5);
+      } else {
+        speed = Math.min(speed, -.5);
       }
     }
 
@@ -122,9 +112,12 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void tankDrive(double leftSpeed, double rightSpeed) {
-    leftSpeed = adjustSpeed(leftSpeed) + steppingSpeed;
+    leftSpeed = adjustSpeed(leftSpeed);
     rightSpeed = adjustSpeed(rightSpeed);
-    
+
+    SmartDashboard.putNumber("Left Speed", leftSpeed);
+    SmartDashboard.putNumber("Right Speed", rightSpeed);
+
     if (isForward) {
 
       differentialDrive.tankDrive(leftSpeed, rightSpeed);
@@ -145,6 +138,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Left Encoder Value", leftEncoder.getPosition());
+    SmartDashboard.putNumber("Right Encoder Value", rightEncoder.getPosition());
   }
 }
