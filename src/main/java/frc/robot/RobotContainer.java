@@ -18,6 +18,8 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.InvertTankDrive;
 import frc.robot.commands.LiftToHeight;
 import frc.robot.commands.ResetLiftEncoder;
+import frc.robot.commands.RollersChangeDirection;
+import frc.robot.commands.RollersOnOff;
 import frc.robot.commands.RunConveyor;
 import frc.robot.commands.SlowOff;
 import frc.robot.commands.SlowOn;
@@ -95,10 +97,10 @@ public class RobotContainer {
     new JoystickButton(driverController, Button.kB.value).whenPressed(() -> hangSubsystem.winchAndLowerLift());
 
     // everything on the mechanismController
-    new JoystickButton(mechanismController, Button.kY.value).whenPressed(() -> lowScoringSubsystem.rollerOnOff());
+    new JoystickButton(mechanismController, Button.kY.value).whenPressed(new RollersOnOff(lowScoringSubsystem));
 
     new JoystickButton(mechanismController, Button.kA.value)
-        .whenPressed(() -> lowScoringSubsystem.rollerChangeDirection());
+        .whenPressed(new RollersChangeDirection(lowScoringSubsystem));
 
     new JoystickButton(mechanismController, Button.kBumperRight.value)
         .whenPressed(() -> lowScoringSubsystem.openCloseLowScoring());
