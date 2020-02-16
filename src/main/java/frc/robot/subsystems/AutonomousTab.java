@@ -112,9 +112,7 @@ public class AutonomousTab {
     private final SendableChooser<ShootNewPowerCells> shootNewPowerCellBox = new SendableChooser<>();
 
     private final SendableChooser<TargetColor> targetColorBox = new SendableChooser<>();
-    private final SendableChooser<TargetColor> targetRotationBox = new SendableChooser<>();
-
-    private final NetworkTableEntry goodToGo;
+    private final SendableChooser<TargetRotation> targetRotationBox = new SendableChooser<>();
 
     // Create the Button object
     private final SendableChooser<Boolean> sendDataButton = new SendableChooser<>();
@@ -122,6 +120,8 @@ public class AutonomousTab {
     private boolean previousStateOfSendButton = false;
 
     private static AutonomousTab instance = new AutonomousTab();
+
+    private static boolean goodToGo = false;
 
     private AutonomousTab() {
         createStartingLocationBox();
@@ -142,9 +142,6 @@ public class AutonomousTab {
         createTargetRotationBox();
 
         createSendDataButton();
-
-        goodToGo = createRedLightGreenLightBox();
-        goodToGo.setBoolean(false);
     }
 
     protected static AutonomousTab getInstance() {
@@ -181,10 +178,10 @@ public class AutonomousTab {
             updateData();
             
             if(isDataValid()) {
-                goodToGo.setBoolean(true);   
+                goodToGo = true; 
             }
             else {
-                goodToGo.setBoolean(false);
+                goodToGo = false;
             }
         }
         
@@ -413,26 +410,6 @@ public class AutonomousTab {
             .withWidget(BuiltInWidgets.kSplitButtonChooser)
             .withPosition(23, 1)
             .withSize(4, 2);
-    }
-    
-    private NetworkTableEntry createRedLightGreenLightBox() {
-        SendableRegistry.add(redLightGreenLightBox, "Good to Go?");
-        SendableRegistry.setName(redLightGreenLightBox, "Good to Go?");
-
-        redLightGreenLightBox.setDefaultOption("No", false);
-        redLightGreenLightBox.addOption("Yes", true);
-
-      //  Map<String, Object> booleanBoxProperties = new HashMap<>();
-       // booleanBoxProperties.put("Color when true", "Lime");
-       // booleanBoxProperties.put("Color when false", "Red");
-
-        return autonomousTab.add("Good to Go?", false)
-             .withWidget(BuiltInWidgets.kBooleanBox)
-             .withPosition(23, 4)
-             .withSize(4, 4)
-             .withProperties(booleanBoxProperties)
-             .getEntry();
-
     }
 
     public ShuffleboardTab getAutonomousTabData(){
