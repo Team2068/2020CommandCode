@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.AdvanceConveyor;
 import frc.robot.commands.EngageControlPanelWheel;
 import frc.robot.commands.InvertTankDrive;
 import frc.robot.commands.LiftToHeight;
@@ -32,11 +32,11 @@ import frc.robot.commands.TurboOn;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Gyroscope;
 import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.LowPressureSubsystem;
 import frc.robot.subsystems.LowScoringSubsystem;
-import frc.robot.subsystems.Gyroscope;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -71,9 +71,6 @@ public class RobotContainer {
 
     driveSubsystem.setDefaultCommand(new TankDrive(driveSubsystem, driverController.getY(GenericHID.Hand.kLeft),
         driverController.getY(GenericHID.Hand.kRight)));
-
-    lowScoringSubsystem
-        .setDefaultCommand(new RunConveyor(lowScoringSubsystem, mechanismController.getY(GenericHID.Hand.kLeft)));
   }
 
   /**
@@ -98,6 +95,8 @@ public class RobotContainer {
     new JoystickButton(driverController, Button.kB.value).whenPressed(() -> hangSubsystem.winchAndLowerLift());
 
     // everything on the mechanismController
+    new JoystickButton(mechanismController, Button.kY.value).whenPressed(new AdvanceConveyor(lowScoringSubsystem));
+
     new JoystickButton(mechanismController, Button.kBumperRight.value)
         .whenPressed(new RollersOnOff(lowScoringSubsystem));
 
