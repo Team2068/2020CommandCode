@@ -17,6 +17,9 @@ import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.ColorStageThree;
 import frc.robot.commands.ColorStageTwo;
+import frc.robot.commands.ResetLiftEncoder;
+import frc.robot.commands.SpinControlPanel;
+import frc.robot.commands.StopControlPanel;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -54,7 +57,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    setupSmartDashboardCommands();
+    setUpSmartDashboardCommands();
+    setSmartDashboardSubsystems();
 
     driveSubsystem
         .setDefaultCommand(new RunCommand(() -> driveSubsystem.tankDrive(driverController.getY(GenericHID.Hand.kLeft),
@@ -118,10 +122,20 @@ public class RobotContainer {
       }
     });
   }
-
-  private void setupSmartDashboardCommands() {
+  
+  private void setUpSmartDashboardCommands() {
+    SmartDashboard.putData("Spin Control Panel", new SpinControlPanel(controlPanelSubsystem));
+    SmartDashboard.putData("Stop Control Panel", new StopControlPanel(controlPanelSubsystem));
+    SmartDashboard.putData("Reset Lift Encoder", new ResetLiftEncoder(hangSubsytem));
     SmartDashboard.putData("Level 2", new ColorStageTwo(colorSensor, controlPanelSubsystem, true));
     SmartDashboard.putData("Level 3", new ColorStageThree(colorSensor, controlPanelSubsystem));
+  }
+
+  private void setSmartDashboardSubsystems() {
+    SmartDashboard.putData(driveSubsystem);
+    SmartDashboard.putData(hangSubsytem);
+    SmartDashboard.putData(lowScoringSubsystem);
+    SmartDashboard.putData(controlPanelSubsystem);
   }
 
   /**

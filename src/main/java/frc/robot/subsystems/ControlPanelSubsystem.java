@@ -19,16 +19,31 @@ import frc.robot.Constants.ControlPanelConstants;
 
 public class ControlPanelSubsystem extends SubsystemBase {
 
-  public DoubleSolenoid controlPanelSolenoid = new DoubleSolenoid(ControlPanelConstants.FORWARD_CHANNEL,
+  private DoubleSolenoid controlPanelSolenoid = new DoubleSolenoid(ControlPanelConstants.FORWARD_CHANNEL,
       ControlPanelConstants.REVERSE_CHANNEL);
-  public CANSparkMax controlPanelMotor = new CANSparkMax(9, MotorType.kBrushless);
-  public CANEncoder controlPanelMotorEncoder = new CANEncoder(controlPanelMotor);
-  public boolean pistonsForward = false;
+  private CANSparkMax controlPanelMotor = new CANSparkMax(ControlPanelConstants.CONTROL_PANEL_MOTOR,
+      MotorType.kBrushless);
+
+  private CANEncoder controlPanelEncoder;
+  private boolean pistonsForward = false;
 
   public ControlPanelSubsystem() {
     controlPanelMotor.restoreFactoryDefaults();
     controlPanelMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
     controlPanelSolenoid.set(Value.kOff);
+
+    controlPanelMotor.restoreFactoryDefaults();
+    controlPanelMotor.setSmartCurrentLimit(ControlPanelConstants.CONTROL_PANEL_LIMIT);
+
+    controlPanelEncoder = controlPanelMotor.getEncoder();
+  }
+
+  public void setMotorSpeed(double speed) {
+    controlPanelMotor.set(speed);
+  }
+
+  public void stopMotor() {
+    controlPanelMotor.stopMotor();
   }
 
   public void engageControlPanel() {

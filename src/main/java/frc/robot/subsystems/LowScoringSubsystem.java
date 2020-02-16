@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -23,7 +24,10 @@ public class LowScoringSubsystem extends SubsystemBase {
   private CANSparkMax rollerMotor = new CANSparkMax(LowScoringConstants.ROLLER_MOTOR, MotorType.kBrushless);
   private DoubleSolenoid lockSolenoid = new DoubleSolenoid(LowScoringConstants.FORWARD_CHANNEL,
       LowScoringConstants.REVERSE_CHANNEL);
-
+  
+  private CANEncoder rollerEncoder;
+  private CANEncoder conveyorEncoder;
+  
   private boolean rollersRunning = false;
   private int rollerDirection = 1;
   private boolean pistonsForward = false;
@@ -39,6 +43,12 @@ public class LowScoringSubsystem extends SubsystemBase {
     rollerMotor.setInverted(true);
 
     lockSolenoid.set(Value.kOff);
+
+    rollerEncoder = rollerMotor.getEncoder();
+    conveyorEncoder = conveyorMotor.getEncoder();
+
+    rollerEncoder.setPosition(0);
+    conveyorEncoder.setPosition(0);
 
   }
 
@@ -89,6 +99,7 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Roller Encoder", rollerEncoder.getPosition());
+    SmartDashboard.putNumber("Conveyor Encoder", conveyorEncoder.getPosition());
   }
 }
