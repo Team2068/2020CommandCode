@@ -88,25 +88,25 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   private double adjustSpeed(double speed) {
-    // if (isTurbo) {
-    // if (speed >= 0) {
-    // speed = 1;
-    // } else {
-    // speed = -1;
-    // }
-    // } else if (isSlow) {
-    // if (speed >= 0) {
-    // speed = .25;
-    // } else {
-    // speed = -.25;
-    // }
-    // } else {
-    // if (speed >= .5) {
-    // speed = .5;
-    // } else if (speed <= .5) {
-    // speed = -.5;
-    // }
-    // }
+    if (isTurbo) {
+      if (speed >= 0) {
+        speed = 1;
+      } else {
+        speed = -1;
+      }
+    } else if (isSlow) {
+      if (speed >= 0) {
+        speed = .25;
+      } else {
+        speed = -.25;
+      }
+    } else {
+      if (speed >= 0) {
+        speed = Math.max(speed, 0.5);
+      } else {
+        speed = Math.min(speed, -.5);
+      }
+    }
 
     return speed;
   }
