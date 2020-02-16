@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.ResetLiftEncoder;
+import frc.robot.commands.RunConveyor;
 import frc.robot.commands.SpinControlPanel;
 import frc.robot.commands.StopControlPanel;
 import frc.robot.commands.TankDrive;
@@ -62,8 +63,8 @@ public class RobotContainer {
     driveSubsystem.setDefaultCommand(new TankDrive(driveSubsystem, driverController.getY(GenericHID.Hand.kLeft),
         driverController.getY(GenericHID.Hand.kRight)));
 
-    lowScoringSubsystem.setDefaultCommand(new RunCommand(
-        () -> lowScoringSubsystem.runConveyor(mechanismController.getY(GenericHID.Hand.kLeft)), lowScoringSubsystem));
+    lowScoringSubsystem
+        .setDefaultCommand(new RunConveyor(lowScoringSubsystem, mechanismController.getY(GenericHID.Hand.kLeft)));
   }
 
   /**
