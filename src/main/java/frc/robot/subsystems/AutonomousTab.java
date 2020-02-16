@@ -1,5 +1,4 @@
 package frc.robot.subsystems;
-
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -166,7 +165,7 @@ public class AutonomousTab {
         autonomousData.shootNewPowerCells = shootNewPowerCellBox.getSelected();
 
         autonomousData.targetColor = targetColorBox.getSelected();
-        autonomousData.targetColor = targetRotationBox.getSelected();
+        autonomousData.targetRotation = targetRotationBox.getSelected();
     }
 
     public void checkForNewData() {
