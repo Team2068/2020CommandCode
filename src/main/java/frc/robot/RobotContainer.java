@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.InvertTankDrive;
+import frc.robot.commands.LiftToHeight;
 import frc.robot.commands.ResetLiftEncoder;
 import frc.robot.commands.RunConveyor;
 import frc.robot.commands.SlowOff;
@@ -89,7 +90,7 @@ public class RobotContainer {
     new JoystickButton(driverController, ControllerConstants.LEFT_TRIGGER).whenPressed(new SlowOn(driveSubsystem))
         .whenReleased(new SlowOff(driveSubsystem)); // 25% speed
 
-    new JoystickButton(driverController, Button.kX.value).whenPressed(() -> hangSubsystem.liftToHeight());
+    new JoystickButton(driverController, Button.kX.value).whenPressed(new LiftToHeight(hangSubsystem));
 
     new JoystickButton(driverController, Button.kB.value).whenPressed(() -> hangSubsystem.winchAndLowerLift());
 
