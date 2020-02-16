@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.InvertTankDrive;
 import frc.robot.commands.ResetLiftEncoder;
 import frc.robot.commands.RunConveyor;
 import frc.robot.commands.SpinControlPanel;
@@ -76,7 +77,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     // everything on the driverController
-    new JoystickButton(driverController, Button.kY.value).whenPressed(() -> driveSubsystem.invertTankDrive());
+    new JoystickButton(driverController, Button.kY.value).whenPressed(new InvertTankDrive(driveSubsystem));
 
     new JoystickButton(driverController, ControllerConstants.RIGHT_TRIGGER).whenPressed(() -> driveSubsystem.turboOn())
         .whenReleased(() -> driveSubsystem.turboOff()); // sprint
