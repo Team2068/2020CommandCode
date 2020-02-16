@@ -97,13 +97,11 @@ public class RobotContainer {
     new JoystickButton(driverController, Button.kB.value).whenPressed(() -> hangSubsystem.winchAndLowerLift());
 
     // everything on the mechanismController
-    new JoystickButton(mechanismController, Button.kY.value).whenPressed(new RollersOnOff(lowScoringSubsystem));
+    new JoystickButton(mechanismController, Button.kBumperRight.value)
+        .whenPressed(new RollersOnOff(lowScoringSubsystem));
 
     new JoystickButton(mechanismController, Button.kA.value)
         .whenPressed(new RollersChangeDirection(lowScoringSubsystem));
-
-    new JoystickButton(mechanismController, Button.kBumperRight.value)
-        .whenPressed(() -> lowScoringSubsystem.openCloseLowScoring());
 
     new JoystickButton(mechanismController, Button.kB.value)
         .whenPressed(() -> controlPanelSubsystem.engageControlPanel());
