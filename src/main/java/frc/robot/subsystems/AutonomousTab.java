@@ -112,6 +112,7 @@ public class AutonomousTab {
     private final SendableChooser<ShootNewPowerCells> shootNewPowerCellBox = new SendableChooser<>();
 
     private final SendableChooser<TargetColor> targetColorBox = new SendableChooser<>();
+    private final SendableChooser<TargetColor> targetRotationBox = new SendableChooser<>();
 
     private final NetworkTableEntry goodToGo;
 
@@ -168,6 +169,7 @@ public class AutonomousTab {
         autonomousData.shootNewPowerCells = shootNewPowerCellBox.getSelected();
 
         autonomousData.targetColor = targetColorBox.getSelected();
+        autonomousData.targetColor = targetRotationBox.getSelected();
     }
 
     public void checkForNewData() {
@@ -209,8 +211,7 @@ public class AutonomousTab {
             .withSize(8, 2);
     }
 
-    private void createOrderOfOperationsBox()
-    {
+    private void createOrderOfOperationsBox() {
         //create and name the Box
         SendableRegistry.add(orderOfOperationsBox, "Order of Operations");
         SendableRegistry.setName(orderOfOperationsBox, "Order of Operations");
@@ -226,8 +227,7 @@ public class AutonomousTab {
             .withSize(8, 2);
     }
 
-    private void createShootPowerCellBox()
-    {
+    private void createShootPowerCellBox() {
         //create and name the Box
         SendableRegistry.add(shootPowerCellBox, "Shoot Power Cell");
         SendableRegistry.setName(shootPowerCellBox, "Shoot Power Cell");
@@ -243,8 +243,7 @@ public class AutonomousTab {
             .withSize(4, 2);
     }
 
-    private void createShootDelayBox()
-    {
+    private void createShootDelayBox() {
         //create and name the Box
         SendableRegistry.add(shootDelayBox, "Shoot Delay (Seconds)");
         SendableRegistry.setName(shootDelayBox, "Shoot Delay (Seconds)");
@@ -264,8 +263,7 @@ public class AutonomousTab {
             .withSize(6, 2);
     }
 
-    private void createMoveOffLineBox()
-    {
+    private void createMoveOffLineBox() {
         //create and name the Box
         SendableRegistry.add(moveOffLineBox, "Move Off Line");
         SendableRegistry.setName(moveOffLineBox, "Move Off Line");
@@ -281,8 +279,7 @@ public class AutonomousTab {
             .withSize(4, 2);
     }
 
-    private void createMoveDelayBox()
-    {
+    private void createMoveDelayBox() {
         //create and name the Box
         SendableRegistry.add(moveDelayBox, "Move Delay (Seconds)");
         SendableRegistry.setName(moveDelayBox, "Move Delay (Seconds)");
@@ -302,8 +299,7 @@ public class AutonomousTab {
             .withSize(6, 2);
     }
 
-    private void createDirectionToMoveBox()
-    {
+    private void createDirectionToMoveBox() {
         //create and name the Box
         SendableRegistry.add(directionToMoveBox, "Direction to Move");
         SendableRegistry.setName(directionToMoveBox, "Direction to Move");
@@ -320,8 +316,7 @@ public class AutonomousTab {
     }
 
 
-    private void createPickUpPowerCellBox()
-    {
+    private void createPickUpPowerCellBox() {
         //create and name the Box
         SendableRegistry.add(pickUpPowerCellBox, "Pick Up Power Cell");
         SendableRegistry.setName(pickUpPowerCellBox, "Pick Up Power Cell");
@@ -338,8 +333,7 @@ public class AutonomousTab {
     }
 
 
-    private void createPickUpLocationBox()
-    {
+    private void createPickUpLocationBox() {
         //create and name the Box
         SendableRegistry.add(pickUpLocationBox, "Pick Up Location");
         SendableRegistry.setName(pickUpLocationBox, "Pick Up Location");
@@ -355,8 +349,7 @@ public class AutonomousTab {
             .withSize(6, 2);
     }
 
-    private void createShootNewPowerCellBox()
-    {
+    private void createShootNewPowerCellBox() {
         //create and name the Box
         SendableRegistry.add(shootNewPowerCellBox, "Shoot New Power Cells");
         SendableRegistry.setName(shootNewPowerCellBox, "Shoot New Power Cells");
@@ -372,8 +365,7 @@ public class AutonomousTab {
             .withSize(8, 2);
     }
 
-    private void createTargetColorBox()
-    {
+    private void createTargetColorBox() {
         //create and name the Box
         SendableRegistry.add(targetColorBox, "Target Color");
         SendableRegistry.setName(targetColorBox, "Target Color");
@@ -392,8 +384,7 @@ public class AutonomousTab {
             .withSize(2, 2);
     }
 
-    private void createTargetRotationBox()
-    {
+    private void createTargetRotationBox() {
         //create and name the Box
         SendableRegistry.add(targetRotationBox, "Target Rotation");
         SendableRegistry.setName(targetRotationBox, "Target Rotation");
@@ -423,18 +414,17 @@ public class AutonomousTab {
             .withPosition(23, 1)
             .withSize(4, 2);
     }
+    
+    private NetworkTableEntry createRedLightGreenLightBox() {
+        SendableRegistry.add(redLightGreenLightBox, "Good to Go?");
+        SendableRegistry.setName(redLightGreenLightBox, "Good to Go?");
 
-    private NetworkTableEntry createRedLightGreenLightBox()
-    {
-        //SendableRegistry.add(redLightGreenLightBox, "Good to Go?");
-        //SendableRegistry.setName(redLightGreenLightBox, "Good to Go?");
+        redLightGreenLightBox.setDefaultOption("No", false);
+        redLightGreenLightBox.addOption("Yes", true);
 
-        // redLightGreenLightBox.setDefaultOption("No", false);
-        // redLightGreenLightBox.addOption("Yes", true);
-
-        Map<String, Object> booleanBoxProperties = new HashMap<>();
-        booleanBoxProperties.put("Color when true", "Lime");
-        booleanBoxProperties.put("Color when false", "Red");
+      //  Map<String, Object> booleanBoxProperties = new HashMap<>();
+       // booleanBoxProperties.put("Color when true", "Lime");
+       // booleanBoxProperties.put("Color when false", "Red");
 
         return autonomousTab.add("Good to Go?", false)
              .withWidget(BuiltInWidgets.kBooleanBox)
@@ -442,7 +432,6 @@ public class AutonomousTab {
              .withSize(4, 4)
              .withProperties(booleanBoxProperties)
              .getEntry();
-
 
     }
 
