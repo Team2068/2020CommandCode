@@ -21,6 +21,8 @@ import frc.robot.commands.RunConveyor;
 import frc.robot.commands.SpinControlPanel;
 import frc.robot.commands.StopControlPanel;
 import frc.robot.commands.TankDrive;
+import frc.robot.commands.TurboOff;
+import frc.robot.commands.TurboOn;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -79,8 +81,8 @@ public class RobotContainer {
     // everything on the driverController
     new JoystickButton(driverController, Button.kY.value).whenPressed(new InvertTankDrive(driveSubsystem));
 
-    new JoystickButton(driverController, ControllerConstants.RIGHT_TRIGGER).whenPressed(() -> driveSubsystem.turboOn())
-        .whenReleased(() -> driveSubsystem.turboOff()); // sprint
+    new JoystickButton(driverController, ControllerConstants.RIGHT_TRIGGER).whenPressed(new TurboOn(driveSubsystem))
+        .whenReleased(new TurboOff(driveSubsystem)); // sprint
 
     new JoystickButton(driverController, ControllerConstants.LEFT_TRIGGER).whenPressed(() -> driveSubsystem.slowOn())
         .whenReleased(() -> driveSubsystem.slowOff()); // 25% speed
