@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.commands.ColorStageThree;
-import frc.robot.commands.ColorStageTwo;
 import frc.robot.commands.ResetLiftEncoder;
+import frc.robot.commands.ScoreStageThree;
+import frc.robot.commands.ScoreStageTwoColorSwitch;
 import frc.robot.commands.SpinControlPanel;
 import frc.robot.commands.StopControlPanel;
 import frc.robot.subsystems.ColorSensor;
@@ -88,7 +88,7 @@ public class RobotContainer {
     new JoystickButton(driverController, Button.kX.value).whenPressed(() -> hangSubsytem.liftToHeight());
 
     new JoystickButton(driverController, Button.kB.value).whenPressed(() -> hangSubsytem.winchAndLowerLift());
-    
+
     // everything on the mechanismController
     new JoystickButton(mechanismController, Button.kY.value).whenPressed(() -> lowScoringSubsystem.rollerOnOff());
 
@@ -122,13 +122,14 @@ public class RobotContainer {
       }
     });
   }
-  
+
   private void setUpSmartDashboardCommands() {
     SmartDashboard.putData("Spin Control Panel", new SpinControlPanel(controlPanelSubsystem));
     SmartDashboard.putData("Stop Control Panel", new StopControlPanel(controlPanelSubsystem));
     SmartDashboard.putData("Reset Lift Encoder", new ResetLiftEncoder(hangSubsytem));
-    SmartDashboard.putData("Level 2", new ColorStageTwo(colorSensor, controlPanelSubsystem, true));
-    SmartDashboard.putData("Level 3", new ColorStageThree(colorSensor, controlPanelSubsystem));
+    SmartDashboard.putData("Stage 2 Color", new ScoreStageTwoColorSwitch(colorSensor, controlPanelSubsystem));
+    SmartDashboard.putData("Stage 2 Rotations", new ScoreStageTwoColorSwitch(colorSensor, controlPanelSubsystem));
+    SmartDashboard.putData("Stage 3", new ScoreStageThree(colorSensor, controlPanelSubsystem));
   }
 
   private void setSmartDashboardSubsystems() {
@@ -136,6 +137,8 @@ public class RobotContainer {
     SmartDashboard.putData(hangSubsytem);
     SmartDashboard.putData(lowScoringSubsystem);
     SmartDashboard.putData(controlPanelSubsystem);
+    SmartDashboard.putData(gyro);
+    SmartDashboard.putData(lowPressureSubsystem);
   }
 
   /**

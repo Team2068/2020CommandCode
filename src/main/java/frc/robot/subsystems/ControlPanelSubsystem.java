@@ -63,6 +63,10 @@ public class ControlPanelSubsystem extends SubsystemBase {
     controlPanelSolenoid.set(Value.kReverse);
   }
 
+  public double getRotations() {
+    return controlPanelEncoder.getPosition();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

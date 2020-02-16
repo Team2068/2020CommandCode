@@ -12,21 +12,23 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
 
-public class ColorStageThree extends CommandBase {
+public class ScoreStageThree extends CommandBase {
   /**
-   * Creates a new ColorStageThree.
+   * Creates a new ScoreStageThree.
    */
 
-  private final ColorSensor colorSensor;
-  private final ControlPanelSubsystem controlPanel;
+  private ColorSensor colorSensor;
+  private ControlPanelSubsystem controlPanel;
 
-  Color targetColor;
   Color detected;
+  Color actual;
+  Color targetColor;
 
-  public ColorStageThree(ColorSensor c, ControlPanelSubsystem p) {
+  public ScoreStageThree(ColorSensor c, ControlPanelSubsystem p) {
     colorSensor = c;
     controlPanel = p;
 
+    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(colorSensor);
     addRequirements(controlPanel);
   }
@@ -40,23 +42,22 @@ public class ColorStageThree extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    detected = colorSensor.getSensorColor();
-    Color actual = ColorSensor.colors.get(colorSensor.getColorIndex(detected) - 2);
-    // color we want is 2 ahead, so we need to go before
-    controlPanel.controlPanelMotor.set(10);
-    while (!colorSensor.isSameColor(detected, actual)) {
-    }
-    controlPanel.controlPanelMotor.stopMotor();
+    controlPanel.wheelUp();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    controlPanel.stopMotor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    detected = colorSensor.getSensorColor();
+
+    // color we want is 2 ahead, so we need to go before
+    actual = ColorSensor.colors.get(colorSensor.getColorIndex(detected) - 2);
+    return colorSensor.isSameColor(actual, targetColor);
   }
 }
