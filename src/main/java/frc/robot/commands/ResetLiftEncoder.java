@@ -8,16 +8,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.HangSubsytem;
+import frc.robot.subsystems.HangSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class ResetLiftEncoder extends InstantCommand {
 
-  private HangSubsytem hangSubsytem;
+  private HangSubsystem hangSubsytem;
 
-  public ResetLiftEncoder(HangSubsytem hangSubsytem) {
+  public ResetLiftEncoder(HangSubsystem hangSubsytem) {
     this.hangSubsytem = hangSubsytem;
     addRequirements(hangSubsytem);
   }
