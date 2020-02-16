@@ -13,11 +13,11 @@ import frc.robot.subsystems.HangSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ResetLiftEncoder extends InstantCommand {
+public class LiftToHeight extends InstantCommand {
 
   private HangSubsystem hangSubsystem;
 
-  public ResetLiftEncoder(HangSubsystem hangSubsystem) {
+  public LiftToHeight(HangSubsystem hangSubsystem) {
     this.hangSubsystem = hangSubsystem;
     addRequirements(hangSubsystem);
   }
@@ -25,6 +25,6 @@ public class ResetLiftEncoder extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    hangSubsystem.resetEncoder();
+    hangSubsystem.liftToHeight();
   }
 }
