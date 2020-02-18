@@ -24,10 +24,10 @@ public class LowScoringSubsystem extends SubsystemBase {
   private CANSparkMax rollerMotor = new CANSparkMax(LowScoringConstants.ROLLER_MOTOR, MotorType.kBrushless);
   private DoubleSolenoid lockSolenoid = new DoubleSolenoid(LowScoringConstants.FORWARD_CHANNEL,
       LowScoringConstants.REVERSE_CHANNEL);
-
+  
   private CANEncoder rollerEncoder;
   private CANEncoder conveyorEncoder;
-
+  
   private boolean rollersRunning = false;
   private int rollerDirection = 1;
   private boolean pistonsForward = false;

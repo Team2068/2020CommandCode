@@ -114,10 +114,6 @@ public class DriveSubsystem extends SubsystemBase {
   public void tankDrive(double leftSpeed, double rightSpeed) {
     leftSpeed = adjustSpeed(leftSpeed);
     rightSpeed = adjustSpeed(rightSpeed);
-
-    SmartDashboard.putNumber("Left Speed", leftSpeed);
-    SmartDashboard.putNumber("Right Speed", rightSpeed);
-
     if (isForward) {
 
       differentialDrive.tankDrive(leftSpeed, rightSpeed);

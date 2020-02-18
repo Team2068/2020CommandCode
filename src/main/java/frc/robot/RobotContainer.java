@@ -19,6 +19,9 @@ import frc.robot.commands.EngageControlPanelWheel;
 import frc.robot.commands.InvertTankDrive;
 import frc.robot.commands.LiftToHeight;
 import frc.robot.commands.ResetLiftEncoder;
+import frc.robot.commands.ScoreStageThree;
+import frc.robot.commands.ScoreStageTwoColorSwitch;
+import frc.robot.commands.ScoreStageTwoRotations;
 import frc.robot.commands.RollersChangeDirection;
 import frc.robot.commands.RollersOnOff;
 import frc.robot.commands.RunConveyor;
@@ -133,6 +136,9 @@ public class RobotContainer {
     SmartDashboard.putData("Spin Control Panel", new SpinControlPanel(controlPanelSubsystem));
     SmartDashboard.putData("Stop Control Panel", new StopControlPanel(controlPanelSubsystem));
     SmartDashboard.putData("Reset Lift Encoder", new ResetLiftEncoder(hangSubsystem));
+    SmartDashboard.putData("Stage 2 Color", new ScoreStageTwoColorSwitch(colorSensor, controlPanelSubsystem));
+    SmartDashboard.putData("Stage 2 Rotations", new ScoreStageTwoRotations(controlPanelSubsystem));
+    SmartDashboard.putData("Stage 3", new ScoreStageThree(colorSensor, controlPanelSubsystem));
   }
 
   private void setSmartDashboardSubsystems() {
@@ -140,6 +146,8 @@ public class RobotContainer {
     SmartDashboard.putData(hangSubsystem);
     SmartDashboard.putData(lowScoringSubsystem);
     SmartDashboard.putData(controlPanelSubsystem);
+    SmartDashboard.putData(gyro);
+    SmartDashboard.putData(lowPressureSubsystem);
   }
 
   /**
