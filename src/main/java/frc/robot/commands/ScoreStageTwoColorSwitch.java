@@ -37,7 +37,7 @@ public class ScoreStageTwoColorSwitch extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    controlPanel.setMotorSpeed(10);
+
     detected = colorSensor.getSensorColor();
     previous = detected;
   }
@@ -45,6 +45,7 @@ public class ScoreStageTwoColorSwitch extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    controlPanel.setMotorSpeed(10);
     boolean sameColor = colorSensor.isSameColor(detected, previous);
     if (!sameColor) {
       changeCount += 1;
