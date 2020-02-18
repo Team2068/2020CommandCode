@@ -67,6 +67,10 @@ public class ControlPanelSubsystem extends SubsystemBase {
     return controlPanelEncoder.getPosition();
   }
 
+  public double getVelocity() {
+    return controlPanelEncoder.getVelocity();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

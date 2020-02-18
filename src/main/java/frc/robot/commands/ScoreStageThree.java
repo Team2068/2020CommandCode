@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorSensor;
@@ -20,9 +21,10 @@ public class ScoreStageThree extends CommandBase {
   private ColorSensor colorSensor;
   private ControlPanelSubsystem controlPanel;
 
-  Color detected;
-  Color actual;
-  Color targetColor;
+  private Color detected;
+  private Color actual;
+  private Color targetColor;
+  private double velocity;
 
   public ScoreStageThree(ColorSensor c, ControlPanelSubsystem p) {
     colorSensor = c;
@@ -43,6 +45,8 @@ public class ScoreStageThree extends CommandBase {
   @Override
   public void execute() {
     controlPanel.setMotorSpeed(10);
+    velocity = controlPanel.getVelocity();
+    SmartDashboard.putNumber("Panel RPM", velocity / 8.f);
   }
 
   // Called once the command ends or is interrupted.
