@@ -1,4 +1,5 @@
 package frc.robot.subsystems;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -9,7 +10,7 @@ import frc.robot.Constants;
 
 public class Limelight extends SubsystemBase {
 
-  public Limelight(int camMode, int streamMode){
+  public Limelight(int camMode, int streamMode) {
     setMode(camMode);
     setStream(streamMode);
   }
@@ -27,13 +28,13 @@ public class Limelight extends SubsystemBase {
     final double area = ta.getDouble(0.0);
     final String stream, cam;
 
-    if(getStream() == Constants.StreamMode.PIP_MAIN){
+    if (getStream() == Constants.StreamMode.PIP_MAIN) {
       stream = "Main";
     } else {
       stream = "Secondary";
     }
 
-    if(getMode() == Constants.CameraMode.VISION){
+    if (getMode() == Constants.CameraMode.VISION) {
       cam = "Vision";
       table.getEntry("ledMode").setNumber(3);
     } else {
