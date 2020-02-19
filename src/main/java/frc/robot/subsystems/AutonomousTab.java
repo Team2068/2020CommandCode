@@ -201,7 +201,7 @@ public class AutonomousTab extends SubsystemBase {
 
         // put the widget on the shuffleboard
         autonomousTab.add(startingLocationBox).withWidget(BuiltInWidgets.kSplitButtonChooser).withPosition(0, 0)
-                .withSize(8, 2);
+                .withSize(2, 1);
     }
 
     private void createOrderOfOperationsBox() {
@@ -366,8 +366,8 @@ public class AutonomousTab extends SubsystemBase {
         targetRotationBox.addOption("5", TargetRotation.k5);
 
         // put the widget on the shuffleboard
-        autonomousTab.add(targetRotationBox).withWidget(BuiltInWidgets.kComboBoxChooser).withPosition(23, 13)
-                .withSize(2, 2);
+        autonomousTab.add(targetRotationBox).withWidget(BuiltInWidgets.kComboBoxChooser).withPosition(23, 9).withSize(2,
+                2);
     }
 
     private void createSendDataButton() {
