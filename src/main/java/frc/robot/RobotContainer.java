@@ -32,7 +32,6 @@ import frc.robot.commands.StopControlPanel;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.TurboOff;
 import frc.robot.commands.TurboOn;
-import frc.robot.subsystems.AutonomousTab;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -51,13 +50,12 @@ import frc.robot.subsystems.Gyroscope;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final AutonomousTab autonTab = new AutonomousTab();
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final LowScoringSubsystem lowScoringSubsystem = new LowScoringSubsystem();
   private final ControlPanelSubsystem controlPanelSubsystem = new ControlPanelSubsystem();
   private final HangSubsystem hangSubsystem = new HangSubsystem();
 
-  // private final ColorSensor colorSensor = new ColorSensor();
+  private final ColorSensor colorSensor = new ColorSensor();
   private final Limelight limelight = new Limelight(Constants.CameraMode.VISION, Constants.StreamMode.PIP_MAIN);
   private final Gyroscope gyro = new Gyroscope();
   private final LowPressureSubsystem lowPressureSubsystem = new LowPressureSubsystem();
@@ -138,12 +136,9 @@ public class RobotContainer {
     SmartDashboard.putData("Spin Control Panel", new SpinControlPanel(controlPanelSubsystem));
     SmartDashboard.putData("Stop Control Panel", new StopControlPanel(controlPanelSubsystem));
     SmartDashboard.putData("Reset Lift Encoder", new ResetLiftEncoder(hangSubsystem));
-    // SmartDashboard.putData("Stage 2 Color", new
-    // ScoreStageTwoColorSwitch(colorSensor, controlPanelSubsystem));
-    // SmartDashboard.putData("Stage 2 Rotations", new
-    // ScoreStageTwoRotations(controlPanelSubsystem));
-    // SmartDashboard.putData("Stage 3", new ScoreStageThree(colorSensor,
-    // controlPanelSubsystem));
+    SmartDashboard.putData("Stage 2 Color", new ScoreStageTwoColorSwitch(colorSensor, controlPanelSubsystem));
+    SmartDashboard.putData("Stage 2 Rotations", new ScoreStageTwoRotations(controlPanelSubsystem));
+    SmartDashboard.putData("Stage 3", new ScoreStageThree(colorSensor, controlPanelSubsystem));
   }
 
   private void setSmartDashboardSubsystems() {
