@@ -7,33 +7,30 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Limelight;
 
-public class ToggleStreamMode extends CommandBase {
-  /**
-   * Creates a new ToggleStreamMode.
-   */
-  Limelight limelight;
-  int mode;
+public class ToggleStreamMode extends InstantCommand {
+    /**
+     * Creates a new ToggleStreamMode.
+     */
+    Limelight limelight;
+    int mode;
 
-  public ToggleStreamMode(Limelight limelight) {
-    this.limelight = limelight;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(limelight);
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    int mode = limelight.getMode();
-    if (mode == Constants.CameraMode.DRIVER) {
-      limelight.setMode(Constants.CameraMode.VISION);
-      return true;
-    } else {
-      limelight.setMode(Constants.CameraMode.DRIVER);
-      return true;
+    public ToggleStreamMode(Limelight limelight) {
+        this.limelight = limelight;
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(limelight);
     }
-  }
+
+    @Override
+    public void execute() {
+        int mode = limelight.getMode();
+        if (mode == Constants.CameraMode.DRIVER) {
+            limelight.setMode(Constants.CameraMode.VISION);
+        } else {
+            limelight.setMode(Constants.CameraMode.DRIVER);
+        }
+    }
 }
