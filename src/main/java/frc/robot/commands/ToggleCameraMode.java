@@ -25,13 +25,12 @@ public class ToggleCameraMode extends InstantCommand {
 
     @Override
     public void execute() {
-        int stream = limelight.getStream();
-        switch (stream) {
-        case Constants.StreamMode.PIP_SECONDARY:
-            limelight.setStream(Constants.StreamMode.PIP_MAIN);
-        case Constants.StreamMode.PIP_MAIN:
-            limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
+        switch (limelight.getMode()) {
+        case Constants.CameraMode.DRIVER:
+            limelight.setMode(Constants.CameraMode.VISION);
+            break;
         default:
+            limelight.setMode(Constants.CameraMode.DRIVER);
             break;
         }
     }

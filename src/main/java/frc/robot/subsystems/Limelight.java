@@ -50,30 +50,18 @@ public class Limelight extends SubsystemBase {
     }
 
     public void setMode(final int m) {
-        if (NetworkTableInstance.getDefault().getTable("limelight") == null) {
-            return;
-        }
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(m);
     }
 
     public void setStream(final int m) {
-        if (NetworkTableInstance.getDefault().getTable("limelight") == null) {
-            return;
-        }
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(m);
     }
 
     public int getStream() {
-        if (NetworkTableInstance.getDefault().getTable("limelight") == null) {
-            return 9; // a value that should never happen
-        }
         return (int) NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").getDouble(0.0);
     }
 
     public int getMode() {
-        if (NetworkTableInstance.getDefault().getTable("limelight") == null) {
-            return 9; // a value that should never happen
-        }
         return (int) NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").getDouble(0.0);
     }
 }
