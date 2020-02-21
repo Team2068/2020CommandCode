@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorSensor;
@@ -23,6 +24,7 @@ public class ScoreStageTwoColorSwitch extends CommandBase {
   private int rotationCount = 0;
   private int changeCount = 0;
   private int targetRotation = 4;
+  private double velocity;
   private Color previous;
   private Color detected;
 
@@ -37,7 +39,6 @@ public class ScoreStageTwoColorSwitch extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
     detected = colorSensor.getSensorColor();
     previous = detected;
   }
@@ -46,6 +47,8 @@ public class ScoreStageTwoColorSwitch extends CommandBase {
   @Override
   public void execute() {
     controlPanel.setMotorSpeed(10);
+    detected = colorSensor.getSensorColor();
+    velocity = controlPanel.getVelocity();
     boolean sameColor = colorSensor.isSameColor(detected, previous);
     if (!sameColor) {
       changeCount += 1;
@@ -55,6 +58,7 @@ public class ScoreStageTwoColorSwitch extends CommandBase {
       }
       previous = detected;
     }
+    SmartDashboard.putNumber("Panel RPM", velocity / 8.f);
   }
 
   // Called once the command ends or is interrupted.

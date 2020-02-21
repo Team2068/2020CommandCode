@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ControlPanelSubsystem;
 
@@ -17,6 +18,7 @@ public class ScoreStageTwoRotations extends CommandBase {
   ControlPanelSubsystem controlPanel;
 
   private double rotations;
+  private double velocity;
 
   public ScoreStageTwoRotations(ControlPanelSubsystem p) {
     controlPanel = p;
@@ -35,6 +37,8 @@ public class ScoreStageTwoRotations extends CommandBase {
   public void execute() {
     controlPanel.setMotorSpeed(10);
     rotations = controlPanel.getRotations();
+    velocity = controlPanel.getVelocity();
+    SmartDashboard.putNumber("Panel RPM", velocity / 8.f); // estimation
   }
 
   // Called once the command ends or is interrupted.
