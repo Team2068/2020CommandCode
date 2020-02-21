@@ -16,7 +16,6 @@ public class ToggleStreamMode extends InstantCommand {
      * Creates a new ToggleStreamMode.
      */
     Limelight limelight;
-    int mode;
 
     public ToggleStreamMode(Limelight limelight) {
         this.limelight = limelight;
@@ -26,11 +25,13 @@ public class ToggleStreamMode extends InstantCommand {
 
     @Override
     public void execute() {
-        int mode = limelight.getMode();
-        if (mode == Constants.CameraMode.DRIVER) {
-            limelight.setMode(Constants.CameraMode.VISION);
-        } else {
-            limelight.setMode(Constants.CameraMode.DRIVER);
+        switch (limelight.getStream()) {
+        case Constants.StreamMode.PIP_MAIN:
+            limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
+            break;
+        default:
+            limelight.setStream(Constants.StreamMode.PIP_MAIN);
+            break;
         }
     }
 }
