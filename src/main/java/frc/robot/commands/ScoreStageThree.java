@@ -46,6 +46,7 @@ public class ScoreStageThree extends CommandBase {
   public void execute() {
     controlPanel.setMotorSpeed(10);
     velocity = controlPanel.getVelocity();
+    detected = colorSensor.getSensorColor();
     SmartDashboard.putNumber("Panel RPM", velocity / 8.f);
   }
 
@@ -58,10 +59,8 @@ public class ScoreStageThree extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    detected = colorSensor.getSensorColor();
-
     // color we want is 2 ahead, so we need to go before
-    actual = ColorSensor.colors.get(colorSensor.getColorIndex(detected) - 2);
-    return colorSensor.isSameColor(actual, targetColor);
+    actual = ColorSensor.colors.get(colorSensor.getColorIndex(targetColor) - 2);
+    return colorSensor.isSameColor(actual, detected);
   }
 }
