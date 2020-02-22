@@ -21,7 +21,6 @@ import frc.robot.commands.LiftToHeight;
 import frc.robot.commands.ResetLiftEncoder;
 import frc.robot.commands.RollersChangeDirection;
 import frc.robot.commands.RollersOnOff;
-import frc.robot.commands.RunConveyor;
 import frc.robot.commands.SlowOff;
 import frc.robot.commands.SlowOn;
 import frc.robot.commands.SpinControlPanel;
@@ -132,6 +131,7 @@ public class RobotContainer {
     SmartDashboard.putData("Spin Control Panel", new SpinControlPanel(controlPanelSubsystem));
     SmartDashboard.putData("Stop Control Panel", new StopControlPanel(controlPanelSubsystem));
     SmartDashboard.putData("Reset Lift Encoder", new ResetLiftEncoder(hangSubsystem));
+    SmartDashboard.putData("Roller On/Off", new RollersOnOff(lowScoringSubsystem));
   }
 
   private void setSmartDashboardSubsystems() {
