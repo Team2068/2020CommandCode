@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -21,13 +22,14 @@ import frc.robot.commands.LiftToHeight;
 import frc.robot.commands.RaiseLift;
 import frc.robot.commands.ResetLiftEncoder;
 import frc.robot.commands.RollerDrive;
-import frc.robot.commands.ScoreStageThree;
-import frc.robot.commands.ScoreStageTwoColorSwitch;
-import frc.robot.commands.ScoreStageTwoRotations;
 import frc.robot.commands.RollersChangeDirection;
 import frc.robot.commands.RollersOff;
 import frc.robot.commands.RollersOn;
 import frc.robot.commands.RollersOnOff;
+import frc.robot.commands.RunConveyor;
+import frc.robot.commands.ScoreStageThree;
+import frc.robot.commands.ScoreStageTwoColorSwitch;
+import frc.robot.commands.ScoreStageTwoRotations;
 import frc.robot.commands.SlowOff;
 import frc.robot.commands.SlowOn;
 import frc.robot.commands.SpinControlPanel;
@@ -39,6 +41,7 @@ import frc.robot.commands.ToggleStreamMode;
 import frc.robot.commands.TurboOff;
 import frc.robot.commands.TurboOn;
 import frc.robot.subsystems.ColorSensor;
+// import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Gyroscope;
@@ -79,11 +82,9 @@ public class RobotContainer {
     setSmartDashboardSubsystems();
     debugJoystics();
 
-    driveSubsystem.setDefaultCommand(new TankDrive(driveSubsystem, driverController.getY(GenericHID.Hand.kLeft),
-        driverController.getY(GenericHID.Hand.kRight)));
+    driveSubsystem.setDefaultCommand(new TankDrive(driveSubsystem, driverController));
 
-    lowScoringSubsystem
-        .setDefaultCommand(new RollerDrive(lowScoringSubsystem, mechanismController.getY(GenericHID.Hand.kLeft)));
+    lowScoringSubsystem.setDefaultCommand(new RunConveyor(lowScoringSubsystem, mechanismController.getY(Hand.kLeft)));
   }
 
   /**

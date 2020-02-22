@@ -11,7 +11,6 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -67,6 +66,7 @@ public class DriveSubsystem extends SubsystemBase {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
 
+    differentialDrive.setDeadband(0.1);
   }
 
   public void turboOn() {
@@ -108,9 +108,9 @@ public class DriveSubsystem extends SubsystemBase {
       }
     } else {
       if (speed >= 0) {
-        speed = Math.min(speed, 0.5);
+        speed = Math.min(speed, 0.8);
       } else {
-        speed = Math.max(speed, -.5);
+        speed = Math.max(speed, -.8);
       }
     }
 
@@ -118,10 +118,10 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void tankDrive(double leftSpeed, double rightSpeed) {
-    SmartDashboard.putNumber("Drive Subsystem/Left Speed", leftSpeed);
-    SmartDashboard.putNumber("Drive Subsystem/Right Speed", rightSpeed);
     leftSpeed = adjustSpeed(leftSpeed);
     rightSpeed = adjustSpeed(rightSpeed);
+    SmartDashboard.putNumber("Left Speed", leftSpeed);
+    SmartDashboard.putNumber("Right Speed", rightSpeed);
     if (isForward) {
       differentialDrive.tankDrive(leftSpeed, rightSpeed);
     } else {
