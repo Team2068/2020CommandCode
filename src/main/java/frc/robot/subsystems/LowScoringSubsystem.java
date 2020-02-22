@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -45,10 +46,10 @@ public class LowScoringSubsystem extends SubsystemBase {
     conveyorMotor.setIdleMode(IdleMode.kBrake);
     rollerMotor.setInverted(true);
 
-    rollerEncoder = rollerMotor.getEncoder();
+    rollerEncoder = rollerMotor.getEncoder(EncoderType.kNoSensor, 0);
     conveyorEncoder = conveyorMotor.getEncoder();
 
-    rollerEncoder.setPosition(0);
+    // rollerEncoder.setPosition(0);
     conveyorEncoder.setPosition(0);
 
   }
@@ -105,9 +106,13 @@ public class LowScoringSubsystem extends SubsystemBase {
     rollerMotor.stopMotor();
   }
 
+  public void setRollerSpeed(double speed) {
+    rollerMotor.set(speed);
+  }
+
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Roller Encoder", rollerEncoder.getPosition());
+    // SmartDashboard.putNumber("Roller Encoder", rollerEncoder.getPosition());
     SmartDashboard.putNumber("Conveyor Encoder", conveyorEncoder.getPosition());
   }
 }

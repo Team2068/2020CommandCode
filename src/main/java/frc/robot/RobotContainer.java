@@ -20,6 +20,7 @@ import frc.robot.commands.InvertTankDrive;
 import frc.robot.commands.LiftToHeight;
 import frc.robot.commands.RaiseLift;
 import frc.robot.commands.ResetLiftEncoder;
+import frc.robot.commands.RollerDrive;
 import frc.robot.commands.ScoreStageThree;
 import frc.robot.commands.ScoreStageTwoColorSwitch;
 import frc.robot.commands.ScoreStageTwoRotations;
@@ -76,9 +77,13 @@ public class RobotContainer {
     configureButtonBindings();
     setUpSmartDashboardCommands();
     setSmartDashboardSubsystems();
+    debugJoystics();
 
     driveSubsystem.setDefaultCommand(new TankDrive(driveSubsystem, driverController.getY(GenericHID.Hand.kLeft),
         driverController.getY(GenericHID.Hand.kRight)));
+
+    lowScoringSubsystem
+        .setDefaultCommand(new RollerDrive(lowScoringSubsystem, mechanismController.getY(GenericHID.Hand.kLeft)));
   }
 
   /**
@@ -98,6 +103,7 @@ public class RobotContainer {
     JoystickButton driverLeftTrigger = new JoystickButton(driverController, ControllerConstants.LEFT_TRIGGER);
     JoystickButton driverX = new JoystickButton(driverController, Button.kX.value);
     JoystickButton driverB = new JoystickButton(driverController, Button.kB.value);
+    JoystickButton driverA = new JoystickButton(driverController, Button.kA.value);
 
     // driverController
     driverY.whenPressed(new InvertTankDrive(driveSubsystem));
@@ -105,6 +111,7 @@ public class RobotContainer {
     driverLeftTrigger.whenPressed(new SlowOn(driveSubsystem)).whenReleased(new SlowOff(driveSubsystem)); // 25% speed
     driverX.whenPressed(new LiftToHeight(hangSubsystem));
     driverB.whenPressed(() -> hangSubsystem.winchAndLowerLift());
+    driverA.whenPressed(new RollersOn(lowScoringSubsystem));
 
     // mechanismController
     mechanismY.whenPressed(new AdvanceConveyor(lowScoringSubsystem));
@@ -138,6 +145,14 @@ public class RobotContainer {
     SmartDashboard.putData(controlPanelSubsystem);
     SmartDashboard.putData(gyro);
     SmartDashboard.putData(lowPressureSubsystem);
+  }
+
+  private void debugJoystics() {
+    SmartDashboard.putNumber("DriverJoyR", driverController.getY(GenericHID.Hand.kRight));
+    SmartDashboard.putNumber("DriverJoyL", driverController.getY(GenericHID.Hand.kLeft));
+
+    SmartDashboard.putNumber("MechJoyR", mechanismController.getY(GenericHID.Hand.kRight));
+    SmartDashboard.putNumber("MechJoyL", mechanismController.getY(GenericHID.Hand.kLeft));
   }
 
   /**

@@ -25,6 +25,6 @@ public class SpinControlPanel extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    controlPanelSubsystem.setMotorSpeed(.5);
+    controlPanelSubsystem.setMotorSpeed(1);
   }
 }
