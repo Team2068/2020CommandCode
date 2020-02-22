@@ -16,14 +16,11 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
-
-import java.util.ArrayList;
-
 import com.revrobotics.ColorMatch;
+import java.util.ArrayList;
 
 public class ColorSensor extends SubsystemBase {
 
@@ -33,13 +30,13 @@ public class ColorSensor extends SubsystemBase {
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
   private final Color NullTarget = ColorMatch.makeColor(0.0, 0.0, 0.0);
-  private final Color BlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-  private final Color GreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-  private final Color RedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
-  private final Color YellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+  private final Color BlueTarget = ColorMatch.makeColor(0.0, 0.5, 1.0); // 0.143, 0.427, 0.429
+  private final Color GreenTarget = ColorMatch.makeColor(0.0, 1.0, 0.0); // 0.197, 0.561, 0.240
+  private final Color RedTarget = ColorMatch.makeColor(0.75, 0.15, 0.0); // 0.561, 0.232, 0.144
+  private final Color YellowTarget = ColorMatch.makeColor(0.8, 0.45, 0); // 0.361, 0.524, 0.113
   private Color givenColor;
 
-  public static ArrayList<Color> colors;
+  public static ArrayList<Color> colors = new ArrayList<Color>();
 
   private String colorString;
   private SendableChooser<Color> colorChooser = new SendableChooser<>();
@@ -96,6 +93,7 @@ public class ColorSensor extends SubsystemBase {
   @Override
   public void periodic() {
     detectedColor = m_colorSensor.getColor();
+    correctRed(detectedColor);
     if (DriverStation.getInstance().isFMSAttached()) {
       givenColor = getColorMatch();
     } else {
@@ -112,11 +110,14 @@ public class ColorSensor extends SubsystemBase {
     } else if (match.color == YellowTarget) {
       colorString = "YELLOW";
     } else {
-      colorString = "UNKOWN";
+      colorString = "UNKNOWN";
     }
 
     SmartDashboard.putNumber("Confidence", match.confidence);
     SmartDashboard.putString("Detected Color", colorString);
+    SmartDashboard.putNumber("Detected Red", match.color.red);
+    SmartDashboard.putNumber("Detected Green", match.color.green);
+    SmartDashboard.putNumber("Detected Blue", match.color.blue);
   }
 
   public Color getSensorColor() {
@@ -141,5 +142,17 @@ public class ColorSensor extends SubsystemBase {
         return i;
     }
     return 0;
+  }
+
+  private void correctRed(Color c) {
+    ColorMatchResult m = m_colorMatcher.matchClosestColor(c);
+    if (m.color == GreenTarget || m.color == BlueTarget) {
+      return;
+    }
+    if (c.red > c.green - .1) {
+      detectedColor = RedTarget;
+    } else {
+      detectedColor = YellowTarget;
+    }
   }
 }
