@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LowScoringSubsystem;
 
@@ -34,11 +35,17 @@ public class AdvanceConveyor extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    lowScoringSubsystem.stopConveyor();
+    lowScoringSubsystem.resetConveyorEncoder();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(lowScoringSubsystem.getConveyorEncoderPosition()) >= lowScoringSubsystem.getConveyorStep();
+    double currentPosition = Math.abs(lowScoringSubsystem.getConveyorEncoderPosition());
+    double conveyorPosition = Math.abs(lowScoringSubsystem.getConveyorStep());
+    SmartDashboard.putNumber("Current Position", currentPosition);
+    SmartDashboard.putNumber("Conveyor Position", conveyorPosition);
+    return currentPosition >= conveyorPosition;
   }
 }
