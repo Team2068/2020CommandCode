@@ -58,7 +58,7 @@ public class RobotContainer {
 
   private final ColorSensor colorSensor = new ColorSensor();
   private final Limelight limelight = new Limelight(Constants.CameraMode.VISION, Constants.StreamMode.PIP_MAIN);
-  private final Gyroscope gyro = new Gyroscope();
+  // private final Gyroscope gyro = new Gyroscope();
   private final LowPressureSubsystem lowPressureSubsystem = new LowPressureSubsystem();
 
   private final XboxController driverController = new XboxController(DriveConstants.driverController);
@@ -132,7 +132,7 @@ public class RobotContainer {
     SmartDashboard.putData(hangSubsystem);
     SmartDashboard.putData(lowScoringSubsystem);
     SmartDashboard.putData(controlPanelSubsystem);
-    SmartDashboard.putData(gyro);
+    //SmartDashboard.putData(gyro);
     SmartDashboard.putData(lowPressureSubsystem);
   }
 

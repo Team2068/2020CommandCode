@@ -32,16 +32,25 @@ public class ColorSensor extends SubsystemBase {
   private final Color NullTarget = ColorMatch.makeColor(0.0, 0.0, 0.0);
   private final Color BlueTarget = ColorMatch.makeColor(0.0, 0.5, 1.0); // 0.143, 0.427, 0.429
   private final Color GreenTarget = ColorMatch.makeColor(0.0, 1.0, 0.0); // 0.197, 0.561, 0.240
-  private final Color RedTarget = ColorMatch.makeColor(0.75, 0.15, 0.0); // 0.561, 0.232, 0.144
+  private final Color RedTarget = ColorMatch.makeColor(0.75, 0.0, 0.0); // 0.561, 0.232, 0.144
   private final Color YellowTarget = ColorMatch.makeColor(0.8, 0.45, 0); // 0.361, 0.524, 0.113
+
+  private Color BlueTargetField = ColorMatch.makeColor(0.0, 0.5, 1.0); // 0.143, 0.427, 0.429
+  private Color GreenTargetField = ColorMatch.makeColor(0.0, 1.0, 0.0); // 0.197, 0.561, 0.240
+  private Color RedTargetField = ColorMatch.makeColor(0.75, 0.0, 0.0); // 0.561, 0.232, 0.144
+  private Color YellowTargetField = ColorMatch.makeColor(0.8, 0.45, 0);
   private Color givenColor;
 
   public static ArrayList<Color> colors = new ArrayList<Color>();
+  public static ArrayList<Color> colorsField = new ArrayList<Color>();
 
   private String colorString;
   private SendableChooser<Color> colorChooser = new SendableChooser<>();
   private ShuffleboardTab dashboardTab = Shuffleboard.getTab("SmartDashboard");
   private Color detectedColor = ColorMatch.makeColor(0.0, 0.0, 0.0);
+
+  private SendableChooser<Boolean> colorCalibrationToggle = new SendableChooser<>();
+  private SendableChooser<Integer> colorCalibrationColor = new SendableChooser<>();
 
   private Color getColorMatch() {
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -78,6 +87,22 @@ public class ColorSensor extends SubsystemBase {
     dashboardTab.add(colorChooser).withWidget(BuiltInWidgets.kComboBoxChooser).withSize(1, 1);
   }
 
+  private void createColorCalibrator() {
+    SendableRegistry.add(colorCalibrationColor, "Update Color?");
+    SendableRegistry.setName(colorCalibrationColor, "Update Color?");
+    colorCalibrationToggle.addOption("Update", true);
+    colorCalibrationToggle.setDefaultOption("Do not", false);
+    dashboardTab.add(colorCalibrationToggle).withWidget(BuiltInWidgets.kSplitButtonChooser).withSize(2, 1);
+
+    SendableRegistry.add(colorCalibrationColor, "Calibrate Color");
+    SendableRegistry.setName(colorCalibrationColor, "Calibrate Color");
+    colorCalibrationColor.setDefaultOption("Red", 0);
+    colorCalibrationColor.addOption("Green", 1);
+    colorCalibrationColor.addOption("Blue", 2);
+    colorCalibrationColor.addOption("Yellow", 3);
+    dashboardTab.add(colorCalibrationColor).withWidget(BuiltInWidgets.kComboBoxChooser).withSize(2, 1);
+  }
+
   public ColorSensor() {
     m_colorMatcher.addColorMatch(BlueTarget);
     m_colorMatcher.addColorMatch(GreenTarget);
@@ -87,7 +112,19 @@ public class ColorSensor extends SubsystemBase {
     colors.add(1, GreenTarget);
     colors.add(2, BlueTarget);
     colors.add(3, YellowTarget);
+
+    colorsField.add(0, RedTarget);
+    colorsField.add(1, GreenTarget);
+    colorsField.add(2, BlueTarget);
+    colorsField.add(3, YellowTarget);
+
+    m_colorMatcher.addColorMatch(BlueTargetField);
+    m_colorMatcher.addColorMatch(GreenTargetField);
+    m_colorMatcher.addColorMatch(RedTargetField);
+    m_colorMatcher.addColorMatch(YellowTargetField);
     createColorChooser();
+    createColorCalibrator();
+
   }
 
   @Override
@@ -109,8 +146,22 @@ public class ColorSensor extends SubsystemBase {
       colorString = "GREEN";
     } else if (match.color == YellowTarget) {
       colorString = "YELLOW";
+    } else if (match.color == BlueTargetField) {
+      colorString = "F BLUE";
+    } else if (match.color == RedTargetField) {
+      colorString = "F RED";
+    } else if (match.color == GreenTargetField) {
+      colorString = "F GREEN";
+    } else if (match.color == YellowTargetField) {
+      colorString = "F YELLOW";
     } else {
       colorString = "UNKNOWN";
+    }
+
+    if (colorCalibrationToggle.getSelected()) {
+      Color detected = m_colorSensor.getColor();
+      int index = colorCalibrationColor.getSelected();
+      colorsField.set(index, detected);
     }
 
     SmartDashboard.putNumber("Confidence", match.confidence);
@@ -146,6 +197,7 @@ public class ColorSensor extends SubsystemBase {
     if (m.color == GreenTarget || m.color == BlueTarget) {
       return;
     }
+
     if (c.red > c.green - .1) {
       detectedColor = RedTarget;
     } else {
