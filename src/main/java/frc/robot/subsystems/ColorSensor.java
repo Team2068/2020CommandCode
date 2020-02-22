@@ -39,7 +39,7 @@ public class ColorSensor extends SubsystemBase {
   private final Color YellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
   private Color givenColor;
 
-  public static ArrayList<Color> colors;
+  public static ArrayList<Color> colors = new ArrayList<Color>();
 
   private String colorString;
   private SendableChooser<Color> colorChooser = new SendableChooser<>();
