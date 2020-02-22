@@ -23,6 +23,8 @@ import frc.robot.commands.ScoreStageThree;
 import frc.robot.commands.ScoreStageTwoColorSwitch;
 import frc.robot.commands.ScoreStageTwoRotations;
 import frc.robot.commands.RollersChangeDirection;
+import frc.robot.commands.RollersOff;
+import frc.robot.commands.RollersOn;
 import frc.robot.commands.RollersOnOff;
 import frc.robot.commands.SlowOff;
 import frc.robot.commands.SlowOn;
@@ -121,6 +123,8 @@ public class RobotContainer {
     SmartDashboard.putData("Stage 3", new ScoreStageThree(colorSensor, controlPanelSubsystem));
     SmartDashboard.putData("Toggle Camera Mode", new ToggleCameraMode(limelight));
     SmartDashboard.putData("Toggle Stream Mode", new ToggleStreamMode(limelight));
+    SmartDashboard.putData("Rollers On", new RollersOn(lowScoringSubsystem));
+    SmartDashboard.putData("Rollers Off", new RollersOff(lowScoringSubsystem));
   }
 
   private void setSmartDashboardSubsystems() {

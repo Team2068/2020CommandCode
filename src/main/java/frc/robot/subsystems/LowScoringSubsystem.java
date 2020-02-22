@@ -26,7 +26,7 @@ public class LowScoringSubsystem extends SubsystemBase {
   private CANSparkMax rollerMotor = new CANSparkMax(LowScoringConstants.ROLLER_MOTOR, MotorType.kBrushed);
   private CANEncoder rollerEncoder;
   private CANEncoder conveyorEncoder;
-  
+
   private boolean rollersRunning = false;
   private int rollerDirection = 1;
   private double defaultConveyorStep = 5.0;
@@ -95,6 +95,14 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   public void stopConveyor() {
     conveyorMotor.stopMotor();
+  }
+
+  public void rollerMotorOn() {
+    rollerMotor.set(LowScoringConstants.ROLLER_SPEED);
+  }
+
+  public void rollerMotorOff() {
+    rollerMotor.stopMotor();
   }
 
   @Override
