@@ -84,7 +84,7 @@ public class RobotContainer {
 
     driveSubsystem.setDefaultCommand(new TankDrive(driveSubsystem, driverController));
 
-    lowScoringSubsystem.setDefaultCommand(new RunConveyor(lowScoringSubsystem, mechanismController.getY(Hand.kLeft)));
+    lowScoringSubsystem.setDefaultCommand(new RunConveyor(lowScoringSubsystem, mechanismController));
   }
 
   /**
