@@ -102,9 +102,9 @@ public class DriveSubsystem extends SubsystemBase {
       }
     } else {
       if (speed >= 0) {
-        speed = Math.max(speed, 0.5);
+        speed = Math.min(speed, 0.5);
       } else {
-        speed = Math.min(speed, -.5);
+        speed = Math.max(speed, -.5);
       }
     }
 
