@@ -9,10 +9,12 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -21,16 +23,16 @@ import frc.robot.Constants.LowScoringConstants;
 public class LowScoringSubsystem extends SubsystemBase {
 
   private CANSparkMax conveyorMotor = new CANSparkMax(LowScoringConstants.CONVEYOR_MOTOR, MotorType.kBrushless);
-  private CANSparkMax rollerMotor = new CANSparkMax(LowScoringConstants.ROLLER_MOTOR, MotorType.kBrushless);
-  private DoubleSolenoid lockSolenoid = new DoubleSolenoid(LowScoringConstants.FORWARD_CHANNEL,
-      LowScoringConstants.REVERSE_CHANNEL);
-  
+  private CANSparkMax rollerMotor = new CANSparkMax(LowScoringConstants.ROLLER_MOTOR, MotorType.kBrushed);
   private CANEncoder rollerEncoder;
   private CANEncoder conveyorEncoder;
   
   private boolean rollersRunning = false;
   private int rollerDirection = 1;
-  private boolean pistonsForward = false;
+  private double defaultConveyorStep = 5.0;
+
+  private ShuffleboardTab tab = Shuffleboard.getTab("Low Scoring Subsystem");
+  private NetworkTableEntry conveyorStep = tab.add("Conveyor Step", defaultConveyorStep).getEntry();
 
   public LowScoringSubsystem() {
 
@@ -40,9 +42,8 @@ public class LowScoringSubsystem extends SubsystemBase {
     conveyorMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
     rollerMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
 
+    conveyorMotor.setIdleMode(IdleMode.kBrake);
     rollerMotor.setInverted(true);
-
-    lockSolenoid.set(Value.kOff);
 
     rollerEncoder = rollerMotor.getEncoder();
     conveyorEncoder = conveyorMotor.getEncoder();
@@ -64,6 +65,14 @@ public class LowScoringSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Conveyor Speed", speed);
   }
 
+  public void resetConveyorEncoder() {
+    conveyorEncoder.setPosition(0);
+  }
+
+  public double getConveyorEncoderPosition() {
+    return conveyorEncoder.getPosition();
+  }
+
   public void rollerOnOff() {
     rollersRunning = !rollersRunning;
     if (rollersRunning) {
@@ -80,21 +89,12 @@ public class LowScoringSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Rolling Direction", rollerDirection);
   }
 
-  public void openCloseLowScoring() {
-    pistonsForward = !pistonsForward;
-    if (pistonsForward) {
-      lockSolenoid.set(Value.kForward);
-    } else {
-      lockSolenoid.set(Value.kReverse);
-    }
+  public double getConveyorStep() {
+    return conveyorStep.getDouble(defaultConveyorStep);
   }
 
-  public void trapPowercells() {
-    lockSolenoid.set(Value.kForward);
-  }
-
-  public void releasePowercells() {
-    lockSolenoid.set(Value.kReverse);
+  public void stopConveyor() {
+    conveyorMotor.stopMotor();
   }
 
   @Override

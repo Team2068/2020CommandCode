@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.AdvanceConveyor;
 import frc.robot.commands.EngageControlPanelWheel;
 import frc.robot.commands.InvertTankDrive;
 import frc.robot.commands.LiftToHeight;
@@ -23,7 +24,6 @@ import frc.robot.commands.ScoreStageTwoColorSwitch;
 import frc.robot.commands.ScoreStageTwoRotations;
 import frc.robot.commands.RollersChangeDirection;
 import frc.robot.commands.RollersOnOff;
-import frc.robot.commands.RunConveyor;
 import frc.robot.commands.SlowOff;
 import frc.robot.commands.SlowOn;
 import frc.robot.commands.SpinControlPanel;
@@ -36,11 +36,11 @@ import frc.robot.commands.TurboOn;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Gyroscope;
 import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.LowPressureSubsystem;
 import frc.robot.subsystems.LowScoringSubsystem;
-import frc.robot.subsystems.Gyroscope;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -75,9 +75,6 @@ public class RobotContainer {
 
     driveSubsystem.setDefaultCommand(new TankDrive(driveSubsystem, driverController.getY(GenericHID.Hand.kLeft),
         driverController.getY(GenericHID.Hand.kRight)));
-
-    lowScoringSubsystem
-        .setDefaultCommand(new RunConveyor(lowScoringSubsystem, mechanismController.getY(GenericHID.Hand.kLeft)));
   }
 
   /**
@@ -87,39 +84,38 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    JoystickButton mechanismY = new JoystickButton(mechanismController, Button.kY.value);
+    JoystickButton mechanismRightBumper = new JoystickButton(mechanismController, Button.kBumperRight.value);
+    JoystickButton mechanismA = new JoystickButton(mechanismController, Button.kA.value);
+    JoystickButton mechanismB = new JoystickButton(mechanismController, Button.kB.value);
+    JoystickButton mechanismX = new JoystickButton(mechanismController, Button.kX.value);
+    JoystickButton driverY = new JoystickButton(driverController, Button.kY.value);
+    JoystickButton driverRightTrigger = new JoystickButton(driverController, ControllerConstants.RIGHT_TRIGGER);
+    JoystickButton driverLeftTrigger = new JoystickButton(driverController, ControllerConstants.LEFT_TRIGGER);
+    JoystickButton driverX = new JoystickButton(driverController, Button.kX.value);
+    JoystickButton driverB = new JoystickButton(driverController, Button.kB.value);
 
-    // everything on the driverController
-    new JoystickButton(driverController, Button.kY.value).whenPressed(new InvertTankDrive(driveSubsystem));
+    // driverController
+    driverY.whenPressed(new InvertTankDrive(driveSubsystem));
+    driverRightTrigger.whenPressed(new TurboOn(driveSubsystem)).whenReleased(new TurboOff(driveSubsystem)); // sprint
+    driverLeftTrigger.whenPressed(new SlowOn(driveSubsystem)).whenReleased(new SlowOff(driveSubsystem)); // 25% speed
+    driverX.whenPressed(new LiftToHeight(hangSubsystem));
+    driverB.whenPressed(() -> hangSubsystem.winchAndLowerLift());
 
-    new JoystickButton(driverController, ControllerConstants.RIGHT_TRIGGER).whenPressed(new TurboOn(driveSubsystem))
-        .whenReleased(new TurboOff(driveSubsystem)); // sprint
-
-    new JoystickButton(driverController, ControllerConstants.LEFT_TRIGGER).whenPressed(new SlowOn(driveSubsystem))
-        .whenReleased(new SlowOff(driveSubsystem)); // 25% speed
-
-    new JoystickButton(driverController, Button.kX.value).whenPressed(new LiftToHeight(hangSubsystem));
-
-    new JoystickButton(driverController, Button.kB.value).whenPressed(() -> hangSubsystem.winchAndLowerLift());
-
-    // everything on the mechanismController
-    new JoystickButton(mechanismController, Button.kBumperRight.value)
-        .whenPressed(new RollersOnOff(lowScoringSubsystem));
-
-    new JoystickButton(mechanismController, Button.kA.value)
-        .whenPressed(new RollersChangeDirection(lowScoringSubsystem));
-
-    new JoystickButton(mechanismController, Button.kB.value)
-        .whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
-
-    new JoystickButton(mechanismController, Button.kX.value).whenPressed(new ToggleStreamMode(limelight));
-
-    new JoystickButton(mechanismController, Button.kA.value).whenPressed(new ToggleCameraMode(limelight));
+    // mechanismController
+    mechanismY.whenPressed(new AdvanceConveyor(lowScoringSubsystem));
+    mechanismRightBumper.whenPressed(new RollersOnOff(lowScoringSubsystem));
+    mechanismA.whenPressed(new RollersChangeDirection(lowScoringSubsystem));
+    mechanismB.whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
+    mechanismX.whenPressed(new ToggleStreamMode(limelight));
+    mechanismA.whenPressed(new ToggleCameraMode(limelight));
   }
 
   private void setUpSmartDashboardCommands() {
     SmartDashboard.putData("Spin Control Panel", new SpinControlPanel(controlPanelSubsystem));
     SmartDashboard.putData("Stop Control Panel", new StopControlPanel(controlPanelSubsystem));
     SmartDashboard.putData("Reset Lift Encoder", new ResetLiftEncoder(hangSubsystem));
+    SmartDashboard.putData("Roller On/Off", new RollersOnOff(lowScoringSubsystem));
     SmartDashboard.putData("Stage 2 Color", new ScoreStageTwoColorSwitch(colorSensor, controlPanelSubsystem));
     SmartDashboard.putData("Stage 2 Rotations", new ScoreStageTwoRotations(controlPanelSubsystem));
     SmartDashboard.putData("Stage 3", new ScoreStageThree(colorSensor, controlPanelSubsystem));
