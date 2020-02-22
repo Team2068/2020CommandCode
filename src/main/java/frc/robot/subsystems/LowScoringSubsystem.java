@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -47,6 +48,7 @@ public class LowScoringSubsystem extends SubsystemBase {
     conveyorMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
     rollerMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
 
+    conveyorMotor.setIdleMode(IdleMode.kBrake);
     rollerMotor.setInverted(true);
 
     lockSolenoid.set(Value.kOff);
