@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -54,6 +55,11 @@ public class DriveSubsystem extends SubsystemBase {
     backLeft.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
     frontRight.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
     backRight.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
+
+    frontLeft.setIdleMode(IdleMode.kBrake);
+    backLeft.setIdleMode(IdleMode.kBrake);
+    frontRight.setIdleMode(IdleMode.kBrake);
+    backRight.setIdleMode(IdleMode.kBrake);
 
     leftEncoder = frontLeft.getEncoder();
     rightEncoder = frontRight.getEncoder();
@@ -102,9 +108,9 @@ public class DriveSubsystem extends SubsystemBase {
       }
     } else {
       if (speed >= 0) {
-        speed = Math.max(speed, 0.5);
+        speed = Math.min(speed, 0.5);
       } else {
-        speed = Math.min(speed, -.5);
+        speed = Math.max(speed, -.5);
       }
     }
 
