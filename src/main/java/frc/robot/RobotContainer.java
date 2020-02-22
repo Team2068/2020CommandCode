@@ -18,6 +18,7 @@ import frc.robot.commands.AdvanceConveyor;
 import frc.robot.commands.EngageControlPanelWheel;
 import frc.robot.commands.InvertTankDrive;
 import frc.robot.commands.LiftToHeight;
+import frc.robot.commands.RaiseLift;
 import frc.robot.commands.ResetLiftEncoder;
 import frc.robot.commands.ScoreStageThree;
 import frc.robot.commands.ScoreStageTwoColorSwitch;
@@ -30,6 +31,7 @@ import frc.robot.commands.SlowOff;
 import frc.robot.commands.SlowOn;
 import frc.robot.commands.SpinControlPanel;
 import frc.robot.commands.StopControlPanel;
+import frc.robot.commands.StopLift;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.ToggleCameraMode;
 import frc.robot.commands.ToggleStreamMode;
@@ -125,6 +127,8 @@ public class RobotContainer {
     SmartDashboard.putData("Toggle Stream Mode", new ToggleStreamMode(limelight));
     SmartDashboard.putData("Rollers On", new RollersOn(lowScoringSubsystem));
     SmartDashboard.putData("Rollers Off", new RollersOff(lowScoringSubsystem));
+    SmartDashboard.putData("Raise Lift", new RaiseLift(hangSubsystem));
+    SmartDashboard.putData("Stop Lifting", new StopLift(hangSubsystem));
   }
 
   private void setSmartDashboardSubsystems() {

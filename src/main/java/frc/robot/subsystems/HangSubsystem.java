@@ -37,9 +37,13 @@ public class HangSubsystem extends SubsystemBase {
     liftEncoder.setPosition(0);
   }
 
-  public void liftLift(double speed) {
-    liftMotor.set(speed);
+  public void liftLift() {
+    liftMotor.set(HangConstants.LIFT_SPEED);
     SmartDashboard.putNumber("Lift Encoder Position", liftEncoder.getPosition());
+  }
+
+  public void stopLifting() {
+    liftMotor.stopMotor();
   }
 
   public void liftToHeight() {
