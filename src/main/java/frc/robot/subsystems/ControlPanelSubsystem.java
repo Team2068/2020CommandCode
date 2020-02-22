@@ -14,6 +14,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ControlPanelConstants;
 
 public class ControlPanelSubsystem extends SubsystemBase {
@@ -29,7 +30,6 @@ public class ControlPanelSubsystem extends SubsystemBase {
 
   public ControlPanelSubsystem() {
     // controlPanelSolenoid.set(Value.kOff);
-
     controlPanelMotor.restoreFactoryDefaults();
     controlPanelMotor.setSmartCurrentLimit(ControlPanelConstants.CONTROL_PANEL_LIMIT);
 
@@ -59,6 +59,14 @@ public class ControlPanelSubsystem extends SubsystemBase {
 
   public void wheelDown() {
     // controlPanelSolenoid.set(Value.kReverse);
+  }
+
+  public double getRotations() {
+    return controlPanelEncoder.getPosition();
+  }
+
+  public double getVelocity() {
+    return controlPanelEncoder.getVelocity();
   }
 
   @Override

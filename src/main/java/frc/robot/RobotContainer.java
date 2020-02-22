@@ -19,6 +19,9 @@ import frc.robot.commands.EngageControlPanelWheel;
 import frc.robot.commands.InvertTankDrive;
 import frc.robot.commands.LiftToHeight;
 import frc.robot.commands.ResetLiftEncoder;
+import frc.robot.commands.ScoreStageThree;
+import frc.robot.commands.ScoreStageTwoColorSwitch;
+import frc.robot.commands.ScoreStageTwoRotations;
 import frc.robot.commands.RollersChangeDirection;
 import frc.robot.commands.RollersOnOff;
 import frc.robot.commands.SlowOff;
@@ -26,6 +29,8 @@ import frc.robot.commands.SlowOn;
 import frc.robot.commands.SpinControlPanel;
 import frc.robot.commands.StopControlPanel;
 import frc.robot.commands.TankDrive;
+import frc.robot.commands.ToggleCameraMode;
+import frc.robot.commands.ToggleStreamMode;
 import frc.robot.commands.TurboOff;
 import frc.robot.commands.TurboOn;
 import frc.robot.subsystems.ColorSensor;
@@ -105,26 +110,9 @@ public class RobotContainer {
     new JoystickButton(mechanismController, Button.kB.value)
         .whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
 
-    new JoystickButton(mechanismController, Button.kX.value).whenPressed(() -> {
-      int stream = limelight.getStream();
-      switch (stream) {
-      case Constants.StreamMode.PIP_SECONDARY:
-        limelight.setStream(Constants.StreamMode.PIP_MAIN);
-        break;
-      case Constants.StreamMode.PIP_MAIN:
-        limelight.setStream(Constants.StreamMode.PIP_SECONDARY);
-        break;
-      }
-    });
+    new JoystickButton(mechanismController, Button.kX.value).whenPressed(new ToggleStreamMode(limelight));
 
-    new JoystickButton(mechanismController, Button.kA.value).whenPressed(() -> {
-      int mode = limelight.getMode();
-      if (mode == Constants.CameraMode.DRIVER) {
-        limelight.setMode(Constants.CameraMode.VISION);
-      } else {
-        limelight.setMode(Constants.CameraMode.DRIVER);
-      }
-    });
+    new JoystickButton(mechanismController, Button.kA.value).whenPressed(new ToggleCameraMode(limelight));
   }
 
   private void setUpSmartDashboardCommands() {
@@ -132,6 +120,11 @@ public class RobotContainer {
     SmartDashboard.putData("Stop Control Panel", new StopControlPanel(controlPanelSubsystem));
     SmartDashboard.putData("Reset Lift Encoder", new ResetLiftEncoder(hangSubsystem));
     SmartDashboard.putData("Roller On/Off", new RollersOnOff(lowScoringSubsystem));
+    SmartDashboard.putData("Stage 2 Color", new ScoreStageTwoColorSwitch(colorSensor, controlPanelSubsystem));
+    SmartDashboard.putData("Stage 2 Rotations", new ScoreStageTwoRotations(controlPanelSubsystem));
+    SmartDashboard.putData("Stage 3", new ScoreStageThree(colorSensor, controlPanelSubsystem));
+    SmartDashboard.putData("Toggle Camera Mode", new ToggleCameraMode(limelight));
+    SmartDashboard.putData("Toggle Stream Mode", new ToggleStreamMode(limelight));
   }
 
   private void setSmartDashboardSubsystems() {
@@ -139,6 +132,8 @@ public class RobotContainer {
     SmartDashboard.putData(hangSubsystem);
     SmartDashboard.putData(lowScoringSubsystem);
     SmartDashboard.putData(controlPanelSubsystem);
+    SmartDashboard.putData(gyro);
+    SmartDashboard.putData(lowPressureSubsystem);
   }
 
   /**
