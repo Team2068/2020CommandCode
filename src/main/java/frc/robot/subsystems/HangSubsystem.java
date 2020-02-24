@@ -68,6 +68,14 @@ public class HangSubsystem extends SubsystemBase {
     }
   }
 
+  public void winchStart() {
+    winchMotor.set(.5);
+  }
+
+  public void winchStop() {
+    winchMotor.stopMotor();
+  }
+
   public void resetEncoder() {
     liftEncoder.setPosition(0);
   }

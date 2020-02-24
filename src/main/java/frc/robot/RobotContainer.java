@@ -33,8 +33,10 @@ import frc.robot.commands.ScoreStageTwoRotations;
 import frc.robot.commands.SlowOff;
 import frc.robot.commands.SlowOn;
 import frc.robot.commands.SpinControlPanel;
+import frc.robot.commands.StartWinch;
 import frc.robot.commands.StopControlPanel;
 import frc.robot.commands.StopLift;
+import frc.robot.commands.StopWinch;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.ToggleCameraMode;
 import frc.robot.commands.ToggleStreamMode;
@@ -137,6 +139,8 @@ public class RobotContainer {
     SmartDashboard.putData("Rollers Off", new RollersOff(lowScoringSubsystem));
     SmartDashboard.putData("Raise Lift", new RaiseLift(hangSubsystem));
     SmartDashboard.putData("Stop Lifting", new StopLift(hangSubsystem));
+    SmartDashboard.putData("Start Winch", new StartWinch(hangSubsystem));
+    SmartDashboard.putData("Stop Winch", new StopWinch(hangSubsystem));
   }
 
   private void setSmartDashboardSubsystems() {
