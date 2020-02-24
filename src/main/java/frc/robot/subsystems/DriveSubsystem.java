@@ -36,9 +36,6 @@ public class DriveSubsystem extends SubsystemBase {
   private boolean isForward = true;
   private boolean isTurbo = false;
   private boolean isSlow = false;
-  private boolean steppingSpeedUp = false;
-  private boolean steppingSpeedDown = false;
-  private double steppingSpeed = .1;
 
   /**
    * Creates a new DriveSubsystem.
@@ -85,15 +82,9 @@ public class DriveSubsystem extends SubsystemBase {
     isSlow = false;
   }
 
-  public void steppingSpeedUp() {
-    steppingSpeedUp = true;
-  }
-
-  public void steppingSpeedDown() {
-    steppingSpeedDown = true;
-  }
-
   private double adjustSpeed(double speed) {
+    SmartDashboard.putString("Is Turbo", isTurbo ? "yes" : "no");
+    SmartDashboard.putString("Is Slow", isSlow ? "yes" : "no");
     if (isTurbo) {
       if (speed >= 0) {
         speed = 1;
