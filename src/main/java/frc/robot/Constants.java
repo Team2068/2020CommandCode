@@ -39,7 +39,7 @@ public final class Constants {
         public static final int RIGHT_TRIGGER = 7;
         public static final int LEFT_TRIGGER = 8;
     }
-  
+
     public final static class HangConstants {
 
         public static final int LIFT_MOTOR = 7;
@@ -60,8 +60,8 @@ public final class Constants {
     }
 
     public final static class ControlPanelConstants {
-        public static final int FORWARD_CHANNEL = 3;
-        public static final int REVERSE_CHANNEL = 2;
+        public static final int FORWARD_CHANNEL = 1;
+        public static final int REVERSE_CHANNEL = 0;
         public static final int CONTROL_PANEL_MOTOR = 9;
         public static final int CONTROL_PANEL_LIMIT = 30;
     }
