@@ -367,11 +367,6 @@
                   "_title": "DoubleSolenoid[0,1]/Value"
                 },
                 {
-                  "_type": "Text View",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/DoubleSolenoid[0,3]/Value",
-                  "_title": "DoubleSolenoid[0,3]/Value"
-                },
-                {
                   "_type": "Gyro",
                   "_source0": "network_table:///LiveWindow/Ungrouped/ADXRS450_Gyro[0]",
                   "_title": "ADXRS450_Gyro[0]",

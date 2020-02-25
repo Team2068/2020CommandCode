@@ -42,10 +42,11 @@ public final class Constants {
 
     public final static class HangConstants {
 
-        public static final int LIFT_MOTOR = 7;
-        public static final int WINCH_MOTOR = 8;
-        public static final int LIFT_ENCODER_VALUE = 0;
-        public static final double LIFT_SPEED = .42;
+        public static final int LIFT_MOTOR = 8;
+        public static final int WINCH_MOTOR = 7;
+        public static final int LIFT_ENCODER_VALUE = 220;
+        public static final int BOTTOM_LIFT_ENCODER = 190;
+        public static final double LIFT_SPEED = 1;
     }
 
     public final static class LowScoringConstants {

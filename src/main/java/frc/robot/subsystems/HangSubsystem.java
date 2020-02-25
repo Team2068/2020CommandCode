@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,8 +34,19 @@ public class HangSubsystem extends SubsystemBase {
     liftMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
     winchMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
 
+    liftMotor.setIdleMode(IdleMode.kBrake);
+    liftMotor.setIdleMode(IdleMode.kCoast);
+
     liftEncoder = liftMotor.getEncoder();
     liftEncoder.setPosition(0);
+  }
+
+  public void lowerLift() {
+    liftMotor.set(-HangConstants.LIFT_SPEED);
+  }
+
+  public void killLift() {
+    liftMotor.stopMotor();
   }
 
   public void liftLift() {
@@ -56,16 +68,20 @@ public class HangSubsystem extends SubsystemBase {
     }
   }
 
+  public double liftPosition() {
+    return liftEncoder.getPosition();
+  }
+
   public void winchAndLowerLift() {
     // liftMotor.set(-0.42);
     // winchMotor.set(1);
-    if (Math.abs(liftEncoder.getPosition()) > 1) {
-      liftMotor.set(-HangConstants.LIFT_SPEED);
-      winchMotor.set(1);
-    } else {
-      liftMotor.stopMotor();
-      winchMotor.stopMotor();
-    }
+    // if (Math.abs(liftEncoder.getPosition()) > 1) {
+    liftMotor.set(-HangConstants.LIFT_SPEED);
+    // winchMotor.set(1);
+    // } else {
+    // liftMotor.stopMotor();
+    // winchMotor.stopMotor();
+    // }
   }
 
   public void winchStart() {
@@ -82,7 +98,7 @@ public class HangSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Encoder Value", liftEncoder.getPosition());
+    SmartDashboard.putNumber("Lift Encoder", liftEncoder.getPosition());
     // This method will be called once per scheduler run
   }
 }

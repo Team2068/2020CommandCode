@@ -18,7 +18,9 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.AdvanceConveyor;
 import frc.robot.commands.EngageControlPanelWheel;
 import frc.robot.commands.InvertTankDrive;
+import frc.robot.commands.KillLift;
 import frc.robot.commands.LiftToHeight;
+import frc.robot.commands.LowerLift;
 import frc.robot.commands.RaiseLift;
 import frc.robot.commands.ResetLiftEncoder;
 import frc.robot.commands.RollerDrive;
@@ -113,8 +115,7 @@ public class RobotContainer {
     driverRightTrigger.whenPressed(new TurboOn(driveSubsystem)).whenReleased(new TurboOff(driveSubsystem)); // sprint
     driverLeftTrigger.whenPressed(new SlowOn(driveSubsystem)).whenReleased(new SlowOff(driveSubsystem)); // 25% speed
     driverX.whenPressed(new LiftToHeight(hangSubsystem));
-    driverB.whenPressed(() -> hangSubsystem.winchAndLowerLift());
-    driverA.whenPressed(new RollersOn(lowScoringSubsystem));
+    driverB.whenPressed(new LowerLift(hangSubsystem));
 
     // mechanismController
     mechanismY.whenPressed(new AdvanceConveyor(lowScoringSubsystem));
@@ -129,18 +130,16 @@ public class RobotContainer {
     SmartDashboard.putData("Spin Control Panel", new SpinControlPanel(controlPanelSubsystem));
     SmartDashboard.putData("Stop Control Panel", new StopControlPanel(controlPanelSubsystem));
     SmartDashboard.putData("Reset Lift Encoder", new ResetLiftEncoder(hangSubsystem));
-    SmartDashboard.putData("Roller On/Off", new RollersOnOff(lowScoringSubsystem));
     SmartDashboard.putData("Stage 2 Color", new ScoreStageTwoColorSwitch(colorSensor, controlPanelSubsystem));
     SmartDashboard.putData("Stage 2 Rotations", new ScoreStageTwoRotations(controlPanelSubsystem));
     SmartDashboard.putData("Stage 3", new ScoreStageThree(colorSensor, controlPanelSubsystem));
     SmartDashboard.putData("Toggle Camera Mode", new ToggleCameraMode(limelight));
     SmartDashboard.putData("Toggle Stream Mode", new ToggleStreamMode(limelight));
-    SmartDashboard.putData("Rollers On", new RollersOn(lowScoringSubsystem));
-    SmartDashboard.putData("Rollers Off", new RollersOff(lowScoringSubsystem));
     SmartDashboard.putData("Raise Lift", new RaiseLift(hangSubsystem));
     SmartDashboard.putData("Stop Lifting", new StopLift(hangSubsystem));
     SmartDashboard.putData("Start Winch", new StartWinch(hangSubsystem));
     SmartDashboard.putData("Stop Winch", new StopWinch(hangSubsystem));
+    SmartDashboard.putData("Kill Lift", new KillLift(hangSubsystem));
   }
 
   private void setSmartDashboardSubsystems() {
