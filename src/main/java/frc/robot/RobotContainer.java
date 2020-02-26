@@ -44,8 +44,6 @@ import frc.robot.commands.ToggleCameraMode;
 import frc.robot.commands.ToggleStreamMode;
 import frc.robot.commands.TurboOff;
 import frc.robot.commands.TurboOn;
-import frc.robot.commands.WheelDown;
-import frc.robot.commands.WheelUp;
 import frc.robot.subsystems.ColorSensor;
 // import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
@@ -127,7 +125,7 @@ public class RobotContainer {
     mechanismB.whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
     mechanismX.whenPressed(new ToggleStreamMode(limelight));
     // mechanismA.whenPressed(new ToggleCameraMode(limelight));
-    mechanismLeftBumper.whenPressed(() -> controlPanelSubsystem.wheelDown());
+    // mechanismLeftBumper.whenPressed(() -> controlPanelSubsystem.wheelDown());
   }
 
   private void setUpSmartDashboardCommands() {
@@ -144,8 +142,8 @@ public class RobotContainer {
     SmartDashboard.putData("Start Winch", new StartWinch(hangSubsystem));
     SmartDashboard.putData("Stop Winch", new StopWinch(hangSubsystem));
     SmartDashboard.putData("Kill Lift", new KillLift(hangSubsystem));
-    SmartDashboard.putData("Lift Wheel", new WheelUp(controlPanelSubsystem));
-    SmartDashboard.putData("Drop Wheel", new WheelDown(controlPanelSubsystem));
+    // SmartDashboard.putData("Lift Wheel", new WheelUp(controlPanelSubsystem));
+    // SmartDashboard.putData("Drop Wheel", new WheelDown(controlPanelSubsystem));
   }
 
   private void setSmartDashboardSubsystems() {
