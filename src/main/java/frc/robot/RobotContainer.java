@@ -44,6 +44,8 @@ import frc.robot.commands.ToggleCameraMode;
 import frc.robot.commands.ToggleStreamMode;
 import frc.robot.commands.TurboOff;
 import frc.robot.commands.TurboOn;
+import frc.robot.commands.WheelDown;
+import frc.robot.commands.WheelUp;
 import frc.robot.subsystems.ColorSensor;
 // import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
@@ -103,6 +105,7 @@ public class RobotContainer {
     JoystickButton mechanismA = new JoystickButton(mechanismController, Button.kA.value);
     JoystickButton mechanismB = new JoystickButton(mechanismController, Button.kB.value);
     JoystickButton mechanismX = new JoystickButton(mechanismController, Button.kX.value);
+    JoystickButton mechanismLeftBumper = new JoystickButton(mechanismController, Button.kBumperRight.value);
     JoystickButton driverY = new JoystickButton(driverController, Button.kY.value);
     JoystickButton driverRightTrigger = new JoystickButton(driverController, ControllerConstants.RIGHT_TRIGGER);
     JoystickButton driverLeftTrigger = new JoystickButton(driverController, ControllerConstants.LEFT_TRIGGER);
@@ -123,7 +126,8 @@ public class RobotContainer {
     mechanismA.whenPressed(new RollersChangeDirection(lowScoringSubsystem));
     mechanismB.whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
     mechanismX.whenPressed(new ToggleStreamMode(limelight));
-    mechanismA.whenPressed(new ToggleCameraMode(limelight));
+    // mechanismA.whenPressed(new ToggleCameraMode(limelight));
+    mechanismLeftBumper.whenPressed(() -> controlPanelSubsystem.wheelDown());
   }
 
   private void setUpSmartDashboardCommands() {
@@ -135,11 +139,13 @@ public class RobotContainer {
     SmartDashboard.putData("Stage 3", new ScoreStageThree(colorSensor, controlPanelSubsystem));
     SmartDashboard.putData("Toggle Camera Mode", new ToggleCameraMode(limelight));
     SmartDashboard.putData("Toggle Stream Mode", new ToggleStreamMode(limelight));
-    SmartDashboard.putData("Raise Lift", new RaiseLift(hangSubsystem));
-    SmartDashboard.putData("Stop Lifting", new StopLift(hangSubsystem));
+    // SmartDashboard.putData("Raise Lift", new RaiseLift(hangSubsystem));
+    // SmartDashboard.putData("Stop Lifting", new StopLift(hangSubsystem));
     SmartDashboard.putData("Start Winch", new StartWinch(hangSubsystem));
     SmartDashboard.putData("Stop Winch", new StopWinch(hangSubsystem));
     SmartDashboard.putData("Kill Lift", new KillLift(hangSubsystem));
+    SmartDashboard.putData("Lift Wheel", new WheelUp(controlPanelSubsystem));
+    SmartDashboard.putData("Drop Wheel", new WheelDown(controlPanelSubsystem));
   }
 
   private void setSmartDashboardSubsystems() {
