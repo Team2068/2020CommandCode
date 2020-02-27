@@ -53,7 +53,7 @@ public class HangSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Lift Encoder Position", liftEncoder.getPosition());
   }
 
-  public void stopLifting() {
+  public void stopLift() {
     liftMotor.stopMotor();
   }
 

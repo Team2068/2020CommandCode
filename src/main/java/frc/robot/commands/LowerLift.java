@@ -34,7 +34,7 @@ public class LowerLift extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hangSubsystem.stopLifting();
+    hangSubsystem.stopLift();
     hangSubsystem.resetEncoder();
   }
 

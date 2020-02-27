@@ -24,6 +24,6 @@ public class StopLift extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    hangSubsystem.stopLifting();
+    hangSubsystem.stopLift();
   }
 }
