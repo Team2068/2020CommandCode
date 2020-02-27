@@ -109,10 +109,15 @@ public class RobotContainer {
     JoystickButton driverX = new JoystickButton(driverController, Button.kX.value);
     JoystickButton driverB = new JoystickButton(driverController, Button.kB.value);
     JoystickButton driverA = new JoystickButton(driverController, Button.kA.value);
+    JoystickButton driverRightBumper = new JoystickButton(driverController, Button.kBumperRight.value);
+    JoystickButton driverLeftBumper = new JoystickButton(driverController, Button.kBumperLeft.value);
 
     // driverController
+    driverX.whenPressed(new InvertTankDrive(driveSubsystem));
     driverRightBumper.whenPressed(new TurboOn(driveSubsystem)).whenReleased(new TurboOff(driveSubsystem));
     driverLeftBumper.whenPressed(new SlowOn(driveSubsystem)).whenReleased(new SlowOff(driveSubsystem));
+    driverY.whenPressed(new LiftToHeight(hangSubsystem));
+    driverA.whenPressed(new LowerLift(hangSubsystem));
 
     // mechanismController
     mechanismY.whenPressed(new AdvanceConveyor(lowScoringSubsystem));
@@ -121,7 +126,6 @@ public class RobotContainer {
     mechanismB.whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
     mechanismX.whenPressed(new ToggleStreamMode(limelight));
     // mechanismA.whenPressed(new ToggleCameraMode(limelight));
-    // mechanismLeftBumper.whenPressed(() -> controlPanelSubsystem.wheelDown());
   }
 
   private void setUpSmartDashboardCommands() {
