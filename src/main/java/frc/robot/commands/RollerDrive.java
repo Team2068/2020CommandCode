@@ -31,7 +31,7 @@ public class RollerDrive extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putNumber("Roller Speed", speed);
-    lowScoringSubsystem.setRollerSpeed(speed * speed);
+    lowScoringSubsystem.setRollerSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
