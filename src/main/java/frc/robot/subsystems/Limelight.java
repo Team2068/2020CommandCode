@@ -42,9 +42,9 @@ public class Limelight extends SubsystemBase {
         }
 
         // Post to smart dashboard periodically
-        SmartDashboard.putNumber("LimelightX", x);
-        SmartDashboard.putNumber("LimelightY", y);
-        SmartDashboard.putNumber("LimelightArea", area);
+        Dashboard.putDebugNumber("LimelightX", x);
+        Dashboard.putDebugNumber("LimelightY", y);
+        Dashboard.putDebugNumber("LimelightArea", area);
         SmartDashboard.putString("Stream Mode", stream);
         SmartDashboard.putString("Camera Mode", cam);
     }

@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.LowScoringConstants;
 import frc.robot.subsystems.LowScoringSubsystem;
 
 public class RunConveyor extends CommandBase {
