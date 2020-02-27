@@ -84,7 +84,6 @@ public class RobotContainer {
     configureButtonBindings();
     setUpSmartDashboardCommands();
     setSmartDashboardSubsystems();
-    debugJoystics();
 
     driveSubsystem.setDefaultCommand(new TankDrive(driveSubsystem, driverController));
 
