@@ -46,6 +46,7 @@ import frc.robot.commands.TurboOn;
 import frc.robot.subsystems.ColorSensor;
 // import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
+import frc.robot.subsystems.Dashboard;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Gyroscope;
 import frc.robot.subsystems.HangSubsystem;
@@ -127,12 +128,12 @@ public class RobotContainer {
   }
 
   private void setUpSmartDashboardCommands() {
-    SmartDashboard.putData("Spin Control Panel", new SpinControlPanel(controlPanelSubsystem));
-    SmartDashboard.putData("Stop Control Panel", new StopControlPanel(controlPanelSubsystem));
-    SmartDashboard.putData("Reset Lift Encoder", new ResetLiftEncoder(hangSubsystem));
-    SmartDashboard.putData("Stage 2 Color", new ScoreStageTwoColorSwitch(colorSensor, controlPanelSubsystem));
-    SmartDashboard.putData("Stage 2 Rotations", new ScoreStageTwoRotations(controlPanelSubsystem));
-    SmartDashboard.putData("Stage 3", new ScoreStageThree(colorSensor, controlPanelSubsystem));
+    Dashboard.putDebugData("Spin Control Panel", new SpinControlPanel(controlPanelSubsystem));
+    Dashboard.putDebugData("Stop Control Panel", new StopControlPanel(controlPanelSubsystem));
+    Dashboard.putDebugData("Reset Lift Encoder", new ResetLiftEncoder(hangSubsystem));
+    Dashboard.putDebugData("Stage 2 Color", new ScoreStageTwoColorSwitch(colorSensor, controlPanelSubsystem));
+    Dashboard.putDebugData("Stage 2 Rotations", new ScoreStageTwoRotations(controlPanelSubsystem));
+    Dashboard.putDebugData("Stage 3", new ScoreStageThree(colorSensor, controlPanelSubsystem));
     SmartDashboard.putData("Toggle Camera Mode", new ToggleCameraMode(limelight));
     SmartDashboard.putData("Toggle Stream Mode", new ToggleStreamMode(limelight));
     // SmartDashboard.putData("Raise Lift", new RaiseLift(hangSubsystem));
@@ -144,12 +145,12 @@ public class RobotContainer {
   }
 
   private void setSmartDashboardSubsystems() {
-    SmartDashboard.putData(driveSubsystem);
-    SmartDashboard.putData(hangSubsystem);
-    SmartDashboard.putData(lowScoringSubsystem);
-    SmartDashboard.putData(controlPanelSubsystem);
-    SmartDashboard.putData(gyro);
-    SmartDashboard.putData(lowPressureSubsystem);
+    Dashboard.putDebugData("Drive Subsystem", driveSubsystem);
+    Dashboard.putDebugData("Hang Subsystem", hangSubsystem);
+    Dashboard.putDebugData("Low Scoring Subsystem", lowScoringSubsystem);
+    Dashboard.putDebugData("Control Panel", controlPanelSubsystem);
+    Dashboard.putDebugData("Gyro", gyro);
+    Dashboard.putDebugData("Low Pressure Subsystem", lowPressureSubsystem);
   }
 
   /**

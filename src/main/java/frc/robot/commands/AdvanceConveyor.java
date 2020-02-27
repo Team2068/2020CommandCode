@@ -7,8 +7,8 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Dashboard;
 import frc.robot.subsystems.LowScoringSubsystem;
 
 public class AdvanceConveyor extends CommandBase {
@@ -44,8 +44,8 @@ public class AdvanceConveyor extends CommandBase {
   public boolean isFinished() {
     double currentPosition = Math.abs(lowScoringSubsystem.getConveyorEncoderPosition());
     double conveyorPosition = Math.abs(lowScoringSubsystem.getConveyorStep());
-    SmartDashboard.putNumber("Current Position", currentPosition);
-    SmartDashboard.putNumber("Conveyor Position", conveyorPosition);
+    Dashboard.putDebugNumber("Current Position", currentPosition);
+    Dashboard.putDebugNumber("Conveyor Position", conveyorPosition);
     return currentPosition >= conveyorPosition;
   }
 }

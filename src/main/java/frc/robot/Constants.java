@@ -20,6 +20,7 @@ package frc.robot;
 public final class Constants {
 
     public static final int CURRENT_LIMIT = 30;
+    public static boolean debug = true;
 
     public final static class DriveConstants {
 

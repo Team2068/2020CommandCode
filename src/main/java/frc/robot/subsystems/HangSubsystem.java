@@ -11,8 +11,6 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.HangConstants;
@@ -42,7 +40,7 @@ public class HangSubsystem extends SubsystemBase {
 
   public void raiseLift() {
     liftMotor.set(HangConstants.LIFT_SPEED);
-    SmartDashboard.putNumber("Lift Encoder Position", liftEncoder.getPosition());
+    Dashboard.putDebugNumber("Lift Encoder Position", liftEncoder.getPosition());
   }
 
   public void stopLift() {
@@ -81,7 +79,6 @@ public class HangSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Lift Encoder", liftEncoder.getPosition());
-    // This method will be called once per scheduler run
+    Dashboard.putDebugNumber("Lift Encoder", liftEncoder.getPosition());
   }
 }

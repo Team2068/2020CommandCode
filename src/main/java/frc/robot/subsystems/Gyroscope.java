@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Gyroscope extends SubsystemBase {
@@ -25,7 +24,7 @@ public class Gyroscope extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
-        SmartDashboard.putNumber("Yaw Angle", yaw.getAngle());
+        Dashboard.putDebugNumber("Gyro Angle", gyro.getAngle());
+        Dashboard.putDebugNumber("Yaw Angle", yaw.getAngle());
     }
 }

@@ -62,7 +62,7 @@ public class LowScoringSubsystem extends SubsystemBase {
         speed = 0.33;
     }
     conveyorMotor.set(speed);
-    SmartDashboard.putNumber("Conveyor Speed", speed);
+    Dashboard.putDebugNumber("Conveyor Speed", speed);
   }
 
   public void resetConveyorEncoder() {
@@ -111,6 +111,6 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Conveyor Encoder", conveyorEncoder.getPosition());
+    Dashboard.putDebugNumber("Conveyor Encoder", conveyorEncoder.getPosition());
   }
 }
