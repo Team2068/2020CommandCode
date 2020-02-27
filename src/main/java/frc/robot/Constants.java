@@ -47,6 +47,7 @@ public final class Constants {
         public static final int LIFT_ENCODER_VALUE = 220;
         public static final int BOTTOM_LIFT_ENCODER = 190;
         public static final double LIFT_SPEED = 1;
+        public static final double WINCH_MOTOR_SPEED = 1;
     }
 
     public final static class LowScoringConstants {
