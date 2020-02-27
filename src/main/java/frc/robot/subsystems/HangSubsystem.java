@@ -85,7 +85,7 @@ public class HangSubsystem extends SubsystemBase {
   }
 
   public void winchStart() {
-    winchMotor.set(.5);
+    winchMotor.set(HangConstants.WINCH_MOTOR_SPEED);
   }
 
   public void winchStop() {
