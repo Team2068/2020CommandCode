@@ -111,7 +111,6 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // SmartDashboard.putNumber("Roller Encoder", rollerEncoder.getPosition());
     SmartDashboard.putNumber("Conveyor Encoder", conveyorEncoder.getPosition());
   }
 }
