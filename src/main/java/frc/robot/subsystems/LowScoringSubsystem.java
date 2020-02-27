@@ -49,7 +49,6 @@ public class LowScoringSubsystem extends SubsystemBase {
     rollerEncoder = rollerMotor.getEncoder(EncoderType.kNoSensor, 0);
     conveyorEncoder = conveyorMotor.getEncoder();
 
-    // rollerEncoder.setPosition(0);
     conveyorEncoder.setPosition(0);
 
   }
