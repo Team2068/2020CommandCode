@@ -18,7 +18,6 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.AdvanceConveyor;
 import frc.robot.commands.EngageControlPanelWheel;
 import frc.robot.commands.InvertTankDrive;
-import frc.robot.commands.KillLift;
 import frc.robot.commands.LiftToHeight;
 import frc.robot.commands.LowerLift;
 import frc.robot.commands.RaiseLift;
@@ -140,7 +139,6 @@ public class RobotContainer {
     // SmartDashboard.putData("Stop Lifting", new StopLift(hangSubsystem));
     SmartDashboard.putData("Start Winch", new StartWinch(hangSubsystem));
     SmartDashboard.putData("Stop Winch", new StopWinch(hangSubsystem));
-    SmartDashboard.putData("Kill Lift", new KillLift(hangSubsystem));
     // SmartDashboard.putData("Lift Wheel", new WheelUp(controlPanelSubsystem));
     // SmartDashboard.putData("Drop Wheel", new WheelDown(controlPanelSubsystem));
   }
