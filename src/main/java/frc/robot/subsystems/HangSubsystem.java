@@ -40,10 +40,6 @@ public class HangSubsystem extends SubsystemBase {
     liftEncoder.setPosition(0);
   }
 
-  public void lowerLift() {
-    liftMotor.set(-HangConstants.LIFT_SPEED);
-  }
-
   public void raiseLift() {
     liftMotor.set(HangConstants.LIFT_SPEED);
     SmartDashboard.putNumber("Lift Encoder Position", liftEncoder.getPosition());
@@ -67,16 +63,8 @@ public class HangSubsystem extends SubsystemBase {
     return liftEncoder.getPosition();
   }
 
-  public void winchAndLowerLift() {
-    // liftMotor.set(-0.42);
-    // winchMotor.set(1);
-    // if (Math.abs(liftEncoder.getPosition()) > 1) {
+  public void lowerLift() {
     liftMotor.set(-HangConstants.LIFT_SPEED);
-    // winchMotor.set(1);
-    // } else {
-    // liftMotor.stopMotor();
-    // winchMotor.stopMotor();
-    // }
   }
 
   public void winchStart() {
