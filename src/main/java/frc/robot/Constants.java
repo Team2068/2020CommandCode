@@ -63,6 +63,7 @@ public final class Constants {
         public static final int REVERSE_CHANNEL = 2;
         public static final int CONTROL_PANEL_MOTOR = 9;
         public static final int CONTROL_PANEL_LIMIT = 30;
+        public static final int MOTOR_SPEED = 1;
     }
 
     public final static class LowPressureConstants {
