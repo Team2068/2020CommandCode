@@ -7,7 +7,7 @@ This is [The Metal Jackets](https://www.metaljackets.org/) robot code for the 20
 ## Docs / Resources
 
 * [FIRST Robotics Competition Docs](https://docs.wpilib.org/en/latest/)
-* [SPARK MAX](https://www.revrobotics.com/sparkmax-software/)
+* [SPARK MAX](https://www.revrobotics.com/sparkmax-software/) and [Status Lights/Codes](https://www.revrobotics.com/sparkmax-quickstart/#status-led)
 * [REV Robotics Analog Pressure Sensor](https://www.revrobotics.com/rev-11-1107/)
 * [LimeLight](https://docs.limelightvision.io/en/latest/)
 * [REV Robotics Color Sensor](https://www.revrobotics.com/rev-31-1557/)
