@@ -28,11 +28,11 @@ public final class Constants {
         public static final int BACK_LEFT = 2;
         public static final int FRONT_RIGHT = 3;
         public static final int BACK_RIGHT = 4;
-
+        public static final double NORMAL_SPEED = 0.5;
         public static final int driverController = 0;
         public static final int mechanismController = 1;
-        // public static final int leftDriveJoystick = 2;
-        // public static final int rightDriveJoystick = 3;
+        public static final double TURBO_SPEED = 1;
+        public static final double SLOW_SPEED = 0.25;
 
     }
 

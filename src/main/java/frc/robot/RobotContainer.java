@@ -111,11 +111,8 @@ public class RobotContainer {
     JoystickButton driverA = new JoystickButton(driverController, Button.kA.value);
 
     // driverController
-    driverY.whenPressed(new InvertTankDrive(driveSubsystem));
-    driverRightTrigger.whenPressed(new TurboOn(driveSubsystem)).whenReleased(new TurboOff(driveSubsystem)); // sprint
-    driverLeftTrigger.whenPressed(new SlowOn(driveSubsystem)).whenReleased(new SlowOff(driveSubsystem)); // 25% speed
-    driverX.whenPressed(new LiftToHeight(hangSubsystem));
-    driverB.whenPressed(new LowerLift(hangSubsystem));
+    driverRightBumper.whenPressed(new TurboOn(driveSubsystem)).whenReleased(new TurboOff(driveSubsystem));
+    driverLeftBumper.whenPressed(new SlowOn(driveSubsystem)).whenReleased(new SlowOff(driveSubsystem));
 
     // mechanismController
     mechanismY.whenPressed(new AdvanceConveyor(lowScoringSubsystem));
