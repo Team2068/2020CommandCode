@@ -46,7 +46,7 @@ public class ControlPanelSubsystem extends SubsystemBase {
   public void engageControlPanel() {
     pistonsForward = !pistonsForward;
     if (pistonsForward) {
-      controlPanelSolenoid.set(Value.kForward);
+      wheelUp();
     } else {
       controlPanelSolenoid.set(Value.kReverse);
     }
