@@ -7,11 +7,11 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
+import frc.robot.subsystems.Dashboard;
 
 public class ScoreStageThree extends CommandBase {
   /**
@@ -47,7 +47,7 @@ public class ScoreStageThree extends CommandBase {
     controlPanel.setMotorSpeed(10);
     velocity = controlPanel.getVelocity();
     detected = colorSensor.getSensorColor();
-    SmartDashboard.putNumber("Panel RPM", velocity / 8.f);
+    Dashboard.putDebugNumber("Panel RPM", velocity / 8.f);
   }
 
   // Called once the command ends or is interrupted.

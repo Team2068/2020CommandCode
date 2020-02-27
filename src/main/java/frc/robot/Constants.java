@@ -20,6 +20,7 @@ package frc.robot;
 public final class Constants {
 
     public static final int CURRENT_LIMIT = 30;
+    public static boolean debug = true;
 
     public final static class DriveConstants {
 
@@ -39,7 +40,7 @@ public final class Constants {
         public static final int RIGHT_TRIGGER = 7;
         public static final int LEFT_TRIGGER = 8;
     }
-  
+
     public final static class HangConstants {
 
         public static final int LIFT_MOTOR = 7;

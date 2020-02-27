@@ -26,7 +26,7 @@ public class LowScoringSubsystem extends SubsystemBase {
   private CANSparkMax rollerMotor = new CANSparkMax(LowScoringConstants.ROLLER_MOTOR, MotorType.kBrushed);
   private CANEncoder rollerEncoder;
   private CANEncoder conveyorEncoder;
-  
+
   private boolean rollersRunning = false;
   private int rollerDirection = 1;
   private double defaultConveyorStep = 5.0;
@@ -62,7 +62,7 @@ public class LowScoringSubsystem extends SubsystemBase {
         speed = 0.33;
     }
     conveyorMotor.set(speed);
-    SmartDashboard.putNumber("Conveyor Speed", speed);
+    Dashboard.putDebugNumber("Conveyor Speed", speed);
   }
 
   public void resetConveyorEncoder() {
@@ -99,7 +99,7 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Roller Encoder", rollerEncoder.getPosition());
-    SmartDashboard.putNumber("Conveyor Encoder", conveyorEncoder.getPosition());
+    Dashboard.putDebugNumber("Roller Encoder", rollerEncoder.getPosition());
+    Dashboard.putDebugNumber("Conveyor Encoder", conveyorEncoder.getPosition());
   }
 }
