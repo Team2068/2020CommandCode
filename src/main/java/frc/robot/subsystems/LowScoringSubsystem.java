@@ -46,10 +46,9 @@ public class LowScoringSubsystem extends SubsystemBase {
     conveyorMotor.setIdleMode(IdleMode.kBrake);
     rollerMotor.setInverted(true);
 
-    rollerEncoder = rollerMotor.getEncoder(EncoderType.kNoSensor, 0);
+    rollerEncoder = rollerMotor.getEncoder(EncoderType.kNoSensor, 0); // using a brushed motor
     conveyorEncoder = conveyorMotor.getEncoder();
 
-    // rollerEncoder.setPosition(0);
     conveyorEncoder.setPosition(0);
 
   }
@@ -112,7 +111,6 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // SmartDashboard.putNumber("Roller Encoder", rollerEncoder.getPosition());
     SmartDashboard.putNumber("Conveyor Encoder", conveyorEncoder.getPosition());
   }
 }
