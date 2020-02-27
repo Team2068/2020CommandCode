@@ -154,14 +154,6 @@ public class RobotContainer {
     SmartDashboard.putData(lowPressureSubsystem);
   }
 
-  private void debugJoystics() {
-    SmartDashboard.putNumber("DriverJoyR", driverController.getY(GenericHID.Hand.kRight));
-    SmartDashboard.putNumber("DriverJoyL", driverController.getY(GenericHID.Hand.kLeft));
-
-    SmartDashboard.putNumber("MechJoyR", mechanismController.getY(GenericHID.Hand.kRight));
-    SmartDashboard.putNumber("MechJoyL", mechanismController.getY(GenericHID.Hand.kLeft));
-  }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
