@@ -48,7 +48,7 @@ public class ControlPanelSubsystem extends SubsystemBase {
     if (pistonsForward) {
       wheelUp();
     } else {
-      controlPanelSolenoid.set(Value.kReverse);
+      wheelDown();
     }
   }
 
