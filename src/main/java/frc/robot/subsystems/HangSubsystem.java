@@ -35,7 +35,6 @@ public class HangSubsystem extends SubsystemBase {
     winchMotor.setSmartCurrentLimit(Constants.CURRENT_LIMIT);
 
     liftMotor.setIdleMode(IdleMode.kBrake);
-    liftMotor.setIdleMode(IdleMode.kCoast);
 
     liftEncoder = liftMotor.getEncoder();
     liftEncoder.setPosition(0);
