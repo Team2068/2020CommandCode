@@ -43,10 +43,12 @@ public final class Constants {
 
     public final static class HangConstants {
 
-        public static final int LIFT_MOTOR = 7;
-        public static final int WINCH_MOTOR = 8;
-        public static final int LIFT_ENCODER_VALUE = 0;
-        public static final double LIFT_SPEED = .42;
+        public static final int LIFT_MOTOR = 8;
+        public static final int WINCH_MOTOR = 7;
+        public static final int LIFT_ENCODER_VALUE = 220;
+        public static final int BOTTOM_LIFT_ENCODER = 190;
+        public static final double LIFT_SPEED = 1;
+        public static final double WINCH_MOTOR_SPEED = 1;
     }
 
     public final static class LowScoringConstants {
@@ -55,8 +57,6 @@ public final class Constants {
         public static final int ROLLER_MOTOR = 5; // the spinning thingy to pick up POWERCELLS or reject them
         public static final double CONVEYOR_SPEED = .5;
         public static final double ROLLER_SPEED = .3;
-        public static final int FORWARD_CHANNEL = 1;
-        public static final int REVERSE_CHANNEL = 0;
 
     }
 
@@ -65,6 +65,7 @@ public final class Constants {
         public static final int REVERSE_CHANNEL = 2;
         public static final int CONTROL_PANEL_MOTOR = 9;
         public static final int CONTROL_PANEL_LIMIT = 30;
+        public static final int MOTOR_SPEED = 1;
     }
 
     public final static class LowPressureConstants {

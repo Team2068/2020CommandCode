@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -18,22 +19,32 @@ import frc.robot.commands.AdvanceConveyor;
 import frc.robot.commands.EngageControlPanelWheel;
 import frc.robot.commands.InvertTankDrive;
 import frc.robot.commands.LiftToHeight;
+import frc.robot.commands.LowerLift;
+import frc.robot.commands.RaiseLift;
 import frc.robot.commands.ResetLiftEncoder;
+import frc.robot.commands.RollerDrive;
+import frc.robot.commands.RollersChangeDirection;
+import frc.robot.commands.RollersOff;
+import frc.robot.commands.RollersOn;
+import frc.robot.commands.RollersOnOff;
+import frc.robot.commands.RunConveyor;
 import frc.robot.commands.ScoreStageThree;
 import frc.robot.commands.ScoreStageTwoColorSwitch;
 import frc.robot.commands.ScoreStageTwoRotations;
-import frc.robot.commands.RollersChangeDirection;
-import frc.robot.commands.RollersOnOff;
 import frc.robot.commands.SlowOff;
 import frc.robot.commands.SlowOn;
 import frc.robot.commands.SpinControlPanel;
+import frc.robot.commands.StartWinch;
 import frc.robot.commands.StopControlPanel;
+import frc.robot.commands.StopLift;
+import frc.robot.commands.StopWinch;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.ToggleCameraMode;
 import frc.robot.commands.ToggleStreamMode;
 import frc.robot.commands.TurboOff;
 import frc.robot.commands.TurboOn;
 import frc.robot.subsystems.ColorSensor;
+// import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.Dashboard;
 import frc.robot.subsystems.DriveSubsystem;
@@ -74,8 +85,9 @@ public class RobotContainer {
     setUpSmartDashboardCommands();
     setSmartDashboardSubsystems();
 
-    driveSubsystem.setDefaultCommand(new TankDrive(driveSubsystem, driverController.getY(GenericHID.Hand.kLeft),
-        driverController.getY(GenericHID.Hand.kRight)));
+    driveSubsystem.setDefaultCommand(new TankDrive(driveSubsystem, driverController));
+
+    lowScoringSubsystem.setDefaultCommand(new RunConveyor(lowScoringSubsystem, mechanismController));
   }
 
   /**
@@ -90,18 +102,20 @@ public class RobotContainer {
     JoystickButton mechanismA = new JoystickButton(mechanismController, Button.kA.value);
     JoystickButton mechanismB = new JoystickButton(mechanismController, Button.kB.value);
     JoystickButton mechanismX = new JoystickButton(mechanismController, Button.kX.value);
+    JoystickButton mechanismLeftBumper = new JoystickButton(mechanismController, Button.kBumperRight.value);
     JoystickButton driverY = new JoystickButton(driverController, Button.kY.value);
     JoystickButton driverRightTrigger = new JoystickButton(driverController, ControllerConstants.RIGHT_TRIGGER);
     JoystickButton driverLeftTrigger = new JoystickButton(driverController, ControllerConstants.LEFT_TRIGGER);
     JoystickButton driverX = new JoystickButton(driverController, Button.kX.value);
     JoystickButton driverB = new JoystickButton(driverController, Button.kB.value);
+    JoystickButton driverA = new JoystickButton(driverController, Button.kA.value);
 
     // driverController
     driverY.whenPressed(new InvertTankDrive(driveSubsystem));
     driverRightTrigger.whenPressed(new TurboOn(driveSubsystem)).whenReleased(new TurboOff(driveSubsystem)); // sprint
     driverLeftTrigger.whenPressed(new SlowOn(driveSubsystem)).whenReleased(new SlowOff(driveSubsystem)); // 25% speed
     driverX.whenPressed(new LiftToHeight(hangSubsystem));
-    driverB.whenPressed(() -> hangSubsystem.winchAndLowerLift());
+    driverB.whenPressed(new LowerLift(hangSubsystem));
 
     // mechanismController
     mechanismY.whenPressed(new AdvanceConveyor(lowScoringSubsystem));
@@ -109,19 +123,25 @@ public class RobotContainer {
     mechanismA.whenPressed(new RollersChangeDirection(lowScoringSubsystem));
     mechanismB.whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
     mechanismX.whenPressed(new ToggleStreamMode(limelight));
-    mechanismA.whenPressed(new ToggleCameraMode(limelight));
+    // mechanismA.whenPressed(new ToggleCameraMode(limelight));
+    // mechanismLeftBumper.whenPressed(() -> controlPanelSubsystem.wheelDown());
   }
 
   private void setUpSmartDashboardCommands() {
     Dashboard.putDebugData("Spin Control Panel", new SpinControlPanel(controlPanelSubsystem));
     Dashboard.putDebugData("Stop Control Panel", new StopControlPanel(controlPanelSubsystem));
     Dashboard.putDebugData("Reset Lift Encoder", new ResetLiftEncoder(hangSubsystem));
-    Dashboard.putDebugData("Roller On/Off", new RollersOnOff(lowScoringSubsystem));
     Dashboard.putDebugData("Stage 2 Color", new ScoreStageTwoColorSwitch(colorSensor, controlPanelSubsystem));
     Dashboard.putDebugData("Stage 2 Rotations", new ScoreStageTwoRotations(controlPanelSubsystem));
     Dashboard.putDebugData("Stage 3", new ScoreStageThree(colorSensor, controlPanelSubsystem));
     SmartDashboard.putData("Toggle Camera Mode", new ToggleCameraMode(limelight));
     SmartDashboard.putData("Toggle Stream Mode", new ToggleStreamMode(limelight));
+    // SmartDashboard.putData("Raise Lift", new RaiseLift(hangSubsystem));
+    // SmartDashboard.putData("Stop Lifting", new StopLift(hangSubsystem));
+    SmartDashboard.putData("Start Winch", new StartWinch(hangSubsystem));
+    SmartDashboard.putData("Stop Winch", new StopWinch(hangSubsystem));
+    // SmartDashboard.putData("Lift Wheel", new WheelUp(controlPanelSubsystem));
+    // SmartDashboard.putData("Drop Wheel", new WheelDown(controlPanelSubsystem));
   }
 
   private void setSmartDashboardSubsystems() {

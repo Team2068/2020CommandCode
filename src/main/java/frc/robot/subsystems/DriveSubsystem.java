@@ -11,7 +11,6 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -37,9 +36,6 @@ public class DriveSubsystem extends SubsystemBase {
   private boolean isForward = true;
   private boolean isTurbo = false;
   private boolean isSlow = false;
-  private boolean steppingSpeedUp = false;
-  private boolean steppingSpeedDown = false;
-  private double steppingSpeed = .1;
 
   /**
    * Creates a new DriveSubsystem.
@@ -67,6 +63,7 @@ public class DriveSubsystem extends SubsystemBase {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
 
+    differentialDrive.setDeadband(0.1);
   }
 
   public void turboOn() {
@@ -85,15 +82,9 @@ public class DriveSubsystem extends SubsystemBase {
     isSlow = false;
   }
 
-  public void steppingSpeedUp() {
-    steppingSpeedUp = true;
-  }
-
-  public void steppingSpeedDown() {
-    steppingSpeedDown = true;
-  }
-
   private double adjustSpeed(double speed) {
+    SmartDashboard.putString("Is Turbo", isTurbo ? "yes" : "no");
+    SmartDashboard.putString("Is Slow", isSlow ? "yes" : "no");
     if (isTurbo) {
       if (speed >= 0) {
         speed = 1;
@@ -108,9 +99,9 @@ public class DriveSubsystem extends SubsystemBase {
       }
     } else {
       if (speed >= 0) {
-        speed = Math.min(speed, 0.5);
+        speed = Math.min(speed, 0.8);
       } else {
-        speed = Math.max(speed, -.5);
+        speed = Math.max(speed, -.8);
       }
     }
 
@@ -120,14 +111,13 @@ public class DriveSubsystem extends SubsystemBase {
   public void tankDrive(double leftSpeed, double rightSpeed) {
     leftSpeed = adjustSpeed(leftSpeed);
     rightSpeed = adjustSpeed(rightSpeed);
+    SmartDashboard.putNumber("Left Speed", leftSpeed);
+    SmartDashboard.putNumber("Right Speed", rightSpeed);
     if (isForward) {
-
       differentialDrive.tankDrive(leftSpeed, rightSpeed);
     } else {
-
       differentialDrive.tankDrive(rightSpeed * -1, leftSpeed * -1);
     }
-
   }
 
   public void invertTankDrive() {

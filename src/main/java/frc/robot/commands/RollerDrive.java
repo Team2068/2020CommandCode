@@ -7,41 +7,41 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.HangConstants;
-import frc.robot.subsystems.HangSubsystem;
+import frc.robot.subsystems.LowScoringSubsystem;
 
-public class LiftToHeight extends CommandBase {
+public class RollerDrive extends CommandBase {
+  private LowScoringSubsystem lowScoringSubsystem;
+  private double speed;
 
-  private HangSubsystem hangSubsystem;
-
-  public LiftToHeight(HangSubsystem hangSubsystem) {
-    this.hangSubsystem = hangSubsystem;
-    addRequirements(hangSubsystem);
+  public RollerDrive(LowScoringSubsystem lowScoringSubsystem, double speed) {
+    this.lowScoringSubsystem = lowScoringSubsystem;
+    this.speed = speed;
+    addRequirements(lowScoringSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    hangSubsystem.resetEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hangSubsystem.raiseLift();
+    SmartDashboard.putNumber("Roller Speed", speed);
+    lowScoringSubsystem.setRollerSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hangSubsystem.stopLift();
-    hangSubsystem.resetEncoder();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(hangSubsystem.liftPosition()) >= HangConstants.LIFT_ENCODER_VALUE;
+    return false;
   }
 }

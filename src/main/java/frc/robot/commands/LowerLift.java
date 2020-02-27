@@ -11,11 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.HangConstants;
 import frc.robot.subsystems.HangSubsystem;
 
-public class LiftToHeight extends CommandBase {
-
+public class LowerLift extends CommandBase {
   private HangSubsystem hangSubsystem;
 
-  public LiftToHeight(HangSubsystem hangSubsystem) {
+  public LowerLift(HangSubsystem hangSubsystem) {
     this.hangSubsystem = hangSubsystem;
     addRequirements(hangSubsystem);
   }
@@ -29,7 +28,7 @@ public class LiftToHeight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hangSubsystem.raiseLift();
+    hangSubsystem.lowerLift();
   }
 
   // Called once the command ends or is interrupted.
@@ -42,6 +41,6 @@ public class LiftToHeight extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(hangSubsystem.liftPosition()) >= HangConstants.LIFT_ENCODER_VALUE;
+    return Math.abs(hangSubsystem.liftPosition()) >= HangConstants.BOTTOM_LIFT_ENCODER;
   }
 }
