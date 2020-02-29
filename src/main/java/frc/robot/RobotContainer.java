@@ -109,13 +109,15 @@ public class RobotContainer {
     JoystickButton driverX = new JoystickButton(driverController, Button.kX.value);
     JoystickButton driverB = new JoystickButton(driverController, Button.kB.value);
     JoystickButton driverA = new JoystickButton(driverController, Button.kA.value);
+    JoystickButton driverRightBumper = new JoystickButton(driverController, Button.kBumperRight.value);
+    JoystickButton driverLeftBumper = new JoystickButton(driverController, Button.kBumperLeft.value);
 
     // driverController
-    driverY.whenPressed(new InvertTankDrive(driveSubsystem));
-    driverRightTrigger.whenPressed(new TurboOn(driveSubsystem)).whenReleased(new TurboOff(driveSubsystem)); // sprint
-    driverLeftTrigger.whenPressed(new SlowOn(driveSubsystem)).whenReleased(new SlowOff(driveSubsystem)); // 25% speed
-    driverX.whenPressed(new LiftToHeight(hangSubsystem));
-    driverB.whenPressed(new LowerLift(hangSubsystem));
+    driverX.whenPressed(new InvertTankDrive(driveSubsystem));
+    driverRightBumper.whenPressed(new TurboOn(driveSubsystem)).whenReleased(new TurboOff(driveSubsystem));
+    driverLeftBumper.whenPressed(new SlowOn(driveSubsystem)).whenReleased(new SlowOff(driveSubsystem));
+    driverY.whenPressed(new LiftToHeight(hangSubsystem));
+    driverA.whenPressed(new LowerLift(hangSubsystem));
 
     // mechanismController
     mechanismY.whenPressed(new AdvanceConveyor(lowScoringSubsystem));
@@ -124,7 +126,6 @@ public class RobotContainer {
     mechanismB.whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
     mechanismX.whenPressed(new ToggleStreamMode(limelight));
     // mechanismA.whenPressed(new ToggleCameraMode(limelight));
-    // mechanismLeftBumper.whenPressed(() -> controlPanelSubsystem.wheelDown());
   }
 
   private void setUpSmartDashboardCommands() {
