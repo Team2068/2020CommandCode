@@ -7,41 +7,23 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.LowScoringSubsystem;
 
-public class RollerDrive extends CommandBase {
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+public class RollersOut extends InstantCommand {
   private LowScoringSubsystem lowScoringSubsystem;
-  private double speed;
 
-  public RollerDrive(LowScoringSubsystem lowScoringSubsystem, double speed) {
+  public RollersOut(LowScoringSubsystem lowScoringSubsystem) {
     this.lowScoringSubsystem = lowScoringSubsystem;
-    this.speed = speed;
     addRequirements(lowScoringSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    SmartDashboard.putNumber("Roller Speed", speed);
-    lowScoringSubsystem.setRollerSpeed(speed);
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
+    lowScoringSubsystem.rollersOut();
   }
 }

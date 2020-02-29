@@ -9,7 +9,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -127,6 +126,9 @@ public class RobotContainer {
 
     // mechanismController
     mechanismLeftTrigger.whenActive(new AdvanceConveyor(lowScoringSubsystem));
+    mechanismX.whenPressed(new RollersIn(lowScoringSubsystem));
+    mechanismB.whenPressed(new RollersOut(lowScoringSubsystem));
+    mechanismA.whenPressed(new RollersOff(lowScoringSubsystem));
     mechanismY.whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
     // mechanismX.whenPressed(new ToggleStreamMode(limelight));
     // mechanismA.whenPressed(new ToggleCameraMode(limelight));
