@@ -34,6 +34,7 @@ import frc.robot.commands.SlowOn;
 import frc.robot.commands.SpinControlPanel;
 import frc.robot.commands.StartWinch;
 import frc.robot.commands.StopControlPanel;
+import frc.robot.commands.StopLift;
 import frc.robot.commands.StopWinch;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.ToggleCameraMode;
@@ -123,7 +124,7 @@ public class RobotContainer {
     driverDPadUp.whenActive(new StartWinch(hangSubsystem)).whenInactive(new StopWinch(hangSubsystem));
     driverX.whenPressed(new InvertTankDrive(driveSubsystem));
     driverY.whenPressed(new LiftToHeight(hangSubsystem));
-    driverA.whenPressed(new LowerLift(hangSubsystem));
+    driverA.whenHeld(new LowerLift(hangSubsystem)).whenReleased(new StopLift(hangSubsystem));
 
     // mechanismController
     mechanismLeftTrigger.whenActive(new AdvanceConveyor(lowScoringSubsystem));

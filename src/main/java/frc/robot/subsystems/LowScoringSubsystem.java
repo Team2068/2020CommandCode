@@ -30,7 +30,7 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   private boolean rollersRunning = false;
   private int rollerDirection = 1;
-  private double defaultConveyorStep = 5.0;
+  private double defaultConveyorStep = 2.5;
 
   private ShuffleboardTab tab = Shuffleboard.getTab("Low Scoring Subsystem");
   private NetworkTableEntry conveyorStep = tab.add("Conveyor Step", defaultConveyorStep).getEntry();
