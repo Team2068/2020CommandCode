@@ -40,6 +40,7 @@ import frc.robot.commands.ToggleCameraMode;
 import frc.robot.commands.ToggleStreamMode;
 import frc.robot.commands.TurboOff;
 import frc.robot.commands.TurboOn;
+import frc.robot.commands.WithdrawConveyor;
 import frc.robot.subsystems.ColorSensor;
 // import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
@@ -66,7 +67,7 @@ public class RobotContainer {
   private final HangSubsystem hangSubsystem = new HangSubsystem();
 
   private final ColorSensor colorSensor = new ColorSensor();
-  private final Limelight limelight = new Limelight(Constants.CameraMode.VISION, Constants.StreamMode.PIP_MAIN);
+  private final Limelight limelight = new Limelight(Constants.CameraMode.DRIVER, Constants.StreamMode.PIP_MAIN);
   private final Gyroscope gyro = new Gyroscope();
   private final LowPressureSubsystem lowPressureSubsystem = new LowPressureSubsystem();
 
@@ -109,7 +110,7 @@ public class RobotContainer {
         .getRawAxis(ControllerConstants.RIGHT_TRIGGER) > ControllerConstants.TRIGGER_ACTIVATION_THRESHOLD);
     Trigger mechanismLeftTrigger = new Trigger(() -> mechanismController
         .getRawAxis(ControllerConstants.LEFT_TRIGGER) > ControllerConstants.TRIGGER_ACTIVATION_THRESHOLD);
-    JoystickButton mechanismLeftBumper = new JoystickButton(mechanismController, Button.kBumperRight.value);
+    JoystickButton mechanismLeftBumper = new JoystickButton(mechanismController, Button.kBumperLeft.value);
     JoystickButton mechanismRightBumper = new JoystickButton(mechanismController, Button.kBumperRight.value);
     JoystickButton mechanismY = new JoystickButton(mechanismController, Button.kY.value);
     JoystickButton mechanismA = new JoystickButton(mechanismController, Button.kA.value);
@@ -126,9 +127,9 @@ public class RobotContainer {
 
     // mechanismController
     mechanismLeftTrigger.whenActive(new AdvanceConveyor(lowScoringSubsystem));
-    mechanismX.whenPressed(new RollersIn(lowScoringSubsystem));
-    mechanismB.whenPressed(new RollersOut(lowScoringSubsystem));
-    mechanismA.whenPressed(new RollersOff(lowScoringSubsystem));
+    mechanismLeftBumper.whenPressed(new WithdrawConveyor(lowScoringSubsystem));
+    mechanismX.whenHeld(new RollersIn(lowScoringSubsystem)).whenReleased(new RollersOff(lowScoringSubsystem));
+    mechanismB.whenHeld(new RollersOut(lowScoringSubsystem)).whenReleased(new RollersOff(lowScoringSubsystem));
     mechanismY.whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
     // mechanismX.whenPressed(new ToggleStreamMode(limelight));
     // mechanismA.whenPressed(new ToggleCameraMode(limelight));
