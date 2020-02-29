@@ -22,13 +22,10 @@ import frc.robot.commands.EngageControlPanelWheel;
 import frc.robot.commands.InvertTankDrive;
 import frc.robot.commands.LiftToHeight;
 import frc.robot.commands.LowerLift;
-import frc.robot.commands.RaiseLift;
 import frc.robot.commands.ResetLiftEncoder;
-import frc.robot.commands.RollerDrive;
-import frc.robot.commands.RollersChangeDirection;
+import frc.robot.commands.RollersIn;
 import frc.robot.commands.RollersOff;
-import frc.robot.commands.RollersOn;
-import frc.robot.commands.RollersOnOff;
+import frc.robot.commands.RollersOut;
 import frc.robot.commands.RunConveyor;
 import frc.robot.commands.ScoreStageThree;
 import frc.robot.commands.ScoreStageTwoColorSwitch;
@@ -38,7 +35,6 @@ import frc.robot.commands.SlowOn;
 import frc.robot.commands.SpinControlPanel;
 import frc.robot.commands.StartWinch;
 import frc.robot.commands.StopControlPanel;
-import frc.robot.commands.StopLift;
 import frc.robot.commands.StopWinch;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.ToggleCameraMode;
@@ -131,10 +127,8 @@ public class RobotContainer {
 
     // mechanismController
     mechanismLeftTrigger.whenActive(new AdvanceConveyor(lowScoringSubsystem));
-    mechanismRightBumper.whenPressed(new RollersOnOff(lowScoringSubsystem));
-    mechanismA.whenPressed(new RollersChangeDirection(lowScoringSubsystem));
-    mechanismB.whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
-    mechanismX.whenPressed(new ToggleStreamMode(limelight));
+    mechanismY.whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
+    // mechanismX.whenPressed(new ToggleStreamMode(limelight));
     // mechanismA.whenPressed(new ToggleCameraMode(limelight));
   }
 
