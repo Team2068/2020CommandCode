@@ -130,7 +130,7 @@ public class RobotContainer {
 
     // mechanismController
     mechanismLeftTrigger.whenActive(new AdvanceConveyor(lowScoringSubsystem));
-    mechanismRightBumper.whenPressed(new ScoreStageTwoRotations(controlPanelSubsystem));
+    mechanismDPadRight.whenPressed(new ScoreStageTwoRotations(controlPanelSubsystem));
     mechanismDPadLeft.whenPressed(new ScoreStageThree(colorSensor, controlPanelSubsystem));
     mechanismX.whenHeld(new RollersIn(lowScoringSubsystem)).whenReleased(new RollersOff(lowScoringSubsystem));
     mechanismB.whenHeld(new RollersOut(lowScoringSubsystem)).whenReleased(new RollersOff(lowScoringSubsystem));
