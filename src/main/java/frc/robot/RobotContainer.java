@@ -113,6 +113,8 @@ public class RobotContainer {
         .getRawAxis(ControllerConstants.LEFT_TRIGGER) > ControllerConstants.TRIGGER_ACTIVATION_THRESHOLD);
     JoystickButton mechanismLeftBumper = new JoystickButton(mechanismController, Button.kBumperLeft.value);
     JoystickButton mechanismRightBumper = new JoystickButton(mechanismController, Button.kBumperRight.value);
+    POVButton mechanismDPadLeft = new POVButton(mechanismController, ControllerConstants.POV_ANGLE_LEFT);
+    POVButton mechanismDPadRight = new POVButton(mechanismController, ControllerConstants.POV_ANGLE_RIGHT);
     JoystickButton mechanismY = new JoystickButton(mechanismController, Button.kY.value);
     JoystickButton mechanismA = new JoystickButton(mechanismController, Button.kA.value);
     JoystickButton mechanismB = new JoystickButton(mechanismController, Button.kB.value);
@@ -128,7 +130,8 @@ public class RobotContainer {
 
     // mechanismController
     mechanismLeftTrigger.whenActive(new AdvanceConveyor(lowScoringSubsystem));
-    mechanismLeftBumper.whenPressed(new WithdrawConveyor(lowScoringSubsystem));
+    mechanismRightBumper.whenPressed(new ScoreStageTwoRotations(controlPanelSubsystem));
+    mechanismDPadLeft.whenPressed(new ScoreStageThree(colorSensor, controlPanelSubsystem));
     mechanismX.whenHeld(new RollersIn(lowScoringSubsystem)).whenReleased(new RollersOff(lowScoringSubsystem));
     mechanismB.whenHeld(new RollersOut(lowScoringSubsystem)).whenReleased(new RollersOff(lowScoringSubsystem));
     mechanismY.whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));

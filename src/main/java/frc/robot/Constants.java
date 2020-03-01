@@ -41,6 +41,8 @@ public final class Constants {
         public static final int LEFT_TRIGGER = 2;
         public static final double TRIGGER_ACTIVATION_THRESHOLD = .3;
         public static final int POV_ANGLE_UP = 0;
+        public static final int POV_ANGLE_LEFT = 270;
+        public static final int POV_ANGLE_RIGHT = 90;
     }
 
     public final static class HangConstants {
