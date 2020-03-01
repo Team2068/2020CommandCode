@@ -14,7 +14,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.ControlPanelConstants;
 
 public class ControlPanelSubsystem extends SubsystemBase {
@@ -33,6 +32,7 @@ public class ControlPanelSubsystem extends SubsystemBase {
     controlPanelMotor.setSmartCurrentLimit(ControlPanelConstants.CONTROL_PANEL_LIMIT);
 
     controlPanelEncoder = controlPanelMotor.getEncoder();
+    // controlPanelEncoder.setPosition(0);
   }
 
   public void setMotorSpeed(double speed) {
@@ -41,6 +41,10 @@ public class ControlPanelSubsystem extends SubsystemBase {
 
   public void stopMotor() {
     controlPanelMotor.stopMotor();
+  }
+
+  public void resetEncoders() {
+    // controlPanelEncoder.setPosition(0);
   }
 
   public void engageControlPanel() {
@@ -70,6 +74,8 @@ public class ControlPanelSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    Dashboard.putDebugNumber("Panel Position", controlPanelEncoder.getPosition());
+    Dashboard.putDebugNumber("Panel Velocity", controlPanelEncoder.getVelocity());
     // This method will be called once per scheduler run
   }
 }

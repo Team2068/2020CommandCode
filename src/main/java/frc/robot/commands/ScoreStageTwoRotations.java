@@ -29,16 +29,18 @@ public class ScoreStageTwoRotations extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    controlPanel.resetEncoders();
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    controlPanel.setMotorSpeed(10);
+    controlPanel.setMotorSpeed(1);
     rotations = controlPanel.getRotations();
     velocity = controlPanel.getVelocity();
     SmartDashboard.putNumber("Panel RPM", velocity / 8.f); // estimation
+    SmartDashboard.putNumber("Panel Rotations", rotations);
   }
 
   // Called once the command ends or is interrupted.
@@ -50,6 +52,6 @@ public class ScoreStageTwoRotations extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return rotations <= 32.0f;
+    return Math.abs(rotations) >= Math.abs(32.0f);
   }
 }
