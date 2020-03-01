@@ -13,11 +13,10 @@ import frc.robot.subsystems.LowScoringSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class RollersChangeDirection extends InstantCommand {
-
+public class RollersIn extends InstantCommand {
   private LowScoringSubsystem lowScoringSubsystem;
 
-  public RollersChangeDirection(LowScoringSubsystem lowScoringSubsystem) {
+  public RollersIn(LowScoringSubsystem lowScoringSubsystem) {
     this.lowScoringSubsystem = lowScoringSubsystem;
     addRequirements(lowScoringSubsystem);
   }
@@ -25,6 +24,6 @@ public class RollersChangeDirection extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    lowScoringSubsystem.rollerChangeDirection();
+    lowScoringSubsystem.rollersIn();
   }
 }

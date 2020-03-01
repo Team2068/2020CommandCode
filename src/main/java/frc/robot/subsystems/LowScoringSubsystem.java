@@ -30,7 +30,7 @@ public class LowScoringSubsystem extends SubsystemBase {
 
   private boolean rollersRunning = false;
   private int rollerDirection = 1;
-  private double defaultConveyorStep = 5.0;
+  private double defaultConveyorStep = 2.5;
 
   private ShuffleboardTab tab = Shuffleboard.getTab("Low Scoring Subsystem");
   private NetworkTableEntry conveyorStep = tab.add("Conveyor Step", defaultConveyorStep).getEntry();
@@ -73,20 +73,16 @@ public class LowScoringSubsystem extends SubsystemBase {
     return conveyorEncoder.getPosition();
   }
 
-  public void rollerOnOff() {
-    rollersRunning = !rollersRunning;
-    if (rollersRunning) {
-      rollerMotor.set(LowScoringConstants.ROLLER_SPEED * rollerDirection);
-    } else {
-      rollerMotor.stopMotor();
-    }
+  public void rollersOff() {
+    rollerMotor.stopMotor();
   }
 
-  public void rollerChangeDirection() {
-    rollerDirection *= -1;
-    rollerOnOff();
-    rollerOnOff();
-    SmartDashboard.putNumber("Rolling Direction", rollerDirection);
+  public void rollersIn() {
+    rollerMotor.set(LowScoringConstants.ROLLER_SPEED);
+  }
+
+  public void rollersOut() {
+    rollerMotor.set(-LowScoringConstants.ROLLER_SPEED);
   }
 
   public double getConveyorStep() {

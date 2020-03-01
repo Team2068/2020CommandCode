@@ -37,16 +37,20 @@ public final class Constants {
     }
 
     public final static class ControllerConstants {
-        public static final int RIGHT_TRIGGER = 7;
-        public static final int LEFT_TRIGGER = 8;
+        public static final int RIGHT_TRIGGER = 3;
+        public static final int LEFT_TRIGGER = 2;
+        public static final double TRIGGER_ACTIVATION_THRESHOLD = .3;
+        public static final int POV_ANGLE_UP = 0;
+        public static final int POV_ANGLE_LEFT = 270;
+        public static final int POV_ANGLE_RIGHT = 90;
     }
 
     public final static class HangConstants {
 
         public static final int LIFT_MOTOR = 8;
         public static final int WINCH_MOTOR = 7;
-        public static final int LIFT_ENCODER_VALUE = 220;
-        public static final int BOTTOM_LIFT_ENCODER = 190;
+        public static final int LIFT_ENCODER_VALUE = 262;
+        public static final int BOTTOM_LIFT_ENCODER = 225;
         public static final double LIFT_SPEED = 1;
         public static final double WINCH_MOTOR_SPEED = 1;
     }
@@ -61,8 +65,8 @@ public final class Constants {
     }
 
     public final static class ControlPanelConstants {
-        public static final int FORWARD_CHANNEL = 3;
-        public static final int REVERSE_CHANNEL = 2;
+        public static final int FORWARD_CHANNEL = 1;
+        public static final int REVERSE_CHANNEL = 0;
         public static final int CONTROL_PANEL_MOTOR = 9;
         public static final int CONTROL_PANEL_LIMIT = 30;
         public static final int MOTOR_SPEED = 1;
