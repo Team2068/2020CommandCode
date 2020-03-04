@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.AdvanceConveyor;
+import frc.robot.commands.DriveDistance;
 import frc.robot.commands.EngageControlPanelWheel;
 import frc.robot.commands.InvertTankDrive;
 import frc.robot.commands.LiftToHeight;
@@ -171,6 +172,8 @@ public class RobotContainer {
   }
 
   private void setUpAutonomousChooser() {
+    autonomousChooser.setDefaultOption("Leave Line Forwads", new DriveDistance(driveSubsystem, .25, 48));
+    autonomousChooser.addOption("Leave Line Backwards", new DriveDistance(driveSubsystem, -.25, 48));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
