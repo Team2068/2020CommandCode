@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.AdvanceConveyor;
+import frc.robot.commands.DriveAndScoreLow;
 import frc.robot.commands.DriveDistance;
 import frc.robot.commands.EngageControlPanelWheel;
 import frc.robot.commands.InvertTankDrive;
@@ -79,6 +80,7 @@ public class RobotContainer {
   private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
 
   private SendableChooser<Command> autonomousChooser = new SendableChooser<Command>();
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -90,7 +92,6 @@ public class RobotContainer {
     setUpAutonomousChooser();
 
     driveSubsystem.setDefaultCommand(new TankDrive(driveSubsystem, driverController));
-
     lowScoringSubsystem.setDefaultCommand(new RunConveyor(lowScoringSubsystem, mechanismController));
   }
 
@@ -137,7 +138,8 @@ public class RobotContainer {
     mechanismLeftTrigger.whenActive(new AdvanceConveyor(lowScoringSubsystem));
     mechanismLeftBumper.whenPressed(new WithdrawConveyor(lowScoringSubsystem));
     mechanismDPadRight.whenPressed(new ScoreStageTwoRotations(controlPanelSubsystem));
-    mechanismDPadLeft.whenPressed(new ScoreStageThree(colorSensor, controlPanelSubsystem));
+    // mechanismDPadLeft.whenPressed(new ScoreStageThree(colorSensor,
+    // controlPanelSubsystem));
     mechanismX.whenHeld(new RollersIn(lowScoringSubsystem)).whenReleased(new RollersOff(lowScoringSubsystem));
     mechanismB.whenHeld(new RollersOut(lowScoringSubsystem)).whenReleased(new RollersOff(lowScoringSubsystem));
     mechanismY.whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
@@ -173,8 +175,12 @@ public class RobotContainer {
 
   private void setUpAutonomousChooser() {
     autonomousChooser.setDefaultOption("Leave Line Forwads", new DriveDistance(driveSubsystem, .25, 48));
-    autonomousChooser.addOption("Leave Line Backwards", new DriveDistance(driveSubsystem, -.25, 48));
+    // autonomousChooser.addOption("Leave Line Backwards", new
+    // DriveDistance(driveSubsystem, -.25, 48));
+    // autonomousChooser.addOption("Drive and Low Score", new DriveAndScoreLow());
+    SmartDashboard.putData("Autonomous Mode", autonomousChooser);
   }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -185,5 +191,5 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return autonomousChooser.getSelected();
-}
+  }
 }
