@@ -10,7 +10,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -75,6 +77,7 @@ public class RobotContainer {
   private final XboxController driverController = new XboxController(DriveConstants.driverController);
   private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
 
+  private SendableChooser<Command> autonomousChooser = new SendableChooser<Command>();
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -83,6 +86,7 @@ public class RobotContainer {
     configureButtonBindings();
     setUpSmartDashboardCommands();
     setSmartDashboardSubsystems();
+    setUpAutonomousChooser();
 
     driveSubsystem.setDefaultCommand(new TankDrive(driveSubsystem, driverController));
 
@@ -165,6 +169,8 @@ public class RobotContainer {
     Dashboard.putDebugData("Low Pressure Subsystem", lowPressureSubsystem);
   }
 
+  private void setUpAutonomousChooser() {
+  }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -172,8 +178,8 @@ public class RobotContainer {
    * 
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommand() {
-  // // An ExampleCommand will run in autonomous
-  // return m_autoCommand;
-  // }
+  public Command getAutonomousCommand() {
+    // An ExampleCommand will run in autonomous
+    return autonomousChooser.getSelected();
+}
 }
