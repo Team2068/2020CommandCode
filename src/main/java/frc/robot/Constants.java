@@ -58,7 +58,7 @@ public final class Constants {
     public final static class LowScoringConstants {
 
         public static final int CONVEYOR_MOTOR = 6; // for transporting balls
-        public static final int ROLLER_MOTOR = 5; // the spinning thingy to pick up POWERCELLS or reject them
+        public static final int ROLLER_MOTOR = 9; // the spinning thingy to pick up POWERCELLS or reject them
         public static final double CONVEYOR_SPEED = .5;
         public static final double ROLLER_SPEED = .3;
 
@@ -67,9 +67,9 @@ public final class Constants {
     public final static class ControlPanelConstants {
         public static final int FORWARD_CHANNEL = 1;
         public static final int REVERSE_CHANNEL = 0;
-        public static final int CONTROL_PANEL_MOTOR = 9;
+        public static final int CONTROL_PANEL_MOTOR = 5;
         public static final int CONTROL_PANEL_LIMIT = 30;
-        public static final int MOTOR_SPEED = 1;
+        public static final int MOTOR_SPEED = .75;
     }
 
     public final static class LowPressureConstants {
