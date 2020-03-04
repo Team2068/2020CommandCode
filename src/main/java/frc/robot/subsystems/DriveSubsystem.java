@@ -56,6 +56,11 @@ public class DriveSubsystem extends SubsystemBase {
     frontRight.setIdleMode(IdleMode.kBrake);
     backRight.setIdleMode(IdleMode.kBrake);
 
+    frontLeft.setOpenLoopRampRate(.05);
+    backLeft.setOpenLoopRampRate(.05);
+    frontRight.setOpenLoopRampRate(.05);
+    backRight.setOpenLoopRampRate(.05);
+
     leftEncoder = frontLeft.getEncoder();
     rightEncoder = frontRight.getEncoder();
 
@@ -97,11 +102,26 @@ public class DriveSubsystem extends SubsystemBase {
     rightSpeed = adjustSpeed(rightSpeed);
     SmartDashboard.putNumber("Left Speed", leftSpeed);
     SmartDashboard.putNumber("Right Speed", rightSpeed);
+    differentialDrive.feed();
+    differentialDrive.feedWatchdog();
     if (isForward) {
       differentialDrive.tankDrive(leftSpeed, rightSpeed, false);
     } else {
       differentialDrive.tankDrive(rightSpeed * -1, leftSpeed * -1, false);
     }
+  }
+
+  public void resetDriveEncoders() {
+    rightEncoder.setPosition(0);
+    leftEncoder.setPosition(0);
+  }
+
+  public void stopDrive() {
+    tankDrive(0, 0);
+  }
+
+  public double getDriveEncoderPosition() {
+    return rightEncoder.getPosition();
   }
 
   public void invertTankDrive() {
