@@ -19,9 +19,8 @@ public class DriveAndScoreLow extends SequentialCommandGroup {
   /**
    * Creates a new DriveAndScoreLow.
    */
-  private DriveSubsystem driveSubsystem;
-  private LowScoringSubsystem lowScoringSubsystem;
-  private DriveDistance driveDistance = new DriveDistance(driveSubsystem, .25, 48);
+  private DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private LowScoringSubsystem lowScoringSubsystem = new LowScoringSubsystem();
 
   public DriveAndScoreLow() {
     // Add your commands in the super() call, e.g.
