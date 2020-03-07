@@ -52,7 +52,6 @@ import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.Dashboard;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.Gyroscope;
 import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.LowPressureSubsystem;
@@ -74,7 +73,6 @@ public class RobotContainer {
 
   private final ColorSensor colorSensor = new ColorSensor();
   private final Limelight limelight = new Limelight(Constants.CameraMode.DRIVER, Constants.StreamMode.PIP_MAIN);
-  private final Gyroscope gyro = new Gyroscope();
   private final LowPressureSubsystem lowPressureSubsystem = new LowPressureSubsystem();
 
   private final XboxController driverController = new XboxController(DriveConstants.driverController);
@@ -170,7 +168,6 @@ public class RobotContainer {
     Dashboard.putDebugData("Hang Subsystem", hangSubsystem);
     Dashboard.putDebugData("Low Scoring Subsystem", lowScoringSubsystem);
     Dashboard.putDebugData("Control Panel", controlPanelSubsystem);
-    Dashboard.putDebugData("Gyro", gyro);
     Dashboard.putDebugData("Low Pressure Subsystem", lowPressureSubsystem);
   }
 

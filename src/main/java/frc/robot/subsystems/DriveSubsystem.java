@@ -11,12 +11,19 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -35,6 +42,9 @@ public class DriveSubsystem extends SubsystemBase {
 
   private boolean isForward = true;
   private double maxSpeed = DriveConstants.NORMAL_SPEED;
+
+  private final Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+  private final AnalogGyro yaw = new AnalogGyro(1);
 
   /**
    * Creates a new DriveSubsystem.
@@ -68,6 +78,18 @@ public class DriveSubsystem extends SubsystemBase {
     rightEncoder.setPosition(0);
 
     differentialDrive.setDeadband(0.1);
+
+    yaw.calibrate();
+    gyro.calibrate();
+  }
+
+  public void resetGyro() {
+    gyro.reset();
+    yaw.reset();
+  }
+
+  public double getAngle() {
+    return gyro.getAngle();
   }
 
   public void turboOn() {
@@ -136,5 +158,6 @@ public class DriveSubsystem extends SubsystemBase {
   public void periodic() {
     Dashboard.putDebugNumber("Left Encoder Value", leftEncoder.getPosition());
     Dashboard.putDebugNumber("Right Encoder Value", rightEncoder.getPosition());
+    Dashboard.putDebugNumber("Gyro Angle", gyro.getAngle());
   }
 }
