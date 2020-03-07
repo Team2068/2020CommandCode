@@ -19,13 +19,14 @@ public class DriveAndScoreLow extends SequentialCommandGroup {
   /**
    * Creates a new DriveAndScoreLow.
    */
-  private DriveSubsystem driveSubsystem = new DriveSubsystem();
-  private LowScoringSubsystem lowScoringSubsystem = new LowScoringSubsystem();
+  // private DriveSubsystem driveSubsystem = new DriveSubsystem();
+  // private LowScoringSubsystem lowScoringSubsystem = new LowScoringSubsystem();
 
   public DriveAndScoreLow() {
     // Add your commands in the super() call, e.g.
-    addCommands(new DriveDistance(driveSubsystem, .25, 50),
-        new ConveyorScore(lowScoringSubsystem, LowScoringConstants.CONVEYOR_SPEED, 50));
+    // addCommands(new DriveDistance(driveSubsystem, .25, 50),
+    // new ConveyorScore(lowScoringSubsystem, LowScoringConstants.CONVEYOR_SPEED,
+    // 50));
     // super(new FooCommand(), new BarCommand());
     // super(driveDistance);
   }

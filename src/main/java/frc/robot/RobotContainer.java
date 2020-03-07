@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -160,8 +161,8 @@ public class RobotContainer {
     // SmartDashboard.putData("Stop Lifting", new StopLift(hangSubsystem));
     SmartDashboard.putData("Start Winch", new StartWinch(hangSubsystem));
     SmartDashboard.putData("Stop Winch", new StopWinch(hangSubsystem));
-    // SmartDashboard.putData("Lift Wheel", new WheelUp(controlPanelSubsystem));
-    // SmartDashboard.putData("Drop Wheel", new WheelDown(controlPanelSubsystem));
+    SmartDashboard.putData("Lift Wheel", new InstantCommand(controlPanelSubsystem::wheelUp, controlPanelSubsystem));
+    SmartDashboard.putData("Drop Wheel", new InstantCommand(controlPanelSubsystem::wheelDown, controlPanelSubsystem));
   }
 
   private void setSmartDashboardSubsystems() {

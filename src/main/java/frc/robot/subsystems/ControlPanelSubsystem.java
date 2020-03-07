@@ -20,27 +20,28 @@ public class ControlPanelSubsystem extends SubsystemBase {
 
   private DoubleSolenoid controlPanelSolenoid = new DoubleSolenoid(ControlPanelConstants.FORWARD_CHANNEL,
       ControlPanelConstants.REVERSE_CHANNEL);
-  private CANSparkMax controlPanelMotor = new CANSparkMax(ControlPanelConstants.CONTROL_PANEL_MOTOR,
-      MotorType.kBrushless);
+  // private CANSparkMax controlPanelMotor = new
+  // CANSparkMax(ControlPanelConstants.CONTROL_PANEL_MOTOR,
+  // MotorType.kBrushless);
 
-  private CANEncoder controlPanelEncoder;
+  // private CANEncoder controlPanelEncoder;
   private boolean pistonsForward = false;
 
   public ControlPanelSubsystem() {
     controlPanelSolenoid.set(Value.kOff);
-    controlPanelMotor.restoreFactoryDefaults();
-    controlPanelMotor.setSmartCurrentLimit(ControlPanelConstants.CONTROL_PANEL_LIMIT);
+    // controlPanelMotor.restoreFactoryDefaults();
+    // controlPanelMotor.setSmartCurrentLimit(ControlPanelConstants.CONTROL_PANEL_LIMIT);
 
-    controlPanelEncoder = controlPanelMotor.getEncoder();
+    // controlPanelEncoder = controlPanelMotor.getEncoder();
     // controlPanelEncoder.setPosition(0);
   }
 
   public void setMotorSpeed(double speed) {
-    controlPanelMotor.set(speed);
+    // controlPanelMotor.set(speed);
   }
 
   public void stopMotor() {
-    controlPanelMotor.stopMotor();
+    // controlPanelMotor.stopMotor();
   }
 
   public void resetEncoders() {
@@ -65,17 +66,22 @@ public class ControlPanelSubsystem extends SubsystemBase {
   }
 
   public double getRotations() {
-    return controlPanelEncoder.getPosition();
+    return 0.0;
+    // return controlPanelEncoder.getPosition();
   }
 
   public double getVelocity() {
-    return controlPanelEncoder.getVelocity();
+    return 0.0;
+    // return controlPanelEncoder.getVelocity();
   }
 
   @Override
   public void periodic() {
-    Dashboard.putDebugNumber("Panel Position", controlPanelEncoder.getPosition());
-    Dashboard.putDebugNumber("Panel Velocity", controlPanelEncoder.getVelocity());
+    Dashboard.putDebugString("piston", pistonsForward ? "Forward" : "Reverse");
+    // Dashboard.putDebugNumber("Panel Position",
+    // controlPanelEncoder.getPosition());
+    // Dashboard.putDebugNumber("Panel Velocity",
+    // controlPanelEncoder.getVelocity());
     // This method will be called once per scheduler run
   }
 }
