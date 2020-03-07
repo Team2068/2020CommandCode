@@ -38,12 +38,12 @@ import frc.robot.commands.StopLift;
 import frc.robot.commands.StopWinch;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.ToggleCameraMode;
+import frc.robot.commands.ToggleDebugMode;
 import frc.robot.commands.ToggleStreamMode;
 import frc.robot.commands.TurboOff;
 import frc.robot.commands.TurboOn;
 import frc.robot.commands.WithdrawConveyor;
 import frc.robot.subsystems.ColorSensor;
-// import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.Dashboard;
 import frc.robot.subsystems.DriveSubsystem;
@@ -150,10 +150,11 @@ public class RobotContainer {
     SmartDashboard.putData("Toggle Stream Mode", new ToggleStreamMode(limelight));
     // SmartDashboard.putData("Raise Lift", new RaiseLift(hangSubsystem));
     // SmartDashboard.putData("Stop Lifting", new StopLift(hangSubsystem));
-    SmartDashboard.putData("Start Winch", new StartWinch(hangSubsystem));
-    SmartDashboard.putData("Stop Winch", new StopWinch(hangSubsystem));
+    Dashboard.putDebugData("Start Winch", new StartWinch(hangSubsystem));
+    Dashboard.putDebugData("Stop Winch", new StopWinch(hangSubsystem));
     // SmartDashboard.putData("Lift Wheel", new WheelUp(controlPanelSubsystem));
     // SmartDashboard.putData("Drop Wheel", new WheelDown(controlPanelSubsystem));
+    SmartDashboard.putData("Toggle Debug", new ToggleDebugMode());
   }
 
   private void setSmartDashboardSubsystems() {
