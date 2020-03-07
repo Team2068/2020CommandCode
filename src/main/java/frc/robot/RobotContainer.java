@@ -177,7 +177,7 @@ public class RobotContainer {
   private void setUpAutonomousChooser() {
     autonomousChooser.setDefaultOption("Leave Line Forwads", new DriveDistance(driveSubsystem, .25, 48));
     autonomousChooser.addOption("Leave Line Backwards", new DriveDistance(driveSubsystem, -.25, 48));
-    autonomousChooser.addOption("Drive and Low Score", new DriveAndScoreLow());
+    autonomousChooser.addOption("Drive and Low Score", new DriveAndScoreLow(driveSubsystem, lowScoringSubsystem));
     SmartDashboard.putData("Autonomous Mode", autonomousChooser);
   }
 

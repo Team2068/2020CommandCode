@@ -16,18 +16,15 @@ import frc.robot.subsystems.LowScoringSubsystem;
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class DriveAndScoreLow extends SequentialCommandGroup {
-  /**
-   * Creates a new DriveAndScoreLow.
-   */
-  // private DriveSubsystem driveSubsystem = new DriveSubsystem();
-  // private LowScoringSubsystem lowScoringSubsystem = new LowScoringSubsystem();
 
-  public DriveAndScoreLow() {
-    // Add your commands in the super() call, e.g.
-    // addCommands(new DriveDistance(driveSubsystem, .25, 50),
-    // new ConveyorScore(lowScoringSubsystem, LowScoringConstants.CONVEYOR_SPEED,
-    // 50));
-    // super(new FooCommand(), new BarCommand());
-    // super(driveDistance);
+  public DriveAndScoreLow(DriveSubsystem driveSubsystem, LowScoringSubsystem lowScoringSubsystem) {
+    double driveSpeed = .33;
+    int encoderToWall = 45;
+    int encoderPastLine = 50;
+    int conveyorSpeed = 1;
+    int conveyorEncoder = 120;
+    addCommands(new DriveDistance(driveSubsystem, -driveSpeed, encoderToWall),
+        new ConveyorScore(lowScoringSubsystem, -conveyorSpeed, conveyorEncoder),
+        new DriveDistance(driveSubsystem, driveSpeed, encoderPastLine));
   }
 }
