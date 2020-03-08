@@ -18,10 +18,14 @@ import frc.robot.subsystems.LowScoringSubsystem;
 public class DriveAndScoreLow extends SequentialCommandGroup {
 
   public DriveAndScoreLow(DriveSubsystem driveSubsystem, LowScoringSubsystem lowScoringSubsystem) {
-    double driveSpeed = .33;
-    int encoderToWall = 45;
+    double driveSpeed = .5;
+    double approachSpeed = .25;
+    int encoderToWall = 42;
     int encoderPastLine = 50;
     int conveyorSpeed = 1;
+    int conveyorEncoder = 70;
+    addCommands(new DriveDistance(driveSubsystem, -approachSpeed, encoderToWall),
+        new DriveDistance(driveSubsystem, -.17, 3),
     int conveyorEncoder = 120;
     addCommands(new DriveDistance(driveSubsystem, -driveSpeed, encoderToWall),
         new ConveyorScore(lowScoringSubsystem, -conveyorSpeed, conveyorEncoder),
