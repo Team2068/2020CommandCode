@@ -10,13 +10,18 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.AdvanceConveyor;
+import frc.robot.commands.DriveAndScoreLow;
+import frc.robot.commands.DriveDistance;
 import frc.robot.commands.EngageControlPanelWheel;
 import frc.robot.commands.InvertTankDrive;
 import frc.robot.commands.LiftToHeight;
@@ -26,6 +31,7 @@ import frc.robot.commands.RollersIn;
 import frc.robot.commands.RollersOff;
 import frc.robot.commands.RollersOut;
 import frc.robot.commands.RunConveyor;
+import frc.robot.commands.ScoreLowAndTrench;
 import frc.robot.commands.ScoreStageThree;
 import frc.robot.commands.ScoreStageTwoColorSwitch;
 import frc.robot.commands.ScoreStageTwoRotations;
@@ -36,18 +42,19 @@ import frc.robot.commands.StartWinch;
 import frc.robot.commands.StopControlPanel;
 import frc.robot.commands.StopLift;
 import frc.robot.commands.StopWinch;
+import frc.robot.commands.StraightToTrench;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.ToggleCameraMode;
 import frc.robot.commands.ToggleStreamMode;
 import frc.robot.commands.TurboOff;
 import frc.robot.commands.TurboOn;
+import frc.robot.commands.TurnDegrees;
 import frc.robot.commands.WithdrawConveyor;
 import frc.robot.subsystems.ColorSensor;
 // import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.Dashboard;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.Gyroscope;
 import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.LowPressureSubsystem;
@@ -69,11 +76,12 @@ public class RobotContainer {
 
   private final ColorSensor colorSensor = new ColorSensor();
   private final Limelight limelight = new Limelight(Constants.CameraMode.DRIVER, Constants.StreamMode.PIP_MAIN);
-  private final Gyroscope gyro = new Gyroscope();
   private final LowPressureSubsystem lowPressureSubsystem = new LowPressureSubsystem();
 
   private final XboxController driverController = new XboxController(DriveConstants.driverController);
   private final XboxController mechanismController = new XboxController(DriveConstants.mechanismController);
+
+  private SendableChooser<Command> autonomousChooser = new SendableChooser<Command>();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -83,9 +91,9 @@ public class RobotContainer {
     configureButtonBindings();
     setUpSmartDashboardCommands();
     setSmartDashboardSubsystems();
+    setUpAutonomousChooser();
 
     driveSubsystem.setDefaultCommand(new TankDrive(driveSubsystem, driverController));
-
     lowScoringSubsystem.setDefaultCommand(new RunConveyor(lowScoringSubsystem, mechanismController));
   }
 
@@ -130,8 +138,10 @@ public class RobotContainer {
 
     // mechanismController
     mechanismLeftTrigger.whenActive(new AdvanceConveyor(lowScoringSubsystem));
+    mechanismLeftBumper.whenPressed(new WithdrawConveyor(lowScoringSubsystem));
     mechanismDPadRight.whenPressed(new ScoreStageTwoRotations(controlPanelSubsystem));
-    mechanismDPadLeft.whenPressed(new ScoreStageThree(colorSensor, controlPanelSubsystem));
+    // mechanismDPadLeft.whenPressed(new ScoreStageThree(colorSensor,
+    // controlPanelSubsystem));
     mechanismX.whenHeld(new RollersIn(lowScoringSubsystem)).whenReleased(new RollersOff(lowScoringSubsystem));
     mechanismB.whenHeld(new RollersOut(lowScoringSubsystem)).whenReleased(new RollersOff(lowScoringSubsystem));
     mechanismY.whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
@@ -152,8 +162,6 @@ public class RobotContainer {
     // SmartDashboard.putData("Stop Lifting", new StopLift(hangSubsystem));
     SmartDashboard.putData("Start Winch", new StartWinch(hangSubsystem));
     SmartDashboard.putData("Stop Winch", new StopWinch(hangSubsystem));
-    // SmartDashboard.putData("Lift Wheel", new WheelUp(controlPanelSubsystem));
-    // SmartDashboard.putData("Drop Wheel", new WheelDown(controlPanelSubsystem));
   }
 
   private void setSmartDashboardSubsystems() {
@@ -161,8 +169,16 @@ public class RobotContainer {
     Dashboard.putDebugData("Hang Subsystem", hangSubsystem);
     Dashboard.putDebugData("Low Scoring Subsystem", lowScoringSubsystem);
     Dashboard.putDebugData("Control Panel", controlPanelSubsystem);
-    Dashboard.putDebugData("Gyro", gyro);
     Dashboard.putDebugData("Low Pressure Subsystem", lowPressureSubsystem);
+  }
+
+  private void setUpAutonomousChooser() {
+    autonomousChooser.setDefaultOption("Leave Line Forwads", new DriveDistance(driveSubsystem, .25, 48));
+    autonomousChooser.addOption("Leave Line Backwards", new DriveDistance(driveSubsystem, -.25, 48));
+    autonomousChooser.addOption("Drive and Low Score", new DriveAndScoreLow(driveSubsystem, lowScoringSubsystem));
+    autonomousChooser.addOption("Score and Trench", new ScoreLowAndTrench(driveSubsystem, lowScoringSubsystem));
+    autonomousChooser.addOption("Straight to Trench", new StraightToTrench(driveSubsystem, lowScoringSubsystem));
+    SmartDashboard.putData("Autonomous Mode", autonomousChooser);
   }
 
   /**
@@ -172,8 +188,8 @@ public class RobotContainer {
    * 
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommand() {
-  // // An ExampleCommand will run in autonomous
-  // return m_autoCommand;
-  // }
+  public Command getAutonomousCommand() {
+    // An ExampleCommand will run in autonomous
+    return autonomousChooser.getSelected();
+  }
 }

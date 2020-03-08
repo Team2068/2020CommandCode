@@ -7,51 +7,41 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ControlPanelSubsystem;
+import frc.robot.subsystems.LowScoringSubsystem;
 
-public class ScoreStageTwoRotations extends CommandBase {
-  /**
-   * Creates a new ScoreStageTwoRotations.
-   */
-  ControlPanelSubsystem controlPanel;
+public class AcquirePowerCells extends CommandBase {
+  private static final int conveyorDistance = 600;
+  private LowScoringSubsystem lowScoringSubsystem;
 
-  private double rotations;
-  private double velocity;
-
-  public ScoreStageTwoRotations(ControlPanelSubsystem p) {
-    controlPanel = p;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(controlPanel);
+  public AcquirePowerCells(LowScoringSubsystem lowScoringSubsystem) {
+    this.lowScoringSubsystem = lowScoringSubsystem;
+    addRequirements(lowScoringSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    controlPanel.resetEncoders();
-
+    lowScoringSubsystem.resetConveyorEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    controlPanel.setMotorSpeed(1);
-    rotations = controlPanel.getRotations();
-    velocity = controlPanel.getVelocity();
-    SmartDashboard.putNumber("Panel RPM", velocity / 8.f); // estimation
-    SmartDashboard.putNumber("Panel Rotations", rotations);
+    lowScoringSubsystem.runConveyor(-.4);
+    lowScoringSubsystem.rollersOut();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    controlPanel.stopMotor();
+    lowScoringSubsystem.stopConveyor();
+    lowScoringSubsystem.rollersOff();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(rotations) >= Math.abs(32.0f);
+    return Math.abs(lowScoringSubsystem.getConveyorEncoderPosition()) >= Math.abs(conveyorDistance);
   }
 }

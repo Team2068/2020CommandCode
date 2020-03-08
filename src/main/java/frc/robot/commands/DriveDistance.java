@@ -7,51 +7,43 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ControlPanelSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
 
-public class ScoreStageTwoRotations extends CommandBase {
-  /**
-   * Creates a new ScoreStageTwoRotations.
-   */
-  ControlPanelSubsystem controlPanel;
+public class DriveDistance extends CommandBase {
+  private DriveSubsystem driveSubsystem;
+  private double speed;
+  private double distance;
 
-  private double rotations;
-  private double velocity;
-
-  public ScoreStageTwoRotations(ControlPanelSubsystem p) {
-    controlPanel = p;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(controlPanel);
+  public DriveDistance(DriveSubsystem driveSubsystem, double speed, double distance) {
+    this.speed = speed;
+    this.distance = distance;
+    this.driveSubsystem = driveSubsystem;
+    addRequirements(driveSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    controlPanel.resetEncoders();
-
+    driveSubsystem.resetDriveEncoders();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    controlPanel.setMotorSpeed(1);
-    rotations = controlPanel.getRotations();
-    velocity = controlPanel.getVelocity();
-    SmartDashboard.putNumber("Panel RPM", velocity / 8.f); // estimation
-    SmartDashboard.putNumber("Panel Rotations", rotations);
+    driveSubsystem.tankDrive(speed, speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    controlPanel.stopMotor();
+    driveSubsystem.stopDrive();
+    driveSubsystem.resetDriveEncoders();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(rotations) >= Math.abs(32.0f);
+    return Math.abs(driveSubsystem.getDriveEncoderPosition()) >= Math.abs(distance);
   }
 }
