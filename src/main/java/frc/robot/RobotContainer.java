@@ -31,6 +31,7 @@ import frc.robot.commands.RollersIn;
 import frc.robot.commands.RollersOff;
 import frc.robot.commands.RollersOut;
 import frc.robot.commands.RunConveyor;
+import frc.robot.commands.ScoreAndTurn;
 import frc.robot.commands.ScoreStageThree;
 import frc.robot.commands.ScoreStageTwoColorSwitch;
 import frc.robot.commands.ScoreStageTwoRotations;
@@ -46,6 +47,7 @@ import frc.robot.commands.ToggleCameraMode;
 import frc.robot.commands.ToggleStreamMode;
 import frc.robot.commands.TurboOff;
 import frc.robot.commands.TurboOn;
+import frc.robot.commands.TurnDegrees;
 import frc.robot.commands.WithdrawConveyor;
 import frc.robot.subsystems.ColorSensor;
 // import frc.robot.subsystems.ColorSensor;
@@ -173,6 +175,7 @@ public class RobotContainer {
     autonomousChooser.setDefaultOption("Leave Line Forwads", new DriveDistance(driveSubsystem, .25, 48));
     autonomousChooser.addOption("Leave Line Backwards", new DriveDistance(driveSubsystem, -.25, 48));
     autonomousChooser.addOption("Drive and Low Score", new DriveAndScoreLow(driveSubsystem, lowScoringSubsystem));
+    autonomousChooser.addOption("Drive to Panel", new ScoreAndTurn(driveSubsystem, lowScoringSubsystem));
     SmartDashboard.putData("Autonomous Mode", autonomousChooser);
   }
 
