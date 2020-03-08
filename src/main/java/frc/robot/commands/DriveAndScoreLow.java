@@ -26,9 +26,7 @@ public class DriveAndScoreLow extends SequentialCommandGroup {
     int conveyorEncoder = 70;
     addCommands(new DriveDistance(driveSubsystem, -approachSpeed, encoderToWall),
         new DriveDistance(driveSubsystem, -.17, 3),
-    int conveyorEncoder = 120;
-    addCommands(new DriveDistance(driveSubsystem, -driveSpeed, encoderToWall),
-        new ConveyorScore(lowScoringSubsystem, -conveyorSpeed, conveyorEncoder),
+        new ConveyorScore(driveSubsystem, lowScoringSubsystem, -conveyorSpeed, conveyorEncoder),
         new DriveDistance(driveSubsystem, driveSpeed, encoderPastLine));
   }
 }
