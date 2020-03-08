@@ -7,20 +7,19 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LowScoringSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ScoreLowAndTrench extends SequentialCommandGroup {
+public class GetPowercellsInTrench extends ParallelRaceGroup {
   /**
-   * Creates a new ScoreAndTurn.
+   * Creates a new GetPowercellsInTrench.
    */
-  public ScoreLowAndTrench(DriveSubsystem driveSubsystem, LowScoringSubsystem lowScoringSubsystem) {
-    addCommands(new DriveAndScoreLow(driveSubsystem, lowScoringSubsystem), new TurnDegrees(driveSubsystem, -.3, 45),
-        new DriveDistance(driveSubsystem, .5, 27), new TurnDegrees(driveSubsystem, .3, 38),
-        new DriveDistance(driveSubsystem, .5, 13), new GetPowercellsInTrench(driveSubsystem, lowScoringSubsystem));
+  public GetPowercellsInTrench(DriveSubsystem driveSubsystem, LowScoringSubsystem lowScoringSubsystem) {
+    addCommands(new DriveDistance(driveSubsystem, .37, 49), new AcquirePowerCells(lowScoringSubsystem));
   }
 }

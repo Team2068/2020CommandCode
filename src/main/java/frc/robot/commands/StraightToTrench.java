@@ -14,13 +14,12 @@ import frc.robot.subsystems.LowScoringSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ScoreLowAndTrench extends SequentialCommandGroup {
+public class StraightToTrench extends SequentialCommandGroup {
   /**
-   * Creates a new ScoreAndTurn.
+   * Creates a new StraightToTrench.
    */
-  public ScoreLowAndTrench(DriveSubsystem driveSubsystem, LowScoringSubsystem lowScoringSubsystem) {
-    addCommands(new DriveAndScoreLow(driveSubsystem, lowScoringSubsystem), new TurnDegrees(driveSubsystem, -.3, 45),
-        new DriveDistance(driveSubsystem, .5, 27), new TurnDegrees(driveSubsystem, .3, 38),
-        new DriveDistance(driveSubsystem, .5, 13), new GetPowercellsInTrench(driveSubsystem, lowScoringSubsystem));
+  public StraightToTrench(DriveSubsystem driveSubsystem, LowScoringSubsystem lowScoringSubsystem) {
+    addCommands(new DriveDistance(driveSubsystem, .3, 32),
+        new GetPowercellsInTrench(driveSubsystem, lowScoringSubsystem));
   }
 }

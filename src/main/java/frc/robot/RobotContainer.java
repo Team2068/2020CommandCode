@@ -42,6 +42,7 @@ import frc.robot.commands.StartWinch;
 import frc.robot.commands.StopControlPanel;
 import frc.robot.commands.StopLift;
 import frc.robot.commands.StopWinch;
+import frc.robot.commands.StraightToTrench;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.ToggleCameraMode;
 import frc.robot.commands.ToggleStreamMode;
@@ -175,7 +176,8 @@ public class RobotContainer {
     autonomousChooser.setDefaultOption("Leave Line Forwads", new DriveDistance(driveSubsystem, .25, 48));
     autonomousChooser.addOption("Leave Line Backwards", new DriveDistance(driveSubsystem, -.25, 48));
     autonomousChooser.addOption("Drive and Low Score", new DriveAndScoreLow(driveSubsystem, lowScoringSubsystem));
-    autonomousChooser.addOption("Drive to Panel", new ScoreLowAndTrench(driveSubsystem, lowScoringSubsystem));
+    autonomousChooser.addOption("Score and Trench", new ScoreLowAndTrench(driveSubsystem, lowScoringSubsystem));
+    autonomousChooser.addOption("Straight to Trench", new StraightToTrench(driveSubsystem, lowScoringSubsystem));
     SmartDashboard.putData("Autonomous Mode", autonomousChooser);
   }
 
