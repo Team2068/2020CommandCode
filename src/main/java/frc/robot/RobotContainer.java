@@ -159,8 +159,6 @@ public class RobotContainer {
     // SmartDashboard.putData("Stop Lifting", new StopLift(hangSubsystem));
     SmartDashboard.putData("Start Winch", new StartWinch(hangSubsystem));
     SmartDashboard.putData("Stop Winch", new StopWinch(hangSubsystem));
-    SmartDashboard.putData("Lift Wheel", new InstantCommand(controlPanelSubsystem::wheelUp, controlPanelSubsystem));
-    SmartDashboard.putData("Drop Wheel", new InstantCommand(controlPanelSubsystem::wheelDown, controlPanelSubsystem));
   }
 
   private void setSmartDashboardSubsystems() {
