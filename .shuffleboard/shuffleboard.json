@@ -361,6 +361,160 @@
               "_source0": "network_table:///SmartDashboard/Stage 2 Rotations",
               "_title": "Stage 2 Rotations"
             }
+          },
+          "9,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/Low Scoring Subsystem",
+              "_title": "Low Scoring Subsystem"
+            }
+          },
+          "9,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Drop Wheel",
+              "_title": "Drop Wheel"
+            }
+          },
+          "9,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/Control Panel",
+              "_title": "Control Panel"
+            }
+          },
+          "10,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Toggle Camera Mode",
+              "_title": "Toggle Camera Mode"
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Stop Winch",
+              "_title": "Stop Winch"
+            }
+          },
+          "0,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/Gyro",
+              "_title": "Gyro"
+            }
+          },
+          "10,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Toggle Stream Mode",
+              "_title": "Toggle Stream Mode"
+            }
+          },
+          "2,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Autonomous Mode",
+              "_title": "Autonomous Mode"
+            }
+          },
+          "3,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/Low Pressure Subsystem",
+              "_title": "Low Pressure Subsystem"
+            }
+          },
+          "5,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///SmartDashboard/Drive Subsystem",
+              "_title": "Drive Subsystem"
+            }
+          },
+          "7,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Detected Blue",
+              "_title": "Detected Blue"
+            }
+          },
+          "8,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Detected Green",
+              "_title": "Detected Green"
+            }
+          },
+          "9,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/piston",
+              "_title": "piston"
+            }
+          },
+          "10,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Detected Red",
+              "_title": "Detected Red"
+            }
           }
         }
       }
@@ -473,6 +627,30 @@
               "Layout/Label position": "BOTTOM",
               "_children": []
             }
+          },
+          "8,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Limelight",
+              "_title": "Limelight",
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+          },
+          "0,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///LiveWindow/HangSubsystem/Hang Subsystem",
+              "_title": "HangSubsystem/Hang Subsystem"
+            }
           }
         }
       }
@@ -491,9 +669,9 @@
     }
   ],
   "windowGeometry": {
-    "x": 2.0,
-    "y": 0.0,
-    "width": 1364.0,
-    "height": 743.0
+    "x": -8.0,
+    "y": -8.0,
+    "width": 1616.0,
+    "height": 876.0
   }
 }
