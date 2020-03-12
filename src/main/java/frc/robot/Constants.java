@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants. This class should not be used for any other
@@ -31,7 +33,7 @@ public final class Constants {
         public static final double NORMAL_SPEED = 0.5;
         public static final int driverController = 0;
         public static final int mechanismController = 1;
-        public static final double TURBO_SPEED = 1;
+        public static final double TURBO_SPEED = .85;
         public static final double SLOW_SPEED = 0.25;
 
     }
@@ -41,15 +43,16 @@ public final class Constants {
         public static final int LEFT_TRIGGER = 2;
         public static final double TRIGGER_ACTIVATION_THRESHOLD = .3;
         public static final int POV_ANGLE_UP = 0;
-        public static final int POV_ANGLE_LEFT = 270;
-        public static final int POV_ANGLE_RIGHT = 90;
+        public static final int POV_ANGLE_LEFT = 90;
+        public static final int POV_ANGLE_RIGHT = 270;
+        public static final int POV_ANGLE_DOWN = 180;
     }
 
     public final static class HangConstants {
 
         public static final int LIFT_MOTOR = 8;
         public static final int WINCH_MOTOR = 7;
-        public static final int LIFT_ENCODER_VALUE = 262;
+        public static final int LIFT_ENCODER_VALUE = 240;
         public static final int BOTTOM_LIFT_ENCODER = 225;
         public static final double LIFT_SPEED = 1;
         public static final double WINCH_MOTOR_SPEED = 1;
@@ -69,7 +72,7 @@ public final class Constants {
         public static final int REVERSE_CHANNEL = 0;
         public static final int CONTROL_PANEL_MOTOR = 5;
         public static final int CONTROL_PANEL_LIMIT = 30;
-        public static final double MOTOR_SPEED = 0.75;
+        public static final double MOTOR_SPEED = 0.25;
     }
 
     public final static class LowPressureConstants {

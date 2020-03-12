@@ -19,8 +19,16 @@ public class ScoreLowAndTrench extends SequentialCommandGroup {
    * Creates a new ScoreAndTurn.
    */
   public ScoreLowAndTrench(DriveSubsystem driveSubsystem, LowScoringSubsystem lowScoringSubsystem) {
+    // addCommands(new DriveAndScoreLow(driveSubsystem, lowScoringSubsystem), new
+    // TurnDegrees(driveSubsystem, -.3, 45),
+    // new DriveDistance(driveSubsystem, .5, 27), new TurnDegrees(driveSubsystem,
+    // .3, 38),
+    // new DriveDistance(driveSubsystem, .5, 13), new
+    // GetPowercellsInTrench(driveSubsystem, lowScoringSubsystem));
+
     addCommands(new DriveAndScoreLow(driveSubsystem, lowScoringSubsystem), new TurnDegrees(driveSubsystem, -.3, 45),
         new DriveDistance(driveSubsystem, .5, 27), new TurnDegrees(driveSubsystem, .3, 38),
-        new DriveDistance(driveSubsystem, .5, 13), new GetPowercellsInTrench(driveSubsystem, lowScoringSubsystem));
+        new DriveDistance(driveSubsystem, .5, 13), new GetPowercellsInTrench(driveSubsystem, lowScoringSubsystem),
+        new DriveDistance(driveSubsystem, .45, 49));
   }
 }

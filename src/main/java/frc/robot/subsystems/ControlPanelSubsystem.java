@@ -9,9 +9,13 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.AnalogEncoder;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ControlPanelConstants;
@@ -21,17 +25,15 @@ public class ControlPanelSubsystem extends SubsystemBase {
   private DoubleSolenoid controlPanelSolenoid = new DoubleSolenoid(ControlPanelConstants.FORWARD_CHANNEL,
       ControlPanelConstants.REVERSE_CHANNEL);
   private CANSparkMax controlPanelMotor = new CANSparkMax(ControlPanelConstants.CONTROL_PANEL_MOTOR,
-      MotorType.kBrushless);
-
-  private CANEncoder controlPanelEncoder;
+      MotorType.kBrushed);
   private boolean pistonsForward = false;
+  private CANEncoder controlPanelEncoder;
 
   public ControlPanelSubsystem() {
     controlPanelSolenoid.set(Value.kOff);
     controlPanelMotor.restoreFactoryDefaults();
     controlPanelMotor.setSmartCurrentLimit(ControlPanelConstants.CONTROL_PANEL_LIMIT);
-
-    controlPanelEncoder = controlPanelMotor.getEncoder();
+    controlPanelEncoder = controlPanelMotor.getEncoder(EncoderType.kQuadrature, 1024);
     controlPanelEncoder.setPosition(0);
   }
 
@@ -70,8 +72,8 @@ public class ControlPanelSubsystem extends SubsystemBase {
   }
 
   public double getVelocity() {
-    // return 0.0;
-    return controlPanelEncoder.getVelocity();
+    return 0.0;
+    // return controlPanelEncoder.getVelocity();
   }
 
   @Override

@@ -47,11 +47,12 @@ public class ScoreStageTwoRotations extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     controlPanel.stopMotor();
+    controlPanel.resetEncoders();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(rotations) >= Math.abs(32.0f);
+    return Math.abs(rotations) >= Math.abs(32.0f * 4);
   }
 }

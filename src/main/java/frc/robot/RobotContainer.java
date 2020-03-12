@@ -123,6 +123,7 @@ public class RobotContainer {
     JoystickButton mechanismRightBumper = new JoystickButton(mechanismController, Button.kBumperRight.value);
     POVButton mechanismDPadLeft = new POVButton(mechanismController, ControllerConstants.POV_ANGLE_LEFT);
     POVButton mechanismDPadRight = new POVButton(mechanismController, ControllerConstants.POV_ANGLE_RIGHT);
+    POVButton mechanismDPadDown = new POVButton(mechanismController, ControllerConstants.POV_ANGLE_DOWN);
     JoystickButton mechanismY = new JoystickButton(mechanismController, Button.kY.value);
     JoystickButton mechanismA = new JoystickButton(mechanismController, Button.kA.value);
     JoystickButton mechanismB = new JoystickButton(mechanismController, Button.kB.value);
@@ -140,11 +141,12 @@ public class RobotContainer {
     mechanismLeftTrigger.whenActive(new AdvanceConveyor(lowScoringSubsystem));
     mechanismLeftBumper.whenPressed(new WithdrawConveyor(lowScoringSubsystem));
     mechanismDPadRight.whenPressed(new ScoreStageTwoRotations(controlPanelSubsystem));
-    // mechanismDPadLeft.whenPressed(new ScoreStageThree(colorSensor,
-    // controlPanelSubsystem));
+    mechanismDPadLeft.whenPressed(new ScoreStageThree(colorSensor, controlPanelSubsystem));
+    mechanismDPadDown.whenPressed(new StopControlPanel(controlPanelSubsystem));
     mechanismX.whenHeld(new RollersIn(lowScoringSubsystem)).whenReleased(new RollersOff(lowScoringSubsystem));
     mechanismB.whenHeld(new RollersOut(lowScoringSubsystem)).whenReleased(new RollersOff(lowScoringSubsystem));
     mechanismY.whenPressed(new EngageControlPanelWheel(controlPanelSubsystem));
+
     // mechanismX.whenPressed(new ToggleStreamMode(limelight));
     // mechanismA.whenPressed(new ToggleCameraMode(limelight));
   }

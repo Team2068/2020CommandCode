@@ -22,7 +22,7 @@ public class ScoreStageThree extends CommandBase {
   private ControlPanelSubsystem controlPanel;
 
   private Color detected;
-  private Color actual;
+  private Color target;
   private Color targetColor;
   private double velocity;
 
@@ -44,10 +44,10 @@ public class ScoreStageThree extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    controlPanel.setMotorSpeed(10);
-    velocity = controlPanel.getVelocity();
-    detected = colorSensor.getSensorColor();
-    Dashboard.putDebugNumber("Panel RPM", velocity / 8.f);
+    controlPanel.setMotorSpeed(.1);
+    // velocity = controlPanel.getVelocity();
+    // detected = colorSensor.getSensorColor();
+    // Dashboard.putDebugNumber("Panel RPM", velocity / 8.f);
   }
 
   // Called once the command ends or is interrupted.
@@ -60,7 +60,7 @@ public class ScoreStageThree extends CommandBase {
   @Override
   public boolean isFinished() {
     // color we want is 2 ahead, so we need to go before
-    actual = ColorSensor.colors.get(colorSensor.getColorIndex(targetColor) - 2);
-    return colorSensor.isSameColor(actual, detected);
+    // target = colorSensor.getTargetColor();
+    return colorSensor.isSameColor(colorSensor.getTargetColor(), colorSensor.getSensorColor());
   }
 }

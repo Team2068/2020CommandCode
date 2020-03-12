@@ -65,6 +65,20 @@ public class ColorSensor extends SubsystemBase {
     return NullTarget;
   }
 
+  public Color getTargetColor() {
+    if (givenColor == RedTarget) {
+      return BlueTarget;
+    } else if (givenColor == YellowTarget) {
+      return GreenTarget;
+    } else if (givenColor == BlueTarget) {
+      return RedTarget;
+    } else if (givenColor == GreenTarget) {
+      return YellowTarget;
+    } else {
+      return RedTarget;
+    }
+  }
+
   private void createColorChooser() {
     SendableRegistry.add(colorChooser, "Color Chooser");
     SendableRegistry.setName(colorChooser, "Color Chooser");
@@ -101,23 +115,28 @@ public class ColorSensor extends SubsystemBase {
     }
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
-    if (match.color == BlueTarget) {
-      colorString = "BLUE";
-    } else if (match.color == RedTarget) {
-      colorString = "RED";
-    } else if (match.color == GreenTarget) {
-      colorString = "GREEN";
-    } else if (match.color == YellowTarget) {
-      colorString = "YELLOW";
-    } else {
-      colorString = "UNKNOWN";
-    }
-
-    SmartDashboard.putString("Detected Color", colorString);
+    SmartDashboard.putString("Detected Color", getColorString(match.color));
+    SmartDashboard.putString("Given Color", getColorString(getTargetColor()));
     Dashboard.putDebugNumber("Confidence", match.confidence);
     Dashboard.putDebugNumber("Detected Red", match.color.red);
     Dashboard.putDebugNumber("Detected Green", match.color.green);
     Dashboard.putDebugNumber("Detected Blue", match.color.blue);
+  }
+
+  public String getColorString(Color color) {
+    String colorString;
+    if (color == BlueTarget) {
+      colorString = "BLUE";
+    } else if (color == RedTarget) {
+      colorString = "RED";
+    } else if (color == GreenTarget) {
+      colorString = "GREEN";
+    } else if (color == YellowTarget) {
+      colorString = "YELLOW";
+    } else {
+      colorString = "UNKNOWN";
+    }
+    return colorString;
   }
 
   public Color getSensorColor() {
